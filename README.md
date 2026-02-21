@@ -1,6 +1,6 @@
-﻿# Toolkit Cost & Latency Optimizer
+# Toolkit Cost and Latency Optimizer
 
-Toolkit Cost & Latency Optimizer is a lightweight, production-hardened CLI for analyzing LLM inference logs, validating schema compliance, and simulating routing policies.
+A lightweight, production-hardened CLI for analyzing LLM inference logs, validating schema compliance, and simulating routing policies.
 
 This tool now also hosts the Cost Optimization Engine service (formerly a standalone tool) under `services/cost-optimization-engine`.
 
@@ -119,5 +119,3 @@ toolkit-cost-optimizer serve --host 0.0.0.0 --port 8005
 If you previously deployed `production-ready/cost-optimization-engine`, update paths to:
 
 - `production-ready/cost-latency-optimizer/services/cost-optimization-engine`
-
-
