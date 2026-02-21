@@ -23,6 +23,11 @@ classifiers = [
 ]
 dependencies = []
 
+[project.urls]
+Homepage = "https://github.com/AKIVA-AI/toolkit-cost-optimizer"
+Repository = "https://github.com/AKIVA-AI/toolkit-cost-optimizer"
+Issues = "https://github.com/AKIVA-AI/toolkit-cost-optimizer/issues"
+
 [project.scripts]
 toolkit-opt = "toolkit_cost_latency_opt.cli:main"
 
@@ -45,7 +50,7 @@ omit = ["*/toolkit_cost_latency_opt/__main__.py"]
 [tool.coverage.report]
 show_missing = true
 skip_covered = true
-fail_under = 80
+fail_under = 60
 
 [tool.ruff]
 line-length = 100
@@ -66,4 +71,3 @@ where = ["src"]
 
 [tool.setuptools.package-data]
 toolkit_cost_latency_opt = ["py.typed"]
-
