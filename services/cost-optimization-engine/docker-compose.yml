@@ -1,0 +1,308 @@
+﻿version: '3.8'
+
+services:
+  # Cost Optimization Engine API
+  # Deprecated standalone location; consolidated under cost-latency-optimizer/services.
+  cost-optimization-engine:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: toolkit-cost-optimization-engine
+    ports:
+      - "8005:8000"
+    environment:
+      - DATABASE_URL=postgresql://toolkit_user:toolkit_password@postgres:5432/toolkit_cost_optimization
+      - REDIS_URL=redis://redis:6379/0
+      - ENVIRONMENT=development
+      - LOG_LEVEL=INFO
+      - DEBUG=true
+      - SECRET_KEY=dev-secret-key-change-in-production
+      - JWT_SECRET_KEY=dev-jwt-secret-change-in-production
+      - JWT_ALGORITHM=HS256
+      - JWT_ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - CORS_ORIGINS=http://localhost:3000,http://localhost:8080
+      - MAX_REQUEST_SIZE=10485760
+      - REQUEST_TIMEOUT=30
+      - DATABASE_POOL_SIZE=10
+      - DATABASE_MAX_OVERFLOW=20
+      - REDIS_POOL_SIZE=10
+      - CACHE_TTL=3600
+      - METRICS_ENABLED=true
+      - PROMETHEUS_PORT=9095
+      - COST_TRACKING_ENABLED=true
+      - OPTIMIZATION_ENABLED=true
+      - FORECASTING_ENABLED=true
+      - ALERTING_ENABLED=true
+      - BUDGET_TRACKING_ENABLED=true
+      - ANOMALY_DETECTION_ENABLED=true
+      - TREND_ANALYSIS_ENABLED=true
+      - RESOURCE_MONITORING_ENABLED=true
+      - AUTOMATION_ENABLED=false
+      - DATA_RETENTION_DAYS=365
+      - SYNC_INTERVAL_HOURS=1
+      - ANALYSIS_INTERVAL_HOURS=6
+      - OPTIMIZATION_INTERVAL_HOURS=24
+      - MAX_RECOMMENDATIONS_PER_RUN=100
+      - RESOURCE_UTILIZATION_THRESHOLD=30.0
+      - IDLE_RESOURCE_TIMEOUT_HOURS=168
+      - COST_ANOMALY_THRESHOLD=50.0
+      - BUDGET_ALERT_THRESHOLD=0.8
+      - BUDGET_CRITICAL_THRESHOLD=0.95
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+      - ./uploads:/app/uploads
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: toolkit-cost-optimization-postgres
+    environment:
+      - POSTGRES_DB=toolkit_cost_optimization
+      - POSTGRES_USER=toolkit_user
+      - POSTGRES_PASSWORD=toolkit_password
+      - POSTGRES_INITDB_ARGS=--encoding=UTF-8 --lc-collate=C --lc-ctype=C
+    ports:
+      - "5435:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U toolkit_user -d toolkit_cost_optimization"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: >
+      postgres
+      -c shared_preload_libraries=pg_stat_statements
+      -c pg_stat_statements.track=all
+      -c max_connections=200
+      -c shared_buffers=256MB
+      -c effective_cache_size=1GB
+      -c maintenance_work_mem=64MB
+      -c checkpoint_completion_target=0.9
+      -c wal_buffers=16MB
+      -c default_statistics_target=100
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: toolkit-cost-optimization-redis
+    ports:
+      - "6380:6379"
+    volumes:
+      - redis_data:/data
+      - ./redis.conf:/usr/local/etc/redis/redis.conf
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: redis-server /usr/local/etc/redis/redis.conf
+
+  # Prometheus Monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: toolkit-cost-optimization-prometheus
+    ports:
+      - "9095:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+
+  # Grafana Dashboard
+  grafana:
+    image: grafana/grafana:latest
+    container_name: toolkit-cost-optimization-grafana
+    ports:
+      - "3005:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-clock-panel,grafana-simple-json-datasource
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    depends_on:
+      - prometheus
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: toolkit-cost-optimization-nginx
+    ports:
+      - "8085:80"
+      - "8445:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+      - ./ssl:/etc/nginx/ssl
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    depends_on:
+      - cost-optimization-engine
+
+  # Database Migration Service
+  migrate:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: toolkit-cost-optimization-migrate
+    environment:
+      - DATABASE_URL=postgresql://toolkit_user:toolkit_password@postgres:5432/toolkit_cost_optimization
+      - ENVIRONMENT=development
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - toolkit-network
+    command: >
+      sh -c "
+        echo 'Waiting for database to be ready...' &&
+        while ! pg_isready -h postgres -p 5432 -U toolkit_user -d toolkit_cost_optimization; do
+          sleep 2;
+        done &&
+        echo 'Database is ready, running migrations...' &&
+        alembic upgrade head &&
+        echo 'Migrations completed successfully'
+      "
+    volumes:
+      - ./alembic.ini:/app/alembic.ini
+      - ./alembic:/app/alembic
+
+  # Cost Data Collector (Background Service)
+  cost-collector:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: toolkit-cost-optimization-collector
+    environment:
+      - DATABASE_URL=postgresql://toolkit_user:toolkit_password@postgres:5432/toolkit_cost_optimization
+      - REDIS_URL=redis://redis:6379/0
+      - ENVIRONMENT=development
+      - LOG_LEVEL=INFO
+      - SYNC_INTERVAL_HOURS=1
+      - COST_TRACKING_ENABLED=true
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    command: >
+      toolkit-cost-optimizer
+      collect-cost-data
+      --interval 3600
+    volumes:
+      - ./logs:/app/logs
+
+  # Optimization Analyzer (Background Service)
+  optimization-analyzer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: toolkit-cost-optimization-analyzer
+    environment:
+      - DATABASE_URL=postgresql://toolkit_user:toolkit_password@postgres:5432/toolkit_cost_optimization
+      - REDIS_URL=redis://redis:6379/0
+      - ENVIRONMENT=development
+      - LOG_LEVEL=INFO
+      - OPTIMIZATION_ENABLED=true
+      - ANALYSIS_INTERVAL_HOURS=6
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    command: >
+      toolkit-cost-optimizer
+      analyze-optimizations
+      --interval 21600
+    volumes:
+      - ./logs:/app/logs
+
+  # Alert Manager (Background Service)
+  alert-manager:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: toolkit-cost-optimization-alerts
+    environment:
+      - DATABASE_URL=postgresql://toolkit_user:toolkit_password@postgres:5432/toolkit_cost_optimization
+      - REDIS_URL=redis://redis:6379/0
+      - ENVIRONMENT=development
+      - LOG_LEVEL=INFO
+      - ALERTING_ENABLED=true
+      - BUDGET_ALERT_THRESHOLD=0.8
+      - COST_ANOMALY_THRESHOLD=50.0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - toolkit-network
+    restart: unless-stopped
+    command: >
+      toolkit-cost-optimizer
+      manage-alerts
+      --interval 1800
+    volumes:
+      - ./logs:/app/logs
+
+volumes:
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  toolkit-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.5.0/24
+
