@@ -118,4 +118,4 @@ toolkit-cost-optimizer serve --host 0.0.0.0 --port 8005
 
 If you previously deployed `production-ready/cost-optimization-engine`, update paths to:
 
-- `production-ready/cost-latency-optimizer/services/cost-optimization-engine`
+- `services/cost-optimization-engine`

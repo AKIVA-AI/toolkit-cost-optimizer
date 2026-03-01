@@ -60,8 +60,6 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy application code
 COPY src/ ./src/
-COPY alembic.ini ./
-COPY alembic/ ./alembic/
 
 # Create necessary directories
 RUN mkdir -p /app/logs /app/data /app/uploads && \

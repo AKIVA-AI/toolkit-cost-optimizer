@@ -14,7 +14,7 @@ Toolkit Cost Optimization Engine is a FastAPI service for tracking cloud spend, 
 ## Quick Start
 
 ```bash
-cd enterprise-tools/oss/cost-latency-optimizer/services/cost-optimization-engine
+cd services/cost-optimization-engine
 python -m venv .venv
 . .venv/Scripts/activate
 pip install -e ".[dev]"
@@ -73,4 +73,3 @@ pytest -q
 ## License
 
 MIT. See `LICENSE`.
-
