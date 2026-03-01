@@ -6,45 +6,54 @@ import logging
 import time
 from datetime import date, datetime, timezone
 from decimal import Decimal
-from typing import Any, Dict, List, Optional
 
+import uvicorn
 from fastapi import BackgroundTasks, Body, FastAPI, HTTPException, Query, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
-from prometheus_client import Counter, Histogram, Gauge, generate_latest
+from prometheus_client import Counter, Gauge, Histogram, generate_latest
 from sqlalchemy import text
-import uvicorn
 
-from .core.config import get_settings
-from .core.database import get_db_session, init_db
-from .core.cost_tracker import cost_tracker
-from .core.optimization_engine import optimization_engine
 from .api.schemas import (
-    CloudAccount, CloudAccountCreate, CloudAccountUpdate,
-    OptimizationRecommendation, OptimizationRecommendationUpdate,
-    Budget, BudgetCreate, BudgetUpdate,
-    CostAlert, CostAlertUpdate,
-    CostMetrics, ResourceCostAnalysis, CostAnomalyDetection, CostTrendAnalysis,
-    OptimizationSummary, SyncResult, HealthCheck, SystemStatus,
-    DateRangeQuery, PaginationQuery, RecommendationQuery, CostAnalysisQuery,
-    ErrorResponse, SuccessResponse
+    CloudAccount,
+    CloudAccountCreate,
+    CloudAccountUpdate,
+    CostAnomalyDetection,
+    CostMetrics,
+    CostTrendAnalysis,
+    ErrorResponse,
+    HealthCheck,
+    OptimizationRecommendation,
+    OptimizationSummary,
+    ResourceCostAnalysis,
+    SyncResult,
+    SystemStatus,
 )
+from .core.config import get_settings
+from .core.cost_tracker import cost_tracker
+from .core.database import get_db_session, init_db
+from .core.optimization_engine import optimization_engine
 from .models.models import CloudAccount as CloudAccountModel
 
 # Configure logging
 settings = get_settings()
 logging.basicConfig(
     level=getattr(logging, settings.LOG_LEVEL),
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
 )
 logger = logging.getLogger(__name__)
 
 # Prometheus metrics
-REQUEST_COUNT = Counter('cost_optimization_requests_total', 'Total requests', ['method', 'endpoint', 'status'])
+REQUEST_COUNT = Counter(
+    'cost_optimization_requests_total', 'Total requests',
+    ['method', 'endpoint', 'status'],
+)
 REQUEST_DURATION = Histogram('cost_optimization_request_duration_seconds', 'Request duration')
 ACTIVE_ACCOUNTS = Gauge('cost_optimization_active_accounts', 'Number of active cloud accounts')
-TOTAL_RECOMMENDATIONS = Gauge('cost_optimization_total_recommendations', 'Total number of recommendations')
+TOTAL_RECOMMENDATIONS = Gauge(
+    'cost_optimization_total_recommendations', 'Total number of recommendations',
+)
 TOTAL_SAVINGS = Gauge('cost_optimization_total_savings_usd', 'Total potential savings in USD')
 
 # Create FastAPI application
@@ -54,7 +63,7 @@ app = FastAPI(
     version="1.0.0",
     docs_url="/docs" if settings.ENVIRONMENT != "production" else None,
     redoc_url="/redoc" if settings.ENVIRONMENT != "production" else None,
-    openapi_url="/openapi.json" if settings.ENVIRONMENT != "production" else None
+    openapi_url="/openapi.json" if settings.ENVIRONMENT != "production" else None,
 )
 
 # Add middleware
@@ -82,7 +91,7 @@ async def metrics_middleware(request, call_next):
     REQUEST_COUNT.labels(
         method=request.method,
         endpoint=request.url.path,
-        status=response.status_code
+        status=response.status_code,
     ).inc()
     
     return response
@@ -121,21 +130,23 @@ async def update_metrics():
     try:
         async with get_db_session() as session:
             # Count active accounts
-            from sqlalchemy import select, func
+            from sqlalchemy import func, select
             account_count = await session.execute(
-                select(func.count(CloudAccountModel.id)).where(CloudAccountModel.is_active == True)
+                select(func.count(CloudAccountModel.id)).where(
+                    CloudAccountModel.is_active.is_(True),
+                ),
             )
             ACTIVE_ACCOUNTS.set(account_count.scalar() or 0)
             
             # Count total recommendations and savings
             from .models.models import OptimizationRecommendation
             rec_count = await session.execute(
-                select(func.count(OptimizationRecommendation.id))
+                select(func.count(OptimizationRecommendation.id)),
             )
             TOTAL_RECOMMENDATIONS.set(rec_count.scalar() or 0)
             
             savings_sum = await session.execute(
-                select(func.sum(OptimizationRecommendation.monthly_savings))
+                select(func.sum(OptimizationRecommendation.monthly_savings)),
             )
             TOTAL_SAVINGS.set(float(savings_sum.scalar() or 0))
             
@@ -159,7 +170,7 @@ async def health_check():
         status="healthy" if db_status["status"] == "healthy" else "unhealthy",
         timestamp=datetime.now(timezone.utc),
         version="1.0.0",
-        database=db_status
+        database=db_status,
     )
 
 
@@ -169,23 +180,28 @@ async def system_status():
     try:
         async with get_db_session() as session:
             # Get account statistics
-            from sqlalchemy import select, func
-            from .models.models import OptimizationRecommendation, CloudAccount
+            from sqlalchemy import func, select
+
+            from .models.models import CloudAccount, OptimizationRecommendation
             
             active_accounts = await session.execute(
-                select(func.count(CloudAccount.id)).where(CloudAccount.is_active == True)
+                select(func.count(CloudAccount.id)).where(
+                    CloudAccount.is_active.is_(True),
+                ),
             )
             
             total_recommendations = await session.execute(
-                select(func.count(OptimizationRecommendation.id))
+                select(func.count(OptimizationRecommendation.id)),
             )
             
             total_savings = await session.execute(
-                select(func.sum(OptimizationRecommendation.monthly_savings))
+                select(func.sum(OptimizationRecommendation.monthly_savings)),
             )
             
             last_sync = await session.execute(
-                select(func.max(CloudAccount.last_sync)).where(CloudAccount.is_connected == True)
+                select(func.max(CloudAccount.last_sync)).where(
+                    CloudAccount.is_connected.is_(True),
+                ),
             )
             
             return SystemStatus(
@@ -194,12 +210,14 @@ async def system_status():
                 active_accounts=active_accounts.scalar() or 0,
                 total_recommendations=total_recommendations.scalar() or 0,
                 total_savings=total_savings.scalar() or Decimal('0'),
-                last_sync=last_sync.scalar()
+                last_sync=last_sync.scalar(),
             )
             
     except Exception as e:
         logger.error(f"Failed to get system status: {e}")
-        raise HTTPException(status_code=500, detail="Failed to get system status")
+        raise HTTPException(
+            status_code=500, detail="Failed to get system status",
+        ) from e
 
 
 # Metrics endpoint
@@ -222,14 +240,17 @@ async def create_cloud_account(account_data: CloudAccountCreate):
                 select(CloudAccountModel).where(
                     CloudAccountModel.provider == account_data.provider,
                     CloudAccountModel.account_id == account_data.account_id,
-                    CloudAccountModel.region == account_data.region
-                )
+                    CloudAccountModel.region == account_data.region,
+                ),
             )
             
             if existing.scalar_one_or_none():
                 raise HTTPException(
                     status_code=409,
-                    detail="Cloud account with this provider, account ID, and region already exists"
+                    detail=(
+                        "Cloud account with this provider,"
+                        " account ID, and region already exists"
+                    ),
                 )
             
             # Create new account
@@ -247,15 +268,17 @@ async def create_cloud_account(account_data: CloudAccountCreate):
         raise
     except Exception as e:
         logger.error(f"Failed to create cloud account: {e}")
-        raise HTTPException(status_code=500, detail="Failed to create cloud account")
+        raise HTTPException(
+            status_code=500, detail="Failed to create cloud account",
+        ) from e
 
 
-@app.get("/api/v1/accounts", response_model=List[CloudAccount], tags=["Cloud Accounts"])
+@app.get("/api/v1/accounts", response_model=list[CloudAccount], tags=["Cloud Accounts"])
 async def list_cloud_accounts(
-    provider: Optional[str] = Query(None, pattern=r"^(aws|azure|gcp)$"),
-    is_active: Optional[bool] = Query(None),
+    provider: str | None = Query(None, pattern=r"^(aws|azure|gcp)$"),
+    is_active: bool | None = Query(None),
     page: int = Query(1, ge=1),
-    page_size: int = Query(20, ge=1, le=100)
+    page_size: int = Query(20, ge=1, le=100),
 ):
     """List cloud accounts"""
     try:
@@ -278,7 +301,9 @@ async def list_cloud_accounts(
             
     except Exception as e:
         logger.error(f"Failed to list cloud accounts: {e}")
-        raise HTTPException(status_code=500, detail="Failed to list cloud accounts")
+        raise HTTPException(
+            status_code=500, detail="Failed to list cloud accounts",
+        ) from e
 
 
 @app.get("/api/v1/accounts/{account_id}", response_model=CloudAccount, tags=["Cloud Accounts"])
@@ -289,7 +314,7 @@ async def get_cloud_account(account_id: str):
             from sqlalchemy import select
             
             result = await session.execute(
-                select(CloudAccountModel).where(CloudAccountModel.id == account_id)
+                select(CloudAccountModel).where(CloudAccountModel.id == account_id),
             )
             account = result.scalar_one_or_none()
             
@@ -302,7 +327,9 @@ async def get_cloud_account(account_id: str):
         raise
     except Exception as e:
         logger.error(f"Failed to get cloud account: {e}")
-        raise HTTPException(status_code=500, detail="Failed to get cloud account")
+        raise HTTPException(
+            status_code=500, detail="Failed to get cloud account",
+        ) from e
 
 
 @app.put("/api/v1/accounts/{account_id}", response_model=CloudAccount, tags=["Cloud Accounts"])
@@ -313,7 +340,7 @@ async def update_cloud_account(account_id: str, account_data: CloudAccountUpdate
             from sqlalchemy import select
             
             result = await session.execute(
-                select(CloudAccountModel).where(CloudAccountModel.id == account_id)
+                select(CloudAccountModel).where(CloudAccountModel.id == account_id),
             )
             account = result.scalar_one_or_none()
             
@@ -334,7 +361,9 @@ async def update_cloud_account(account_id: str, account_data: CloudAccountUpdate
         raise
     except Exception as e:
         logger.error(f"Failed to update cloud account: {e}")
-        raise HTTPException(status_code=500, detail="Failed to update cloud account")
+        raise HTTPException(
+            status_code=500, detail="Failed to update cloud account",
+        ) from e
 
 
 @app.delete("/api/v1/accounts/{account_id}", tags=["Cloud Accounts"])
@@ -345,7 +374,7 @@ async def delete_cloud_account(account_id: str):
             from sqlalchemy import select
             
             result = await session.execute(
-                select(CloudAccountModel).where(CloudAccountModel.id == account_id)
+                select(CloudAccountModel).where(CloudAccountModel.id == account_id),
             )
             account = result.scalar_one_or_none()
             
@@ -364,37 +393,45 @@ async def delete_cloud_account(account_id: str):
         raise
     except Exception as e:
         logger.error(f"Failed to delete cloud account: {e}")
-        raise HTTPException(status_code=500, detail="Failed to delete cloud account")
+        raise HTTPException(
+            status_code=500, detail="Failed to delete cloud account",
+        ) from e
 
 
 # Cost Data endpoints
 @app.post("/api/v1/accounts/{account_id}/sync", response_model=SyncResult, tags=["Cost Data"])
-async def sync_cost_data(account_id: str, background_tasks: BackgroundTasks, days_back: int = Query(30, ge=1, le=365)):
+async def sync_cost_data(
+    account_id: str,
+    background_tasks: BackgroundTasks,
+    days_back: int = Query(30, ge=1, le=365),
+):
     """Sync cost data from cloud provider"""
     try:
         # Start sync in background
         background_tasks.add_task(
             cost_tracker.sync_cost_data,
             account_id=account_id,
-            days_back=days_back
+            days_back=days_back,
         )
         
         return {
             "message": "Cost data sync started",
             "account_id": account_id,
-            "days_back": days_back
+            "days_back": days_back,
         }
         
     except Exception as e:
         logger.error(f"Failed to start cost data sync: {e}")
-        raise HTTPException(status_code=500, detail="Failed to start cost data sync")
+        raise HTTPException(
+            status_code=500, detail="Failed to start cost data sync",
+        ) from e
 
 
 @app.get("/api/v1/accounts/{account_id}/metrics", response_model=CostMetrics, tags=["Cost Data"])
 async def get_cost_metrics(
     account_id: str,
     start_date: date = Query(...),
-    end_date: date = Query(...)
+    end_date: date = Query(...),
 ):
     """Get cost metrics for a period"""
     try:
@@ -406,15 +443,21 @@ async def get_cost_metrics(
             daily_average=metrics.daily_average,
             projected_monthly=metrics.projected_monthly,
             services_breakdown=metrics.services_breakdown,
-            tags_breakdown=metrics.tags_breakdown
+            tags_breakdown=metrics.tags_breakdown,
         )
         
     except Exception as e:
         logger.error(f"Failed to get cost metrics: {e}")
-        raise HTTPException(status_code=500, detail="Failed to get cost metrics")
+        raise HTTPException(
+            status_code=500, detail="Failed to get cost metrics",
+        ) from e
 
 
-@app.get("/api/v1/accounts/{account_id}/analysis", response_model=List[ResourceCostAnalysis], tags=["Cost Data"])
+@app.get(
+    "/api/v1/accounts/{account_id}/analysis",
+    response_model=list[ResourceCostAnalysis],
+    tags=["Cost Data"],
+)
 async def analyze_resource_costs(account_id: str, days_back: int = Query(30, ge=1, le=365)):
     """Analyze resource costs and efficiency"""
     try:
@@ -428,17 +471,23 @@ async def analyze_resource_costs(account_id: str, days_back: int = Query(30, ge=
                 utilization_score=analysis.utilization_score,
                 efficiency_score=analysis.efficiency_score,
                 optimization_potential=analysis.optimization_potential,
-                recommendations=analysis.recommendations
+                recommendations=analysis.recommendations,
             )
             for analysis in analyses
         ]
         
     except Exception as e:
         logger.error(f"Failed to analyze resource costs: {e}")
-        raise HTTPException(status_code=500, detail="Failed to analyze resource costs")
+        raise HTTPException(
+            status_code=500, detail="Failed to analyze resource costs",
+        ) from e
 
 
-@app.get("/api/v1/accounts/{account_id}/anomalies", response_model=List[CostAnomalyDetection], tags=["Cost Data"])
+@app.get(
+    "/api/v1/accounts/{account_id}/anomalies",
+    response_model=list[CostAnomalyDetection],
+    tags=["Cost Data"],
+)
 async def detect_cost_anomalies(account_id: str, days_back: int = Query(30, ge=1, le=365)):
     """Detect cost anomalies"""
     try:
@@ -449,17 +498,23 @@ async def detect_cost_anomalies(account_id: str, days_back: int = Query(30, ge=1
                 actual_cost=anomaly['actual_cost'],
                 expected_cost=anomaly['expected_cost'],
                 deviation_percentage=anomaly['deviation_percentage'],
-                severity=anomaly['severity']
+                severity=anomaly['severity'],
             )
             for anomaly in anomalies
         ]
         
     except Exception as e:
         logger.error(f"Failed to detect cost anomalies: {e}")
-        raise HTTPException(status_code=500, detail="Failed to detect cost anomalies")
+        raise HTTPException(
+            status_code=500, detail="Failed to detect cost anomalies",
+        ) from e
 
 
-@app.get("/api/v1/accounts/{account_id}/trends", response_model=List[CostTrendAnalysis], tags=["Cost Data"])
+@app.get(
+    "/api/v1/accounts/{account_id}/trends",
+    response_model=list[CostTrendAnalysis],
+    tags=["Cost Data"],
+)
 async def get_cost_trends(account_id: str, days_back: int = Query(90, ge=1, le=365)):
     """Get cost trends analysis"""
     try:
@@ -472,22 +527,28 @@ async def get_cost_trends(account_id: str, days_back: int = Query(90, ge=1, le=3
                 cost_change=trend['cost_change'],
                 cost_change_percentage=trend['cost_change_percentage'],
                 trend_direction=trend['trend_direction'],
-                trend_strength=trend['trend_strength']
+                trend_strength=trend['trend_strength'],
             )
             for trend in trends
         ]
         
     except Exception as e:
         logger.error(f"Failed to get cost trends: {e}")
-        raise HTTPException(status_code=500, detail="Failed to get cost trends")
+        raise HTTPException(
+            status_code=500, detail="Failed to get cost trends",
+        ) from e
 
 
 # Optimization Recommendations endpoints
-@app.post("/api/v1/accounts/{account_id}/recommendations/generate", response_model=OptimizationSummary, tags=["Recommendations"])
+@app.post(
+    "/api/v1/accounts/{account_id}/recommendations/generate",
+    response_model=OptimizationSummary,
+    tags=["Recommendations"],
+)
 async def generate_recommendations(
     account_id: str,
     background_tasks: BackgroundTasks,
-    analysis_period: int = Query(30, ge=1, le=365)
+    analysis_period: int = Query(30, ge=1, le=365),
 ):
     """Generate optimization recommendations"""
     try:
@@ -495,34 +556,41 @@ async def generate_recommendations(
         background_tasks.add_task(
             optimization_engine.generate_recommendations,
             account_id=account_id,
-            analysis_period=analysis_period
+            analysis_period=analysis_period,
         )
         
         return {
             "message": "Recommendation generation started",
             "account_id": account_id,
-            "analysis_period": analysis_period
+            "analysis_period": analysis_period,
         }
         
     except Exception as e:
         logger.error(f"Failed to start recommendation generation: {e}")
-        raise HTTPException(status_code=500, detail="Failed to start recommendation generation")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to start recommendation generation",
+        ) from e
 
 
-@app.get("/api/v1/accounts/{account_id}/recommendations", response_model=List[OptimizationRecommendation], tags=["Recommendations"])
+@app.get(
+    "/api/v1/accounts/{account_id}/recommendations",
+    response_model=list[OptimizationRecommendation],
+    tags=["Recommendations"],
+)
 async def get_recommendations(
     account_id: str,
-    status: Optional[str] = Query(None, pattern=r"^(pending|approved|rejected|implemented)$"),
-    type: Optional[str] = Query(None),
-    priority: Optional[str] = Query(None),
-    limit: int = Query(50, ge=1, le=100)
+    status: str | None = Query(None, pattern=r"^(pending|approved|rejected|implemented)$"),
+    rec_type: str | None = Query(None, alias="type"),
+    priority: str | None = Query(None),
+    limit: int = Query(50, ge=1, le=100),
 ):
     """Get optimization recommendations"""
     try:
         recommendations = await optimization_engine.get_recommendations(
             account_id=account_id,
             status=status,
-            limit=limit
+            limit=limit,
         )
         
         return [
@@ -531,21 +599,23 @@ async def get_recommendations(
         
     except Exception as e:
         logger.error(f"Failed to get recommendations: {e}")
-        raise HTTPException(status_code=500, detail="Failed to get recommendations")
+        raise HTTPException(
+            status_code=500, detail="Failed to get recommendations",
+        ) from e
 
 
 @app.put("/api/v1/recommendations/{recommendation_id}", tags=["Recommendations"])
 async def update_recommendation_status(
     recommendation_id: str,
     status_data: dict = Body(...),
-    implemented_by: Optional[str] = None
+    implemented_by: str | None = None,
 ):
     """Update recommendation status"""
     try:
         success = await optimization_engine.update_recommendation_status(
             recommendation_id=recommendation_id,
             status=status_data.get("status"),
-            implemented_by=implemented_by
+            implemented_by=implemented_by,
         )
         
         if not success:
@@ -560,7 +630,10 @@ async def update_recommendation_status(
         raise
     except Exception as e:
         logger.error(f"Failed to update recommendation status: {e}")
-        raise HTTPException(status_code=500, detail="Failed to update recommendation status")
+        raise HTTPException(
+            status_code=500,
+            detail="Failed to update recommendation status",
+        ) from e
 
 
 # Error handlers
@@ -571,8 +644,8 @@ async def http_exception_handler(request, exc):
         status_code=exc.status_code,
         content=ErrorResponse(
             error=exc.detail,
-            message=str(exc)
-        ).model_dump()
+            message=str(exc),
+        ).model_dump(),
     )
 
 
@@ -584,8 +657,8 @@ async def general_exception_handler(request, exc):
         status_code=500,
         content=ErrorResponse(
             error="Internal server error",
-            message="An unexpected error occurred"
-        ).model_dump()
+            message="An unexpected error occurred",
+        ).model_dump(),
     )
 
 
@@ -597,7 +670,7 @@ async def root():
         "name": "Toolkit Cost Optimization Engine",
         "version": "1.0.0",
         "status": "operational",
-        "timestamp": datetime.now(timezone.utc).isoformat()
+        "timestamp": datetime.now(timezone.utc).isoformat(),
     }
 
 
@@ -608,6 +681,6 @@ if __name__ == "__main__":
         host=settings.HOST,
         port=settings.PORT,
         reload=settings.DEBUG,
-        log_level=settings.LOG_LEVEL.lower()
+        log_level=settings.LOG_LEVEL.lower(),
     )
 

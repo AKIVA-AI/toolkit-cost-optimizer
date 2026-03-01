@@ -4,7 +4,6 @@ Configuration management for Toolkit Cost Optimization Engine
 
 import os
 from functools import lru_cache
-from typing import List, Optional
 
 from pydantic import field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -34,7 +33,7 @@ class Settings(BaseSettings):
     JWT_SECRET_KEY: str = "your-jwt-secret-key-change-in-production"
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRE_MINUTES: int = 30
-    CORS_ORIGINS: List[str] = ["http://localhost:3000", "http://localhost:8080"]
+    CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:8080"]
     
     # Database
     DATABASE_URL: str = "postgresql://user:password@localhost:5436/cost_optimization_engine"
@@ -51,20 +50,20 @@ class Settings(BaseSettings):
     # Cost Tracking
     COST_TRACKING_INTERVAL: int = 300  # 5 minutes
     COST_RETENTION_DAYS: int = 365
-    COST_AGGREGATION_INTERVALS: List[str] = ["hourly", "daily", "weekly", "monthly"]
+    COST_AGGREGATION_INTERVALS: list[str] = ["hourly", "daily", "weekly", "monthly"]
     
     # Cloud Provider APIs
-    AWS_ACCESS_KEY_ID: Optional[str] = None
-    AWS_SECRET_ACCESS_KEY: Optional[str] = None
+    AWS_ACCESS_KEY_ID: str | None = None
+    AWS_SECRET_ACCESS_KEY: str | None = None
     AWS_DEFAULT_REGION: str = "us-east-1"
     
-    AZURE_CLIENT_ID: Optional[str] = None
-    AZURE_CLIENT_SECRET: Optional[str] = None
-    AZURE_TENANT_ID: Optional[str] = None
-    AZURE_SUBSCRIPTION_ID: Optional[str] = None
+    AZURE_CLIENT_ID: str | None = None
+    AZURE_CLIENT_SECRET: str | None = None
+    AZURE_TENANT_ID: str | None = None
+    AZURE_SUBSCRIPTION_ID: str | None = None
     
-    GCP_PROJECT_ID: Optional[str] = None
-    GCP_SERVICE_ACCOUNT_KEY: Optional[str] = None
+    GCP_PROJECT_ID: str | None = None
+    GCP_SERVICE_ACCOUNT_KEY: str | None = None
     
     # Monitoring
     PROMETHEUS_URL: str = "http://localhost:9095"
@@ -86,35 +85,35 @@ class Settings(BaseSettings):
     BUDGET_RETENTION_YEARS: int = 5
     
     # Notifications
-    SMTP_HOST: Optional[str] = None
+    SMTP_HOST: str | None = None
     SMTP_PORT: int = 587
-    SMTP_USERNAME: Optional[str] = None
-    SMTP_PASSWORD: Optional[str] = None
+    SMTP_USERNAME: str | None = None
+    SMTP_PASSWORD: str | None = None
     SMTP_USE_TLS: bool = True
     
-    SLACK_WEBHOOK_URL: Optional[str] = None
-    TEAMS_WEBHOOK_URL: Optional[str] = None
+    SLACK_WEBHOOK_URL: str | None = None
+    TEAMS_WEBHOOK_URL: str | None = None
     
     # File Storage
     STORAGE_TYPE: str = "local"  # local, s3, azure, gcs
     STORAGE_PATH: str = "./data"
     
     # S3 Storage (if using S3)
-    S3_BUCKET: Optional[str] = None
+    S3_BUCKET: str | None = None
     S3_REGION: str = "us-east-1"
     
     # Azure Storage (if using Azure)
-    AZURE_STORAGE_ACCOUNT: Optional[str] = None
-    AZURE_STORAGE_CONTAINER: Optional[str] = None
+    AZURE_STORAGE_ACCOUNT: str | None = None
+    AZURE_STORAGE_CONTAINER: str | None = None
     
     # GCS Storage (if using GCS)
-    GCS_BUCKET: Optional[str] = None
-    GCS_PROJECT: Optional[str] = None
+    GCS_BUCKET: str | None = None
+    GCS_PROJECT: str | None = None
     
     # Logging
     LOG_LEVEL: str = "INFO"
     LOG_FORMAT: str = "json"
-    LOG_FILE: Optional[str] = None
+    LOG_FILE: str | None = None
     
     # Performance
     MAX_WORKERS: int = 4
@@ -159,7 +158,7 @@ class DatabaseSettings(BaseSettings):
     )
     
     # Connection URL (optional override)
-    DATABASE_URL: Optional[str] = None
+    DATABASE_URL: str | None = None
 
     # PostgreSQL
     POSTGRES_HOST: str = "localhost"
@@ -177,9 +176,9 @@ class DatabaseSettings(BaseSettings):
     
     # SSL
     DB_SSL_MODE: str = "prefer"
-    DB_SSL_CERT: Optional[str] = None
-    DB_SSL_KEY: Optional[str] = None
-    DB_SSL_CA: Optional[str] = None
+    DB_SSL_CERT: str | None = None
+    DB_SSL_KEY: str | None = None
+    DB_SSL_CA: str | None = None
     
     @property
     def database_url(self) -> str:
@@ -203,7 +202,7 @@ class RedisSettings(BaseSettings):
     REDIS_HOST: str = "localhost"
     REDIS_PORT: int = 6382
     REDIS_DB: int = 0
-    REDIS_PASSWORD: Optional[str] = None
+    REDIS_PASSWORD: str | None = None
     REDIS_MAX_CONNECTIONS: int = 100
     
     # Cache settings
@@ -227,21 +226,21 @@ class CloudProviderSettings(BaseSettings):
     )
     
     # AWS
-    AWS_ACCESS_KEY_ID: Optional[str] = None
-    AWS_SECRET_ACCESS_KEY: Optional[str] = None
+    AWS_ACCESS_KEY_ID: str | None = None
+    AWS_SECRET_ACCESS_KEY: str | None = None
     AWS_DEFAULT_REGION: str = "us-east-1"
     AWS_COST_EXPLOROR_ENABLED: bool = True
     
     # Azure
-    AZURE_CLIENT_ID: Optional[str] = None
-    AZURE_CLIENT_SECRET: Optional[str] = None
-    AZURE_TENANT_ID: Optional[str] = None
-    AZURE_SUBSCRIPTION_ID: Optional[str] = None
+    AZURE_CLIENT_ID: str | None = None
+    AZURE_CLIENT_SECRET: str | None = None
+    AZURE_TENANT_ID: str | None = None
+    AZURE_SUBSCRIPTION_ID: str | None = None
     AZURE_COST_MANAGEMENT_ENABLED: bool = True
     
     # GCP
-    GCP_PROJECT_ID: Optional[str] = None
-    GCP_SERVICE_ACCOUNT_KEY: Optional[str] = None
+    GCP_PROJECT_ID: str | None = None
+    GCP_SERVICE_ACCOUNT_KEY: str | None = None
     GCP_COST_MANAGEMENT_ENABLED: bool = True
     
     # Common
@@ -320,21 +319,21 @@ class NotificationSettings(BaseSettings):
     
     # Email
     EMAIL_ENABLED: bool = False
-    SMTP_HOST: Optional[str] = None
+    SMTP_HOST: str | None = None
     SMTP_PORT: int = 587
-    SMTP_USERNAME: Optional[str] = None
-    SMTP_PASSWORD: Optional[str] = None
+    SMTP_USERNAME: str | None = None
+    SMTP_PASSWORD: str | None = None
     SMTP_USE_TLS: bool = True
-    EMAIL_FROM: Optional[str] = None
+    EMAIL_FROM: str | None = None
     
     # Slack
     SLACK_ENABLED: bool = False
-    SLACK_WEBHOOK_URL: Optional[str] = None
+    SLACK_WEBHOOK_URL: str | None = None
     SLACK_CHANNEL: str = "#cost-alerts"
     
     # Teams
     TEAMS_ENABLED: bool = False
-    TEAMS_WEBHOOK_URL: Optional[str] = None
+    TEAMS_WEBHOOK_URL: str | None = None
     
     # General
     NOTIFICATION_COOLDOWN_MINUTES: int = 60
@@ -342,43 +341,43 @@ class NotificationSettings(BaseSettings):
     NOTIFICATION_RETENTION_DAYS: int = 30
 
 
-@lru_cache()
+@lru_cache
 def get_settings() -> Settings:
     """Get cached settings"""
     return Settings()
 
 
-@lru_cache()
+@lru_cache
 def get_database_settings() -> DatabaseSettings:
     """Get cached database settings"""
     return DatabaseSettings()
 
 
-@lru_cache()
+@lru_cache
 def get_redis_settings() -> RedisSettings:
     """Get cached Redis settings"""
     return RedisSettings()
 
 
-@lru_cache()
+@lru_cache
 def get_cloud_provider_settings() -> CloudProviderSettings:
     """Get cached cloud provider settings"""
     return CloudProviderSettings()
 
 
-@lru_cache()
+@lru_cache
 def get_optimization_settings() -> OptimizationSettings:
     """Get cached optimization settings"""
     return OptimizationSettings()
 
 
-@lru_cache()
+@lru_cache
 def get_forecasting_settings() -> ForecastingSettings:
     """Get cached forecasting settings"""
     return ForecastingSettings()
 
 
-@lru_cache()
+@lru_cache
 def get_notification_settings() -> NotificationSettings:
     """Get cached notification settings"""
     return NotificationSettings()

@@ -2,23 +2,20 @@
 Optimization recommendations engine for Toolkit Cost Optimization Engine
 """
 
-import asyncio
 import logging
-from datetime import datetime, date, timedelta, timezone
-from decimal import Decimal
-from typing import Dict, List, Optional, Any, Tuple
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import select, func, and_, or_, desc, asc
 from dataclasses import dataclass
+from datetime import date, datetime, timedelta, timezone
+from decimal import Decimal
 from enum import Enum
-import numpy as np
+from typing import Any
 
-from ..models.models import (
-    CloudAccount, CostData, ResourceUsage, OptimizationRecommendation,
-    SavingsOpportunity, ResourceMetrics
-)
-from ..core.config import settings, optimization_settings
+import numpy as np
+from sqlalchemy import and_, desc, func, select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from ..core.config import optimization_settings
 from ..core.database import get_db_session
+from ..models.models import CloudAccount, CostData, OptimizationRecommendation, ResourceUsage
 
 logger = logging.getLogger(__name__)
 
@@ -68,20 +65,20 @@ class RecommendationData:
     type: RecommendationType
     title: str
     description: str
-    resource_id: Optional[str]
-    resource_type: Optional[str]
-    service_name: Optional[str]
-    current_cost: Optional[Decimal]
-    projected_cost: Optional[Decimal]
+    resource_id: str | None
+    resource_type: str | None
+    service_name: str | None
+    current_cost: Decimal | None
+    projected_cost: Decimal | None
     monthly_savings: Decimal
     savings_percentage: float
     effort: Effort
     risk_level: str
     confidence_score: float
     priority: Priority
-    implementation_steps: List[str]
+    implementation_steps: list[str]
     rollback_plan: str
-    analysis_data: Dict[str, Any]
+    analysis_data: dict[str, Any]
 
 
 class OptimizationRuleBase:
@@ -91,7 +88,7 @@ class OptimizationRuleBase:
         self.name = name
         self.description = description
     
-    async def analyze(self, context: OptimizationContext) -> List[RecommendationData]:
+    async def analyze(self, context: OptimizationContext) -> list[RecommendationData]:
         """Analyze and generate recommendations"""
         raise NotImplementedError
     
@@ -108,10 +105,10 @@ class RightSizingRule(OptimizationRuleBase):
     def __init__(self):
         super().__init__(
             "Right Sizing",
-            "Identify underutilized resources that can be downsized"
+            "Identify underutilized resources that can be downsized",
         )
     
-    async def analyze(self, context: OptimizationContext) -> List[RecommendationData]:
+    async def analyze(self, context: OptimizationContext) -> list[RecommendationData]:
         """Analyze resource utilization for right-sizing opportunities"""
         recommendations = []
         
@@ -126,22 +123,22 @@ class RightSizingRule(OptimizationRuleBase):
                     func.avg(ResourceUsage.memory_utilization).label('avg_memory'),
                     func.max(ResourceUsage.cpu_utilization).label('max_cpu'),
                     func.max(ResourceUsage.memory_utilization).label('max_memory'),
-                    func.count(ResourceUsage.id).label('data_points')
+                    func.count(ResourceUsage.id).label('data_points'),
                 ).where(
                     and_(
                         ResourceUsage.cloud_account_id == context.account_id,
                         ResourceUsage.timestamp >= datetime.combine(
                             context.current_date - timedelta(days=context.analysis_period),
-                            datetime.min.time()
+                            datetime.min.time(),
                         ),
-                        ResourceUsage.status == 'running'
-                    )
+                        ResourceUsage.status == 'running',
+                    ),
                 ).group_by(
                     ResourceUsage.resource_id,
                     ResourceUsage.resource_type,
-                    ResourceUsage.service_name
+                    ResourceUsage.service_name,
                 ).having(
-                    func.count(ResourceUsage.id) >= 7  # At least 7 data points
+                    func.count(ResourceUsage.id) >= 7,  # At least 7 data points
                 )
                 
                 result = await session.execute(utilization_query)
@@ -154,33 +151,46 @@ class RightSizingRule(OptimizationRuleBase):
                     data_points = row.data_points
                     
                     # Check if resource is underutilized
-                    if avg_cpu < optimization_settings.RESOURCE_UTILIZATION_THRESHOLD and avg_memory < optimization_settings.RESOURCE_UTILIZATION_THRESHOLD:
+                    if (
+                        avg_cpu < optimization_settings.RESOURCE_UTILIZATION_THRESHOLD
+                        and avg_memory < optimization_settings.RESOURCE_UTILIZATION_THRESHOLD
+                    ):
                         # Get current cost
                         cost_query = select(
-                            func.sum(CostData.cost_amount).label('total_cost')
+                            func.sum(CostData.cost_amount).label('total_cost'),
                         ).where(
                             and_(
                                 CostData.cloud_account_id == context.account_id,
                                 CostData.resource_id == row.resource_id,
-                                CostData.usage_start_date >= context.current_date - timedelta(days=30)
-                            )
+                                CostData.usage_start_date >= (
+                                    context.current_date - timedelta(days=30)
+                                ),
+                            ),
                         )
-                        
+
                         cost_result = await session.execute(cost_query)
                         current_cost = cost_result.scalar() or Decimal('0')
-                        
+
                         if current_cost > 0:
-                            # Calculate potential savings (30-50% for right-sizing)
-                            savings_percentage = np.random.uniform(0.3, 0.5)  # Placeholder - would use actual pricing data
+                            # Calculate potential savings (30-50%)
+                            # Placeholder - would use actual pricing data
+                            savings_percentage = np.random.uniform(0.3, 0.5)
                             monthly_savings = current_cost * Decimal(str(savings_percentage))
                             
-                            # Determine target instance type (simplified)
-                            target_type = self._suggest_target_instance(row.resource_type, avg_cpu, avg_memory)
+                            # Determine target instance type
+                            target_type = self._suggest_target_instance(
+                                row.resource_type, avg_cpu, avg_memory,
+                            )
                             
                             recommendation = RecommendationData(
                                 type=RecommendationType.RIGHT_SIZE,
                                 title=f"Right-size {row.resource_type} {row.resource_id}",
-                                description=f"Resource has low CPU ({avg_cpu:.1f}%) and memory ({avg_memory:.1f}%) utilization. Consider downsizing to {target_type}.",
+                                description=(
+                                    f"Resource has low CPU ({avg_cpu:.1f}%)"
+                                    f" and memory ({avg_memory:.1f}%)"
+                                    f" utilization. Consider downsizing"
+                                    f" to {target_type}."
+                                ),
                                 resource_id=row.resource_id,
                                 resource_type=row.resource_type,
                                 service_name=row.service_name,
@@ -198,17 +208,21 @@ class RightSizingRule(OptimizationRuleBase):
                                     "Schedule maintenance window",
                                     "Create backup/snapshot",
                                     "Resize instance",
-                                    "Monitor performance after resize"
+                                    "Monitor performance after resize",
                                 ],
-                                rollback_plan=f"Resize back to original {row.resource_type} if performance issues occur",
+                                rollback_plan=(
+                                    f"Resize back to original"
+                                    f" {row.resource_type}"
+                                    f" if performance issues occur"
+                                ),
                                 analysis_data={
                                     'avg_cpu': avg_cpu,
                                     'avg_memory': avg_memory,
                                     'max_cpu': max_cpu,
                                     'max_memory': max_memory,
                                     'data_points': data_points,
-                                    'target_type': target_type
-                                }
+                                    'target_type': target_type,
+                                },
                             )
                             
                             recommendations.append(recommendation)
@@ -240,10 +254,10 @@ class SchedulingRule(OptimizationRuleBase):
     def __init__(self):
         super().__init__(
             "Resource Scheduling",
-            "Identify resources that can be scheduled to run only during business hours"
+            "Identify resources that can be scheduled to run only during business hours",
         )
     
-    async def analyze(self, context: OptimizationContext) -> List[RecommendationData]:
+    async def analyze(self, context: OptimizationContext) -> list[RecommendationData]:
         """Analyze resource usage patterns for scheduling opportunities"""
         recommendations = []
         
@@ -255,57 +269,71 @@ class SchedulingRule(OptimizationRuleBase):
                     ResourceUsage.resource_type,
                     ResourceUsage.service_name,
                     func.avg(ResourceUsage.cpu_utilization).label('avg_cpu'),
-                    func.count(ResourceUsage.id).label('data_points')
+                    func.count(ResourceUsage.id).label('data_points'),
                 ).where(
                     and_(
                         ResourceUsage.cloud_account_id == context.account_id,
                         ResourceUsage.timestamp >= datetime.combine(
                             context.current_date - timedelta(days=context.analysis_period),
-                            datetime.min.time()
+                            datetime.min.time(),
                         ),
-                        ResourceUsage.status == 'running'
-                    )
+                        ResourceUsage.status == 'running',
+                    ),
                 ).group_by(
                     ResourceUsage.resource_id,
                     ResourceUsage.resource_type,
-                    ResourceUsage.service_name
+                    ResourceUsage.service_name,
                 ).having(
                     and_(
                         func.count(ResourceUsage.id) >= 168,  # At least 1 week of hourly data
-                        func.avg(ResourceUsage.cpu_utilization) < 10  # Low overall utilization
-                    )
+                        func.avg(ResourceUsage.cpu_utilization) < 10,  # Low overall utilization
+                    ),
                 )
                 
                 result = await session.execute(pattern_query)
                 
                 for row in result:
                     # Get hourly usage pattern
-                    hourly_pattern = await self._analyze_hourly_pattern(session, context.account_id, row.resource_id)
+                    hourly_pattern = await self._analyze_hourly_pattern(
+                        session, context.account_id, row.resource_id,
+                    )
                     
                     if self._has_business_hours_pattern(hourly_pattern):
                         # Get current cost
                         cost_query = select(
-                            func.sum(CostData.cost_amount).label('total_cost')
+                            func.sum(CostData.cost_amount).label('total_cost'),
                         ).where(
                             and_(
                                 CostData.cloud_account_id == context.account_id,
                                 CostData.resource_id == row.resource_id,
-                                CostData.usage_start_date >= context.current_date - timedelta(days=30)
-                            )
+                                CostData.usage_start_date >= (
+                                    context.current_date - timedelta(days=30)
+                                ),
+                            ),
                         )
-                        
+
                         cost_result = await session.execute(cost_query)
                         current_cost = cost_result.scalar() or Decimal('0')
-                        
+
                         if current_cost > 0:
-                            # Calculate savings (run only 12 hours/day instead of 24)
+                            # Calculate savings (12h/day instead of 24)
                             savings_percentage = 0.5
-                            monthly_savings = current_cost * Decimal(str(savings_percentage))
-                            
+                            monthly_savings = current_cost * Decimal(
+                                str(savings_percentage),
+                            )
+
                             recommendation = RecommendationData(
                                 type=RecommendationType.SCHEDULE,
-                                title=f"Schedule {row.resource_type} {row.resource_id}",
-                                description=f"Resource shows business hours usage pattern. Schedule to run only during business hours (8am-6pm) to save 50% of costs.",
+                                title=(
+                                    f"Schedule {row.resource_type}"
+                                    f" {row.resource_id}"
+                                ),
+                                description=(
+                                    "Resource shows business hours usage"
+                                    " pattern. Schedule to run only"
+                                    " during business hours (8am-6pm)"
+                                    " to save 50% of costs."
+                                ),
                                 resource_id=row.resource_id,
                                 resource_type=row.resource_type,
                                 service_name=row.service_name,
@@ -315,21 +343,30 @@ class SchedulingRule(OptimizationRuleBase):
                                 savings_percentage=50.0,
                                 effort=Effort.LOW,
                                 risk_level="low",
-                                confidence_score=self.calculate_confidence(row.data_points, 0.7),
-                                priority=Priority.MEDIUM if monthly_savings > 100 else Priority.LOW,
+                                confidence_score=self.calculate_confidence(
+                                    row.data_points, 0.7,
+                                ),
+                                priority=(
+                                    Priority.MEDIUM
+                                    if monthly_savings > 100
+                                    else Priority.LOW
+                                ),
                                 implementation_steps=[
                                     "Create start/stop schedule for business hours",
                                     "Configure auto-start at 8am and auto-stop at 6pm",
                                     "Set up weekend shutdown",
                                     "Test schedule with monitoring",
-                                    "Implement automated scheduling"
+                                    "Implement automated scheduling",
                                 ],
-                                rollback_plan="Disable scheduling and run resource 24/7 if issues occur",
+                                rollback_plan=(
+                                    "Disable scheduling and run resource"
+                                    " 24/7 if issues occur"
+                                ),
                                 analysis_data={
                                     'hourly_pattern': hourly_pattern,
                                     'avg_cpu': float(row.avg_cpu),
-                                    'data_points': row.data_points
-                                }
+                                    'data_points': row.data_points,
+                                },
                             )
                             
                             recommendations.append(recommendation)
@@ -340,23 +377,28 @@ class SchedulingRule(OptimizationRuleBase):
                 logger.error(f"Failed to analyze scheduling opportunities: {e}")
                 return []
     
-    async def _analyze_hourly_pattern(self, session: AsyncSession, account_id: str, resource_id: str) -> Dict[int, float]:
+    async def _analyze_hourly_pattern(
+        self, session: AsyncSession, account_id: str, resource_id: str,
+    ) -> dict[int, float]:
         """Analyze hourly usage pattern for a resource"""
         hourly_query = select(
             func.extract('hour', ResourceUsage.timestamp).label('hour'),
-            func.avg(ResourceUsage.cpu_utilization).label('avg_cpu')
+            func.avg(ResourceUsage.cpu_utilization).label('avg_cpu'),
         ).where(
             and_(
                 ResourceUsage.cloud_account_id == account_id,
                 ResourceUsage.resource_id == resource_id,
-                ResourceUsage.timestamp >= datetime.combine(date.today() - timedelta(days=14), datetime.min.time())
-            )
+                ResourceUsage.timestamp >= datetime.combine(
+                    date.today() - timedelta(days=14),
+                    datetime.min.time(),
+                ),
+            ),
         ).group_by('hour').order_by('hour')
         
         result = await session.execute(hourly_query)
         return {int(row.hour): float(row.avg_cpu or 0) for row in result}
     
-    def _has_business_hours_pattern(self, hourly_pattern: Dict[int, float]) -> bool:
+    def _has_business_hours_pattern(self, hourly_pattern: dict[int, float]) -> bool:
         """Check if usage pattern indicates business hours usage"""
         # Check if usage is significantly higher during business hours (8am-6pm)
         business_hours = list(range(8, 19))  # 8am to 6pm
@@ -365,7 +407,11 @@ class SchedulingRule(OptimizationRuleBase):
         business_avg = np.mean([hourly_pattern.get(h, 0) for h in business_hours])
         non_business_avg = np.mean([hourly_pattern.get(h, 0) for h in non_business_hours])
         
-        return business_avg > 5 and non_business_avg < 2 and business_avg > non_business_avg * 2
+        return (
+            business_avg > 5
+            and non_business_avg < 2
+            and business_avg > non_business_avg * 2
+        )
 
 
 class TerminationRule(OptimizationRuleBase):
@@ -374,19 +420,22 @@ class TerminationRule(OptimizationRuleBase):
     def __init__(self):
         super().__init__(
             "Resource Termination",
-            "Identify unused or idle resources that can be terminated"
+            "Identify unused or idle resources that can be terminated",
         )
     
-    async def analyze(self, context: OptimizationContext) -> List[RecommendationData]:
+    async def analyze(self, context: OptimizationContext) -> list[RecommendationData]:
         """Analyze resources for termination opportunities"""
         recommendations = []
         
         async with get_db_session() as session:
             try:
                 # Find resources with no recent activity
+                idle_days = (
+                    optimization_settings.IDLE_RESOURCE_TIMEOUT_HOURS // 24
+                )
                 idle_threshold = datetime.combine(
-                    context.current_date - timedelta(days=optimization_settings.IDLE_RESOURCE_TIMEOUT_HOURS // 24),
-                    datetime.min.time()
+                    context.current_date - timedelta(days=idle_days),
+                    datetime.min.time(),
                 )
                 
                 idle_query = select(
@@ -395,22 +444,22 @@ class TerminationRule(OptimizationRuleBase):
                     ResourceUsage.service_name,
                     func.max(ResourceUsage.timestamp).label('last_activity'),
                     func.avg(ResourceUsage.cpu_utilization).label('avg_cpu'),
-                    func.count(ResourceUsage.id).label('data_points')
+                    func.count(ResourceUsage.id).label('data_points'),
                 ).where(
                     and_(
                         ResourceUsage.cloud_account_id == context.account_id,
                         ResourceUsage.timestamp >= idle_threshold,
-                        ResourceUsage.status == 'running'
-                    )
+                        ResourceUsage.status == 'running',
+                    ),
                 ).group_by(
                     ResourceUsage.resource_id,
                     ResourceUsage.resource_type,
-                    ResourceUsage.service_name
+                    ResourceUsage.service_name,
                 ).having(
                     and_(
                         func.max(ResourceUsage.timestamp) < idle_threshold,
-                        func.avg(ResourceUsage.cpu_utilization) < 1  # Near-zero CPU usage
-                    )
+                        func.avg(ResourceUsage.cpu_utilization) < 1,  # Near-zero CPU usage
+                    ),
                 )
                 
                 result = await session.execute(idle_query)
@@ -418,13 +467,13 @@ class TerminationRule(OptimizationRuleBase):
                 for row in result:
                     # Get current cost
                     cost_query = select(
-                        func.sum(CostData.cost_amount).label('total_cost')
+                        func.sum(CostData.cost_amount).label('total_cost'),
                     ).where(
                         and_(
                             CostData.cloud_account_id == context.account_id,
                             CostData.resource_id == row.resource_id,
-                            CostData.usage_start_date >= context.current_date - timedelta(days=30)
-                        )
+                            CostData.usage_start_date >= context.current_date - timedelta(days=30),
+                        ),
                     )
                     
                     cost_result = await session.execute(cost_query)
@@ -438,7 +487,12 @@ class TerminationRule(OptimizationRuleBase):
                         recommendation = RecommendationData(
                             type=RecommendationType.TERMINATE,
                             title=f"Terminate idle {row.resource_type} {row.resource_id}",
-                            description=f"Resource has been idle for {days_idle} days with near-zero CPU usage ({float(row.avg_cpu):.1f}%). Consider termination.",
+                            description=(
+                                f"Resource has been idle for"
+                                f" {days_idle} days with near-zero CPU"
+                                f" usage ({float(row.avg_cpu):.1f}%)."
+                                f" Consider termination."
+                            ),
                             resource_id=row.resource_id,
                             resource_type=row.resource_type,
                             service_name=row.service_name,
@@ -455,15 +509,19 @@ class TerminationRule(OptimizationRuleBase):
                                 "Create final backup if needed",
                                 "Document termination reason",
                                 "Terminate resource",
-                                "Clean up associated resources"
+                                "Clean up associated resources",
                             ],
-                            rollback_plan="Resource cannot be easily restored after termination - requires recreation from backup",
+                            rollback_plan=(
+                                "Resource cannot be easily restored"
+                                " after termination - requires"
+                                " recreation from backup"
+                            ),
                             analysis_data={
                                 'last_activity': row.last_activity.isoformat(),
                                 'days_idle': days_idle,
                                 'avg_cpu': float(row.avg_cpu),
-                                'data_points': row.data_points
-                            }
+                                'data_points': row.data_points,
+                            },
                         )
                         
                         recommendations.append(recommendation)
@@ -481,10 +539,10 @@ class ReservedInstancesRule(OptimizationRuleBase):
     def __init__(self):
         super().__init__(
             "Reserved Instances",
-            "Identify opportunities for reserved instance purchases"
+            "Identify opportunities for reserved instance purchases",
         )
     
-    async def analyze(self, context: OptimizationContext) -> List[RecommendationData]:
+    async def analyze(self, context: OptimizationContext) -> list[RecommendationData]:
         """Analyze resources for reserved instance opportunities"""
         recommendations = []
         
@@ -496,26 +554,26 @@ class ReservedInstancesRule(OptimizationRuleBase):
                     ResourceUsage.resource_type,
                     ResourceUsage.service_name,
                     func.avg(ResourceUsage.cpu_utilization).label('avg_cpu'),
-                    func.count(ResourceUsage.id).label('data_points')
+                    func.count(ResourceUsage.id).label('data_points'),
                 ).where(
                     and_(
                         ResourceUsage.cloud_account_id == context.account_id,
                         ResourceUsage.timestamp >= datetime.combine(
                             context.current_date - timedelta(days=context.analysis_period),
-                            datetime.min.time()
+                            datetime.min.time(),
                         ),
-                        ResourceUsage.status == 'running'
-                    )
+                        ResourceUsage.status == 'running',
+                    ),
                 ).group_by(
                     ResourceUsage.resource_id,
                     ResourceUsage.resource_type,
-                    ResourceUsage.service_name
+                    ResourceUsage.service_name,
                 ).having(
                     and_(
                         func.count(ResourceUsage.id) >= 720,  # At least 30 days of hourly data
                         func.avg(ResourceUsage.cpu_utilization) > 20,  # Consistent usage
-                        func.avg(ResourceUsage.cpu_utilization) < 90  # Not overutilized
-                    )
+                        func.avg(ResourceUsage.cpu_utilization) < 90,  # Not overutilized
+                    ),
                 )
                 
                 result = await session.execute(stable_query)
@@ -523,27 +581,38 @@ class ReservedInstancesRule(OptimizationRuleBase):
                 for row in result:
                     # Get current cost
                     cost_query = select(
-                        func.sum(CostData.cost_amount).label('total_cost')
+                        func.sum(CostData.cost_amount).label('total_cost'),
                     ).where(
                         and_(
                             CostData.cloud_account_id == context.account_id,
                             CostData.resource_id == row.resource_id,
-                            CostData.usage_start_date >= context.current_date - timedelta(days=30)
-                        )
+                            CostData.usage_start_date >= context.current_date - timedelta(days=30),
+                        ),
                     )
                     
                     cost_result = await session.execute(cost_query)
                     current_cost = cost_result.scalar() or Decimal('0')
                     
                     if current_cost > 100:  # Only recommend for significant costs
-                        # Calculate reserved instance savings (typically 30-60%)
-                        savings_percentage = np.random.uniform(0.3, 0.6)  # Placeholder - would use actual RI pricing
+                        # Calculate RI savings (typically 30-60%)
+                        # Placeholder - would use actual RI pricing
+                        savings_percentage = np.random.uniform(0.3, 0.6)
                         monthly_savings = current_cost * Decimal(str(savings_percentage))
                         
                         recommendation = RecommendationData(
                             type=RecommendationType.RESERVED_INSTANCES,
-                            title=f"Purchase Reserved Instance for {row.resource_type} {row.resource_id}",
-                            description=f"Resource shows stable usage pattern. Purchasing a 1-year or 3-year reserved instance can save {savings_percentage*100:.0f}% on costs.",
+                            title=(
+                                f"Purchase Reserved Instance for"
+                                f" {row.resource_type}"
+                                f" {row.resource_id}"
+                            ),
+                            description=(
+                                f"Resource shows stable usage pattern."
+                                f" Purchasing a 1-year or 3-year"
+                                f" reserved instance can save"
+                                f" {savings_percentage * 100:.0f}%"
+                                f" on costs."
+                            ),
                             resource_id=row.resource_id,
                             resource_type=row.resource_type,
                             service_name=row.service_name,
@@ -561,14 +630,18 @@ class ReservedInstancesRule(OptimizationRuleBase):
                                 "Select appropriate RI term (1-year or 3-year)",
                                 "Purchase reserved instance",
                                 "Apply RI to running instances",
-                                "Monitor savings realization"
+                                "Monitor savings realization",
                             ],
-                            rollback_plan="Reserved instances cannot be cancelled - consider convertible RIs for flexibility",
+                            rollback_plan=(
+                                "Reserved instances cannot be cancelled"
+                                " - consider convertible RIs"
+                                " for flexibility"
+                            ),
                             analysis_data={
                                 'avg_cpu': float(row.avg_cpu),
                                 'data_points': row.data_points,
-                                'savings_percentage': float(savings_percentage)
-                            }
+                                'savings_percentage': float(savings_percentage),
+                            },
                         )
                         
                         recommendations.append(recommendation)
@@ -593,7 +666,9 @@ class OptimizationEngine:
             ReservedInstancesRule(),
         ]
     
-    async def generate_recommendations(self, account_id: str, analysis_period: int = 30) -> Dict[str, Any]:
+    async def generate_recommendations(
+        self, account_id: str, analysis_period: int = 30,
+    ) -> dict[str, Any]:
         """
         Generate optimization recommendations for an account
         """
@@ -601,7 +676,7 @@ class OptimizationEngine:
             # Get account information
             async with get_db_session() as session:
                 result = await session.execute(
-                    select(CloudAccount).where(CloudAccount.id == account_id)
+                    select(CloudAccount).where(CloudAccount.id == account_id),
                 )
                 account = result.scalar_one_or_none()
                 
@@ -613,7 +688,7 @@ class OptimizationEngine:
                 provider=account.provider,
                 region=account.region,
                 analysis_period=analysis_period,
-                current_date=date.today()
+                current_date=date.today(),
             )
             
             # Generate recommendations from all rules
@@ -622,7 +697,10 @@ class OptimizationEngine:
                 try:
                     recommendations = await rule.analyze(context)
                     all_recommendations.extend(recommendations)
-                    logger.info(f"Generated {len(recommendations)} recommendations from {rule.name}")
+                    logger.info(
+                        f"Generated {len(recommendations)}"
+                        f" recommendations from {rule.name}",
+                    )
                 except Exception as e:
                     logger.error(f"Failed to generate recommendations from {rule.name}: {e}")
             
@@ -630,7 +708,7 @@ class OptimizationEngine:
             priority_order = {'critical': 4, 'high': 3, 'medium': 2, 'low': 1}
             all_recommendations.sort(
                 key=lambda x: (priority_order.get(x.priority.value, 0), x.monthly_savings),
-                reverse=True
+                reverse=True,
             )
             
             # Limit to maximum recommendations
@@ -643,7 +721,11 @@ class OptimizationEngine:
             
             # Calculate summary statistics
             total_savings = sum(rec.monthly_savings for rec in all_recommendations)
-            avg_confidence = np.mean([rec.confidence_score for rec in all_recommendations]) if all_recommendations else 0
+            avg_confidence = (
+                np.mean([rec.confidence_score for rec in all_recommendations])
+                if all_recommendations
+                else 0
+            )
             
             summary = {
                 'account_id': account_id,
@@ -662,10 +744,13 @@ class OptimizationEngine:
                     priority.value: len([r for r in all_recommendations if r.priority == priority])
                     for priority in Priority
                 },
-                'generated_at': datetime.now(timezone.utc).isoformat()
+                'generated_at': datetime.now(timezone.utc).isoformat(),
             }
             
-            logger.info(f"Generated {len(all_recommendations)} recommendations with ${total_savings:.2f} potential monthly savings")
+            logger.info(
+                f"Generated {len(all_recommendations)} recommendations"
+                f" with ${total_savings:.2f} potential monthly savings",
+            )
             
             return {
                 'summary': summary,
@@ -687,17 +772,19 @@ class OptimizationEngine:
                         'priority': rec.priority.value,
                         'implementation_steps': rec.implementation_steps,
                         'rollback_plan': rec.rollback_plan,
-                        'analysis_data': rec.analysis_data
+                        'analysis_data': rec.analysis_data,
                     }
                     for rec in all_recommendations
-                ]
+                ],
             }
             
         except Exception as e:
             logger.error(f"Failed to generate recommendations: {e}")
             raise
     
-    async def _store_recommendations(self, account_id: str, recommendations: List[RecommendationData]) -> int:
+    async def _store_recommendations(
+        self, account_id: str, recommendations: list[RecommendationData],
+    ) -> int:
         """Store recommendations in database"""
         stored_count = 0
         
@@ -711,9 +798,9 @@ class OptimizationEngine:
                                 OptimizationRecommendation.cloud_account_id == account_id,
                                 OptimizationRecommendation.resource_id == rec.resource_id,
                                 OptimizationRecommendation.recommendation_type == rec.type.value,
-                                OptimizationRecommendation.status == 'pending'
-                            )
-                        )
+                                OptimizationRecommendation.status == 'pending',
+                            ),
+                        ),
                     )
                     
                     if not existing.scalar_one_or_none():
@@ -735,7 +822,7 @@ class OptimizationEngine:
                             priority=rec.priority.value,
                             implementation_steps=rec.implementation_steps,
                             rollback_plan=rec.rollback_plan,
-                            analysis_data=rec.analysis_data
+                            analysis_data=rec.analysis_data,
                         )
                         session.add(recommendation)
                         stored_count += 1
@@ -748,20 +835,20 @@ class OptimizationEngine:
                 logger.error(f"Failed to store recommendations: {e}")
                 raise
     
-    async def get_recommendations(self, account_id: str, status: Optional[str] = None, 
-                                limit: int = 50) -> List[Dict]:
+    async def get_recommendations(self, account_id: str, status: str | None = None, 
+                                limit: int = 50) -> list[dict]:
         """Get stored recommendations"""
         async with get_db_session() as session:
             try:
                 query = select(OptimizationRecommendation).where(
-                    OptimizationRecommendation.cloud_account_id == account_id
+                    OptimizationRecommendation.cloud_account_id == account_id,
                 )
                 
                 if status:
                     query = query.where(OptimizationRecommendation.status == status)
                 
                 query = query.order_by(
-                    desc(OptimizationRecommendation.monthly_savings)
+                    desc(OptimizationRecommendation.monthly_savings),
                 ).limit(limit)
                 
                 result = await session.execute(query)
@@ -788,7 +875,7 @@ class OptimizationEngine:
                         'implementation_steps': rec.implementation_steps,
                         'rollback_plan': rec.rollback_plan,
                     'generated_at': rec.generated_at.isoformat(),
-                    'expires_at': rec.expires_at.isoformat() if rec.expires_at else None
+                    'expires_at': rec.expires_at.isoformat() if rec.expires_at else None,
                 }
                 for rec in recommendations
             ]
@@ -798,14 +885,14 @@ class OptimizationEngine:
                 raise
     
     async def update_recommendation_status(self, recommendation_id: str, status: str, 
-                                         implemented_by: Optional[str] = None) -> bool:
+                                         implemented_by: str | None = None) -> bool:
         """Update recommendation status"""
         async with get_db_session() as session:
             try:
                 result = await session.execute(
                     select(OptimizationRecommendation).where(
-                        OptimizationRecommendation.id == recommendation_id
-                    )
+                        OptimizationRecommendation.id == recommendation_id,
+                    ),
                 )
                 recommendation = result.scalar_one_or_none()
                 

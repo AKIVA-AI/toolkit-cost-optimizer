@@ -2,19 +2,20 @@
 API schemas for Toolkit Cost Optimization Engine
 """
 
-from datetime import datetime, date, timezone
+from datetime import date, datetime, timezone
 from decimal import Decimal
-from typing import Optional, List, Dict, Any
-from pydantic import BaseModel, ConfigDict, Field, field_validator
 from enum import Enum
+from typing import Any
+
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 
 # Base schemas
 class BaseSchema(BaseModel):
     """Base schema with common fields"""
-    id: Optional[str] = None
-    created_at: Optional[datetime] = None
-    updated_at: Optional[datetime] = None
+    id: str | None = None
+    created_at: datetime | None = None
+    updated_at: datetime | None = None
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -26,37 +27,37 @@ class CloudAccountBase(BaseModel):
     provider: str = Field(..., pattern=r"^(aws|azure|gcp)$")
     account_id: str = Field(..., min_length=1, max_length=255)
     region: str = Field(..., min_length=1, max_length=100)
-    description: Optional[str] = None
-    tags: Optional[Dict[str, Any]] = None
+    description: str | None = None
+    tags: dict[str, Any] | None = None
 
 
 class CloudAccountCreate(CloudAccountBase):
     """Schema for creating cloud accounts"""
-    access_key: Optional[str] = None
-    secret_key: Optional[str] = None
-    tenant_id: Optional[str] = None
-    subscription_id: Optional[str] = None
-    project_id: Optional[str] = None
+    access_key: str | None = None
+    secret_key: str | None = None
+    tenant_id: str | None = None
+    subscription_id: str | None = None
+    project_id: str | None = None
 
 
 class CloudAccountUpdate(BaseModel):
     """Schema for updating cloud accounts"""
-    name: Optional[str] = Field(None, min_length=1, max_length=255)
-    description: Optional[str] = None
-    access_key: Optional[str] = None
-    secret_key: Optional[str] = None
-    tenant_id: Optional[str] = None
-    subscription_id: Optional[str] = None
-    project_id: Optional[str] = None
-    tags: Optional[Dict[str, Any]] = None
-    is_active: Optional[bool] = None
+    name: str | None = Field(None, min_length=1, max_length=255)
+    description: str | None = None
+    access_key: str | None = None
+    secret_key: str | None = None
+    tenant_id: str | None = None
+    subscription_id: str | None = None
+    project_id: str | None = None
+    tags: dict[str, Any] | None = None
+    is_active: bool | None = None
 
 
 class CloudAccount(CloudAccountBase):
     """Complete cloud account schema"""
     is_active: bool = True
     is_connected: bool = False
-    last_sync: Optional[datetime] = None
+    last_sync: datetime | None = None
     
     model_config = ConfigDict(from_attributes=True)
 
@@ -65,18 +66,18 @@ class CloudAccount(CloudAccountBase):
 class CostDataBase(BaseModel):
     """Base cost data schema"""
     service_name: str = Field(..., min_length=1, max_length=255)
-    service_category: Optional[str] = None
-    resource_type: Optional[str] = None
-    resource_id: Optional[str] = None
-    usage_quantity: Optional[Decimal] = None
-    usage_unit: Optional[str] = None
+    service_category: str | None = None
+    resource_type: str | None = None
+    resource_id: str | None = None
+    usage_quantity: Decimal | None = None
+    usage_unit: str | None = None
     cost_amount: Decimal = Field(..., gt=0)
     currency: str = Field(default="USD", pattern=r"^[A-Z]{3}$")
-    rate: Optional[Decimal] = None
-    pricing_model: Optional[str] = None
-    region: Optional[str] = None
-    availability_zone: Optional[str] = None
-    tags: Optional[Dict[str, Any]] = None
+    rate: Decimal | None = None
+    pricing_model: str | None = None
+    region: str | None = None
+    availability_zone: str | None = None
+    tags: dict[str, Any] | None = None
 
 
 class CostDataCreate(CostDataBase):
@@ -93,7 +94,7 @@ class CostData(CostDataBase):
     usage_start_date: date
     usage_end_date: date
     billing_period: str
-    raw_data: Optional[Dict[str, Any]] = None
+    raw_data: dict[str, Any] | None = None
     
     model_config = ConfigDict(from_attributes=True)
 
@@ -102,25 +103,25 @@ class CostData(CostDataBase):
 class ResourceUsageBase(BaseModel):
     """Base resource usage schema"""
     resource_id: str = Field(..., min_length=1, max_length=255)
-    resource_name: Optional[str] = None
+    resource_name: str | None = None
     resource_type: str = Field(..., min_length=1, max_length=255)
     service_name: str = Field(..., min_length=1, max_length=255)
     period: str = Field(..., pattern=r"^(hourly|daily)$")
-    cpu_utilization: Optional[float] = Field(None, ge=0, le=100)
-    memory_utilization: Optional[float] = Field(None, ge=0, le=100)
-    disk_utilization: Optional[float] = Field(None, ge=0, le=100)
-    network_in: Optional[Decimal] = Field(None, ge=0)
-    network_out: Optional[Decimal] = Field(None, ge=0)
-    requests_per_second: Optional[float] = Field(None, ge=0)
-    cpu_cores: Optional[int] = Field(None, gt=0)
-    memory_gb: Optional[int] = Field(None, gt=0)
-    disk_gb: Optional[int] = Field(None, ge=0)
-    instance_type: Optional[str] = None
-    status: Optional[str] = None
-    region: Optional[str] = None
-    availability_zone: Optional[str] = None
-    tags: Optional[Dict[str, Any]] = None
-    metadata_: Optional[Dict[str, Any]] = Field(default=None, alias="metadata")
+    cpu_utilization: float | None = Field(None, ge=0, le=100)
+    memory_utilization: float | None = Field(None, ge=0, le=100)
+    disk_utilization: float | None = Field(None, ge=0, le=100)
+    network_in: Decimal | None = Field(None, ge=0)
+    network_out: Decimal | None = Field(None, ge=0)
+    requests_per_second: float | None = Field(None, ge=0)
+    cpu_cores: int | None = Field(None, gt=0)
+    memory_gb: int | None = Field(None, gt=0)
+    disk_gb: int | None = Field(None, ge=0)
+    instance_type: str | None = None
+    status: str | None = None
+    region: str | None = None
+    availability_zone: str | None = None
+    tags: dict[str, Any] | None = None
+    metadata_: dict[str, Any] | None = Field(default=None, alias="metadata")
 
     model_config = ConfigDict(validate_by_name=True, serialize_by_alias=True)
 
@@ -178,21 +179,21 @@ class OptimizationRecommendationBase(BaseModel):
     recommendation_type: RecommendationType
     title: str = Field(..., min_length=1, max_length=500)
     description: str = Field(..., min_length=1)
-    resource_id: Optional[str] = None
-    resource_type: Optional[str] = None
-    service_name: Optional[str] = None
-    current_monthly_cost: Optional[Decimal] = Field(None, ge=0)
-    projected_monthly_cost: Optional[Decimal] = Field(None, ge=0)
+    resource_id: str | None = None
+    resource_type: str | None = None
+    service_name: str | None = None
+    current_monthly_cost: Decimal | None = Field(None, ge=0)
+    projected_monthly_cost: Decimal | None = Field(None, ge=0)
     monthly_savings: Decimal = Field(..., ge=0)
     savings_percentage: float = Field(..., ge=0, le=100)
     effort: Effort
     risk_level: str = Field(..., pattern=r"^(low|medium|high)$")
     confidence_score: float = Field(..., ge=0, le=1)
     priority: Priority
-    implementation_steps: Optional[List[str]] = None
-    rollback_plan: Optional[str] = None
-    analysis_data: Optional[Dict[str, Any]] = None
-    tags: Optional[Dict[str, Any]] = None
+    implementation_steps: list[str] | None = None
+    rollback_plan: str | None = None
+    analysis_data: dict[str, Any] | None = None
+    tags: dict[str, Any] | None = None
 
 
 class OptimizationRecommendationCreate(OptimizationRecommendationBase):
@@ -202,11 +203,11 @@ class OptimizationRecommendationCreate(OptimizationRecommendationBase):
 
 class OptimizationRecommendationUpdate(BaseModel):
     """Schema for updating optimization recommendations"""
-    status: Optional[str] = Field(None, pattern=r"^(pending|approved|rejected|implemented)$")
-    priority: Optional[Priority] = None
-    implementation_steps: Optional[List[str]] = None
-    rollback_plan: Optional[str] = None
-    notes: Optional[str] = None
+    status: str | None = Field(None, pattern=r"^(pending|approved|rejected|implemented)$")
+    priority: Priority | None = None
+    implementation_steps: list[str] | None = None
+    rollback_plan: str | None = None
+    notes: str | None = None
 
 
 class OptimizationRecommendation(OptimizationRecommendationBase):
@@ -214,8 +215,8 @@ class OptimizationRecommendation(OptimizationRecommendationBase):
     cloud_account_id: str
     status: str = "pending"
     generated_at: datetime
-    expires_at: Optional[datetime] = None
-    implemented_at: Optional[datetime] = None
+    expires_at: datetime | None = None
+    implemented_at: datetime | None = None
     
     model_config = ConfigDict(from_attributes=True)
 
@@ -239,14 +240,14 @@ class ScopeType(str, Enum):
 class BudgetBase(BaseModel):
     """Base budget schema"""
     name: str = Field(..., min_length=1, max_length=255)
-    description: Optional[str] = None
+    description: str | None = None
     budget_type: BudgetType
     amount: Decimal = Field(..., gt=0)
     currency: str = Field(default="USD", pattern=r"^[A-Z]{3}$")
     start_date: date
     end_date: date
     scope_type: ScopeType
-    scope_filter: Optional[Dict[str, Any]] = None
+    scope_filter: dict[str, Any] | None = None
     alert_threshold: float = Field(default=0.8, ge=0, le=1)
     critical_threshold: float = Field(default=0.95, ge=0, le=1)
     
@@ -274,12 +275,12 @@ class BudgetCreate(BudgetBase):
 
 class BudgetUpdate(BaseModel):
     """Schema for updating budgets"""
-    name: Optional[str] = Field(None, min_length=1, max_length=255)
-    description: Optional[str] = None
-    amount: Optional[Decimal] = Field(None, gt=0)
-    alert_threshold: Optional[float] = Field(None, ge=0, le=1)
-    critical_threshold: Optional[float] = Field(None, ge=0, le=1)
-    is_active: Optional[bool] = None
+    name: str | None = Field(None, min_length=1, max_length=255)
+    description: str | None = None
+    amount: Decimal | None = Field(None, gt=0)
+    alert_threshold: float | None = Field(None, ge=0, le=1)
+    critical_threshold: float | None = Field(None, ge=0, le=1)
+    is_active: bool | None = None
 
 
 class Budget(BudgetBase):
@@ -287,7 +288,7 @@ class Budget(BudgetBase):
     cloud_account_id: str
     is_active: bool = True
     current_spend: Decimal = Decimal('0')
-    forecasted_spend: Optional[Decimal] = None
+    forecasted_spend: Decimal | None = None
     utilization_percentage: float = 0
     
     model_config = ConfigDict(from_attributes=True)
@@ -309,16 +310,16 @@ class CostForecastBase(BaseModel):
     forecast_date: date
     target_date: date
     predicted_cost: Decimal = Field(..., ge=0)
-    confidence_interval_lower: Optional[Decimal] = Field(None, ge=0)
-    confidence_interval_upper: Optional[Decimal] = Field(None, ge=0)
+    confidence_interval_lower: Decimal | None = Field(None, ge=0)
+    confidence_interval_upper: Decimal | None = Field(None, ge=0)
     confidence_score: float = Field(..., ge=0, le=1)
-    mae: Optional[float] = Field(None, ge=0)  # Mean Absolute Error
-    mape: Optional[float] = Field(None, ge=0)  # Mean Absolute Percentage Error
-    rmse: Optional[float] = Field(None, ge=0)  # Root Mean Square Error
-    scope_type: Optional[str] = None
-    scope_filter: Optional[Dict[str, Any]] = None
-    training_data_period: Optional[str] = None
-    features_used: Optional[Dict[str, Any]] = None
+    mae: float | None = Field(None, ge=0)  # Mean Absolute Error
+    mape: float | None = Field(None, ge=0)  # Mean Absolute Percentage Error
+    rmse: float | None = Field(None, ge=0)  # Root Mean Square Error
+    scope_type: str | None = None
+    scope_filter: dict[str, Any] | None = None
+    training_data_period: str | None = None
+    features_used: dict[str, Any] | None = None
 
 
 class CostForecastCreate(CostForecastBase):
@@ -356,12 +357,12 @@ class CostAlertBase(BaseModel):
     severity: Severity
     title: str = Field(..., min_length=1, max_length=500)
     message: str = Field(..., min_length=1)
-    trigger_value: Optional[Decimal] = None
-    threshold_value: Optional[Decimal] = None
-    threshold_percentage: Optional[float] = None
-    scope_type: Optional[str] = None
-    scope_filter: Optional[Dict[str, Any]] = None
-    alert_data: Optional[Dict[str, Any]] = None
+    trigger_value: Decimal | None = None
+    threshold_value: Decimal | None = None
+    threshold_percentage: float | None = None
+    scope_type: str | None = None
+    scope_filter: dict[str, Any] | None = None
+    alert_data: dict[str, Any] | None = None
 
 
 class CostAlertCreate(CostAlertBase):
@@ -371,18 +372,18 @@ class CostAlertCreate(CostAlertBase):
 
 class CostAlertUpdate(BaseModel):
     """Schema for updating cost alerts"""
-    status: Optional[str] = Field(None, pattern=r"^(active|acknowledged|resolved)$")
-    acknowledged_by: Optional[str] = None
-    notes: Optional[str] = None
+    status: str | None = Field(None, pattern=r"^(active|acknowledged|resolved)$")
+    acknowledged_by: str | None = None
+    notes: str | None = None
 
 
 class CostAlert(CostAlertBase):
     """Complete cost alert schema"""
     cloud_account_id: str
     status: str = "active"
-    acknowledged_at: Optional[datetime] = None
-    acknowledged_by: Optional[str] = None
-    resolved_at: Optional[datetime] = None
+    acknowledged_at: datetime | None = None
+    acknowledged_by: str | None = None
+    resolved_at: datetime | None = None
     
     model_config = ConfigDict(from_attributes=True)
 
@@ -401,15 +402,15 @@ class CostAnomalyBase(BaseModel):
     severity: Severity
     detected_date: date
     anomaly_start_date: date
-    anomaly_end_date: Optional[date] = None
+    anomaly_end_date: date | None = None
     expected_value: Decimal = Field(..., ge=0)
     actual_value: Decimal = Field(..., ge=0)
     deviation_percentage: float
     anomaly_score: float = Field(..., ge=0)
-    scope_type: Optional[str] = None
-    scope_filter: Optional[Dict[str, Any]] = None
-    investigation_notes: Optional[str] = None
-    analysis_data: Optional[Dict[str, Any]] = None
+    scope_type: str | None = None
+    scope_filter: dict[str, Any] | None = None
+    investigation_notes: str | None = None
+    analysis_data: dict[str, Any] | None = None
 
 
 class CostAnomalyCreate(CostAnomalyBase):
@@ -419,8 +420,8 @@ class CostAnomalyCreate(CostAnomalyBase):
 
 class CostAnomalyUpdate(BaseModel):
     """Schema for updating cost anomalies"""
-    status: Optional[str] = Field(None, pattern=r"^(investigating|explained|resolved)$")
-    investigation_notes: Optional[str] = None
+    status: str | None = Field(None, pattern=r"^(investigating|explained|resolved)$")
+    investigation_notes: str | None = None
 
 
 class CostAnomaly(CostAnomalyBase):
@@ -428,7 +429,7 @@ class CostAnomaly(CostAnomalyBase):
     cloud_account_id: str
     status: str = "investigating"
     detected_at: datetime
-    resolved_at: Optional[datetime] = None
+    resolved_at: datetime | None = None
     
     model_config = ConfigDict(from_attributes=True)
 
@@ -447,12 +448,12 @@ class CostTrendBase(BaseModel):
     period_end: date
     period_type: str = Field(..., pattern=r"^(daily|weekly|monthly)$")
     total_cost: Decimal = Field(..., ge=0)
-    cost_change: Optional[Decimal] = None
-    cost_change_percentage: Optional[float] = None
-    trend_direction: Optional[TrendDirection] = None
-    trend_strength: Optional[float] = Field(None, ge=0, le=1)
-    scope_type: Optional[str] = None
-    scope_filter: Optional[Dict[str, Any]] = None
+    cost_change: Decimal | None = None
+    cost_change_percentage: float | None = None
+    trend_direction: TrendDirection | None = None
+    trend_strength: float | None = Field(None, ge=0, le=1)
+    scope_type: str | None = None
+    scope_filter: dict[str, Any] | None = None
 
 
 class CostTrendCreate(CostTrendBase):
@@ -472,19 +473,19 @@ class CostTrend(CostTrendBase):
 class ServiceCostBase(BaseModel):
     """Base service cost schema"""
     service_name: str = Field(..., min_length=1, max_length=255)
-    service_category: Optional[str] = None
+    service_category: str | None = None
     billing_period: str = Field(..., min_length=1, max_length=50)
     usage_start_date: date
     usage_end_date: date
     total_cost: Decimal = Field(..., ge=0)
-    compute_cost: Optional[Decimal] = Field(None, ge=0)
-    storage_cost: Optional[Decimal] = Field(None, ge=0)
-    network_cost: Optional[Decimal] = Field(None, ge=0)
-    other_cost: Optional[Decimal] = Field(None, ge=0)
-    usage_quantity: Optional[Decimal] = Field(None, ge=0)
-    usage_unit: Optional[str] = None
-    cost_growth_rate: Optional[float] = None
-    usage_growth_rate: Optional[float] = None
+    compute_cost: Decimal | None = Field(None, ge=0)
+    storage_cost: Decimal | None = Field(None, ge=0)
+    network_cost: Decimal | None = Field(None, ge=0)
+    other_cost: Decimal | None = Field(None, ge=0)
+    usage_quantity: Decimal | None = Field(None, ge=0)
+    usage_unit: str | None = None
+    cost_growth_rate: float | None = None
+    usage_growth_rate: float | None = None
 
 
 class ServiceCostCreate(ServiceCostBase):
@@ -509,7 +510,7 @@ class TagCostBase(BaseModel):
     usage_start_date: date
     usage_end_date: date
     total_cost: Decimal = Field(..., ge=0)
-    resource_count: Optional[int] = Field(None, ge=0)
+    resource_count: int | None = Field(None, ge=0)
 
 
 class TagCostCreate(TagCostBase):
@@ -541,20 +542,20 @@ class SavingsOpportunityBase(BaseModel):
     opportunity_type: OpportunityType
     title: str = Field(..., min_length=1, max_length=500)
     description: str = Field(..., min_length=1)
-    resource_ids: Optional[List[str]] = None
-    service_name: Optional[str] = None
-    current_cost: Optional[Decimal] = Field(None, ge=0)
+    resource_ids: list[str] | None = None
+    service_name: str | None = None
+    current_cost: Decimal | None = Field(None, ge=0)
     potential_savings: Decimal = Field(..., gt=0)
-    savings_percentage: Optional[float] = Field(None, ge=0, le=100)
-    investment_required: Optional[Decimal] = Field(None, ge=0)
-    roi_period_months: Optional[int] = Field(None, gt=0)
+    savings_percentage: float | None = Field(None, ge=0, le=100)
+    investment_required: Decimal | None = Field(None, ge=0)
+    roi_period_months: int | None = Field(None, gt=0)
     effort: Effort
     risk_level: str = Field(..., pattern=r"^(low|medium|high)$")
     confidence_score: float = Field(..., ge=0, le=1)
     status: str = Field(default="identified", pattern=r"^(identified|evaluating|implemented)$")
-    valid_until: Optional[date] = None
-    implementation_deadline: Optional[date] = None
-    analysis_data: Optional[Dict[str, Any]] = None
+    valid_until: date | None = None
+    implementation_deadline: date | None = None
+    analysis_data: dict[str, Any] | None = None
 
 
 class SavingsOpportunityCreate(SavingsOpportunityBase):
@@ -564,8 +565,8 @@ class SavingsOpportunityCreate(SavingsOpportunityBase):
 
 class SavingsOpportunityUpdate(BaseModel):
     """Schema for updating savings opportunities"""
-    status: Optional[str] = Field(None, pattern=r"^(identified|evaluating|implemented)$")
-    notes: Optional[str] = None
+    status: str | None = Field(None, pattern=r"^(identified|evaluating|implemented)$")
+    notes: str | None = None
 
 
 class SavingsOpportunity(SavingsOpportunityBase):
@@ -584,8 +585,8 @@ class CostMetrics(BaseModel):
     cost_change_percentage: float
     daily_average: Decimal
     projected_monthly: Decimal
-    services_breakdown: Dict[str, Decimal]
-    tags_breakdown: Dict[str, Decimal]
+    services_breakdown: dict[str, Decimal]
+    tags_breakdown: dict[str, Decimal]
 
 
 class ResourceCostAnalysis(BaseModel):
@@ -597,7 +598,7 @@ class ResourceCostAnalysis(BaseModel):
     utilization_score: float
     efficiency_score: float
     optimization_potential: Decimal
-    recommendations: List[str]
+    recommendations: list[str]
 
 
 class CostAnomalyDetection(BaseModel):
@@ -630,8 +631,8 @@ class OptimizationSummary(BaseModel):
     recommendations_stored: int
     total_monthly_savings: Decimal
     average_confidence: float
-    recommendations_by_type: Dict[str, int]
-    recommendations_by_priority: Dict[str, int]
+    recommendations_by_type: dict[str, int]
+    recommendations_by_priority: dict[str, int]
     generated_at: datetime
 
 
@@ -652,8 +653,8 @@ class HealthCheck(BaseModel):
     status: str
     timestamp: datetime
     version: str
-    database: Dict[str, Any]
-    redis: Optional[Dict[str, Any]] = None
+    database: dict[str, Any]
+    redis: dict[str, Any] | None = None
 
 
 class SystemStatus(BaseModel):
@@ -663,7 +664,7 @@ class SystemStatus(BaseModel):
     active_accounts: int
     total_recommendations: int
     total_savings: Decimal
-    last_sync: Optional[datetime] = None
+    last_sync: datetime | None = None
 
 
 # Query parameters
@@ -689,31 +690,31 @@ class PaginationQuery(BaseModel):
 
 class RecommendationQuery(PaginationQuery):
     """Recommendation query parameters"""
-    status: Optional[str] = Field(None, pattern=r"^(pending|approved|rejected|implemented)$")
-    type: Optional[RecommendationType] = None
-    priority: Optional[Priority] = None
-    min_savings: Optional[Decimal] = Field(None, ge=0)
+    status: str | None = Field(None, pattern=r"^(pending|approved|rejected|implemented)$")
+    type: RecommendationType | None = None
+    priority: Priority | None = None
+    min_savings: Decimal | None = Field(None, ge=0)
 
 
 class CostAnalysisQuery(DateRangeQuery):
     """Cost analysis query parameters"""
-    group_by: Optional[str] = Field(None, pattern=r"^(service|tag|resource|day)$")
+    group_by: str | None = Field(None, pattern=r"^(service|tag|resource|day)$")
     include_forecast: bool = False
 
 
 # Error response schemas
 class ErrorDetail(BaseModel):
     """Error detail schema"""
-    field: Optional[str] = None
+    field: str | None = None
     message: str
-    code: Optional[str] = None
+    code: str | None = None
 
 
 class ErrorResponse(BaseModel):
     """Error response schema"""
     error: str
     message: str
-    details: Optional[List[ErrorDetail]] = None
+    details: list[ErrorDetail] | None = None
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -722,7 +723,7 @@ class SuccessResponse(BaseModel):
     """Success response schema"""
     success: bool = True
     message: str
-    data: Optional[Any] = None
+    data: Any | None = None
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
@@ -731,6 +732,6 @@ class BatchResponse(BaseModel):
     success_count: int
     error_count: int
     total_count: int
-    errors: Optional[List[ErrorDetail]] = None
+    errors: list[ErrorDetail] | None = None
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 

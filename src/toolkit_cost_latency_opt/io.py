@@ -93,9 +93,9 @@ def read_jsonl(path: Path) -> Iterable[dict[str, Any]]:
                 yield obj
 
     except FileNotFoundError:
-        raise FileNotFoundError(f"Log file not found: {path}")
+        raise FileNotFoundError(f"Log file not found: {path}") from None
     except PermissionError:
-        raise PermissionError(f"Cannot read log file: {path}")
+        raise PermissionError(f"Cannot read log file: {path}") from None
     except UnicodeDecodeError as e:
         raise LogFormatError(f"File is not valid UTF-8: {path.name}") from e
 
@@ -117,9 +117,9 @@ def read_json(path: Path) -> Any:
     try:
         content = path.read_text(encoding="utf-8")
     except FileNotFoundError:
-        raise FileNotFoundError(f"Policy file not found: {path}")
+        raise FileNotFoundError(f"Policy file not found: {path}") from None
     except PermissionError:
-        raise PermissionError(f"Cannot read policy file: {path}")
+        raise PermissionError(f"Cannot read policy file: {path}") from None
     except UnicodeDecodeError as e:
         raise ValueError(f"Policy file is not valid UTF-8: {path.name}") from e
 

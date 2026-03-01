@@ -2,17 +2,29 @@
 Database models for Toolkit Cost Optimization Engine
 """
 
-from datetime import datetime, date, timezone
-from decimal import Decimal
-from typing import Optional, Dict, Any
-from sqlalchemy import (
-    Column, String, Integer, Float, Decimal as SQLDecimal, Boolean,
-    DateTime, Date, Text, JSON, ForeignKey, Index, UniqueConstraint,
-    CheckConstraint
-)
-from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql import JSONB, UUID
 import uuid
+from datetime import datetime, timezone
+
+from sqlalchemy import (
+    JSON,
+    Boolean,
+    CheckConstraint,
+    Column,
+    Date,
+    DateTime,
+    Float,
+    ForeignKey,
+    Index,
+    Integer,
+    String,
+    Text,
+    UniqueConstraint,
+)
+from sqlalchemy import (
+    Decimal as SQLDecimal,
+)
+from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy.orm import relationship
 
 from ..core.database import Base
 
@@ -182,7 +194,8 @@ class OptimizationRecommendation(Base):
     cloud_account_id = Column(UUID(as_uuid=True), ForeignKey("cloud_accounts.id"), nullable=False)
     
     # Recommendation details
-    recommendation_type = Column(String(100), nullable=False)  # right_size, schedule, terminate, etc.
+    # right_size, schedule, terminate, etc.
+    recommendation_type = Column(String(100), nullable=False)
     title = Column(String(500), nullable=False)
     description = Column(Text, nullable=False)
     
@@ -285,8 +298,14 @@ class Budget(Base):
         Index("idx_budgets_period", "start_date", "end_date"),
         Index("idx_budgets_active", "is_active"),
         CheckConstraint("amount > 0", name="check_budget_amount_positive"),
-        CheckConstraint("alert_threshold > 0 AND alert_threshold <= 1", name="check_alert_threshold"),
-        CheckConstraint("critical_threshold > 0 AND critical_threshold <= 1", name="check_critical_threshold"),
+        CheckConstraint(
+            "alert_threshold > 0 AND alert_threshold <= 1",
+            name="check_alert_threshold",
+        ),
+        CheckConstraint(
+            "critical_threshold > 0 AND critical_threshold <= 1",
+            name="check_critical_threshold",
+        ),
     )
 
 
@@ -644,7 +663,10 @@ class TagCost(Base):
         Index("idx_tag_costs_key", "tag_key"),
         Index("idx_tag_costs_value", "tag_value"),
         Index("idx_tag_costs_period", "billing_period"),
-        UniqueConstraint("cloud_account_id", "tag_key", "tag_value", "billing_period", name="uq_tag_cost"),
+        UniqueConstraint(
+            "cloud_account_id", "tag_key", "tag_value",
+            "billing_period", name="uq_tag_cost",
+        ),
     )
 
 
