@@ -25,7 +25,7 @@ class Settings(BaseSettings):
 
     # API
     API_V1_PREFIX: str = "/api/v1"
-    HOST: str = "0.0.0.0"
+    HOST: str = "0.0.0.0"  # nosec B104
     PORT: int = 8005
 
     # Security
