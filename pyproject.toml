@@ -50,7 +50,7 @@ omit = ["*/toolkit_cost_latency_opt/__main__.py"]
 [tool.coverage.report]
 show_missing = true
 skip_covered = true
-fail_under = 60
+fail_under = 70
 
 [tool.ruff]
 line-length = 100

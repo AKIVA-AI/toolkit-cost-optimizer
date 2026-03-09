@@ -13,24 +13,24 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
         python-version: ["3.10", "3.11", "3.12"]
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
-      
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]" || pip install -e .
-      
-      - name: Run tests with coverage
+
+      - name: Run tests with coverage (fail-under=70)
         run: |
-          pytest --cov=toolkit_cost_latency_opt --cov-report=xml --cov-report=term
-      
+          pytest --cov=toolkit_cost_latency_opt --cov-report=xml --cov-report=term --cov-fail-under=70
+
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
         if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.12'
@@ -40,20 +40,20 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -e ".[dev]" || pip install -e .
-      
+
       - name: Run ruff
         run: ruff check .
 
@@ -80,7 +80,7 @@ jobs:
           pip install -e "./services/cost-optimization-engine[dev,testing]"
           pip install aiosqlite cryptography
 
-      - name: Run service tests
+      - name: Run service tests with coverage (fail-under=70)
         env:
           ENVIRONMENT: test
           DATABASE_URL: "sqlite:///"
@@ -88,7 +88,46 @@ jobs:
           JWT_SECRET_KEY: ci-test-jwt-secret-key
         run: |
           cd services/cost-optimization-engine
-          pytest tests/ -x -q --tb=short
+          pytest tests/ -x -q --tb=short --cov=toolkit_cost_optimization_engine --cov-report=term --cov-fail-under=70
+
+  security-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools
+        run: |
+          python -m pip install --upgrade pip
+          pip install pip-audit bandit
+          pip install -e ".[dev]" || pip install -e .
+          pip install -e "./services/cost-optimization-engine[dev,testing]"
+
+      - name: Run pip-audit (CLI package)
+        run: pip-audit --strict --desc
+
+      - name: Run bandit (CLI package)
+        run: bandit -r src/ -c pyproject.toml || bandit -r src/ -ll
+
+      - name: Run bandit (service)
+        run: bandit -r services/cost-optimization-engine/src/ -ll
+
+  docker-build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build service Docker image
+        run: |
+          docker build -t toolkit-cost-optimizer-service:ci \
+            -f services/cost-optimization-engine/Dockerfile \
+            services/cost-optimization-engine/
 
   cli-test:
     runs-on: ubuntu-latest

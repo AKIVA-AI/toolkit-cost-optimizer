@@ -34,15 +34,17 @@ from .core.config import get_settings
 from .core.cost_tracker import cost_tracker
 from .core.credential_encryption import encrypt_credential
 from .core.database import get_db_session, init_db
+from .core.logging_config import configure_logging
 from .core.optimization_engine import optimization_engine
+from .core.request_id import RequestIDFilter, RequestIDMiddleware
+from .core.telemetry import get_tracer, init_telemetry
 from .models.models import CloudAccount as CloudAccountModel
 
-# Configure logging
+# Configure logging (structured JSON by default, controlled by LOG_FORMAT env var)
 settings = get_settings()
-logging.basicConfig(
-    level=getattr(logging, settings.LOG_LEVEL),
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-)
+configure_logging(log_level=settings.LOG_LEVEL, log_format=settings.LOG_FORMAT)
+# Install request-ID filter so every log record carries the current request ID
+logging.getLogger().addFilter(RequestIDFilter())
 logger = logging.getLogger(__name__)
 
 # Prometheus metrics
@@ -67,7 +69,8 @@ app = FastAPI(
     openapi_url="/openapi.json" if settings.ENVIRONMENT != "production" else None,
 )
 
-# Add middleware
+# Add middleware (order matters: last-added runs first in Starlette)
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.CORS_ORIGINS,
@@ -75,26 +78,37 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-app.add_middleware(GZipMiddleware, minimum_size=1000)
+# RequestIDMiddleware is pure ASGI — wrap after other middleware so it runs outermost
+app.add_middleware(RequestIDMiddleware)
 
 
-# Middleware for metrics
+# Middleware for metrics and tracing
 @app.middleware("http")
 async def metrics_middleware(request, call_next):
-    """Middleware to collect request metrics"""
+    """Middleware to collect request metrics and propagate trace spans"""
     start_time = time.time()
-    
-    response = await call_next(request)
-    
-    # Record metrics
-    duration = time.time() - start_time
-    REQUEST_DURATION.observe(duration)
-    REQUEST_COUNT.labels(
-        method=request.method,
-        endpoint=request.url.path,
-        status=response.status_code,
-    ).inc()
-    
+
+    tracer = get_tracer()
+    with tracer.start_as_current_span(
+        f"{request.method} {request.url.path}",
+    ) as otel_span:
+        otel_span.set_attribute("http.method", request.method)
+        otel_span.set_attribute("http.url", str(request.url))
+
+        response = await call_next(request)
+
+        # Record metrics
+        duration = time.time() - start_time
+        REQUEST_DURATION.observe(duration)
+        REQUEST_COUNT.labels(
+            method=request.method,
+            endpoint=request.url.path,
+            status=response.status_code,
+        ).inc()
+
+        otel_span.set_attribute("http.status_code", response.status_code)
+        otel_span.set_attribute("http.duration_ms", round(duration * 1000, 2))
+
     return response
 
 
@@ -105,6 +119,9 @@ async def startup_event():
     logger.info("Starting Toolkit Cost Optimization Engine...")
     
     try:
+        # Initialize telemetry
+        init_telemetry()
+
         # Initialize database
         await init_db()
         logger.info("Database initialized successfully")
