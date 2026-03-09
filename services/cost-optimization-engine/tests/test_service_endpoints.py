@@ -147,7 +147,10 @@ async def test_list_accounts_empty(async_client: AsyncClient):
     """Test listing accounts when none exist."""
     response = await async_client.get("/api/v1/accounts")
     assert response.status_code == 200
-    assert response.json() == []
+    data = response.json()
+    assert data["items"] == []
+    assert data["total"] == 0
+    assert data["page"] == 1
 
 
 async def test_create_account(async_client: AsyncClient):
@@ -209,8 +212,8 @@ async def test_create_and_list_accounts(async_client: AsyncClient):
 
     list_resp = await async_client.get("/api/v1/accounts")
     assert list_resp.status_code == 200
-    accounts = list_resp.json()
-    assert any(a["account_id"] == "list-test-001" for a in accounts)
+    data = list_resp.json()
+    assert any(a["account_id"] == "list-test-001" for a in data["items"])
 
 
 async def test_list_accounts_filter_by_provider(async_client: AsyncClient):
@@ -225,8 +228,8 @@ async def test_list_accounts_filter_by_provider(async_client: AsyncClient):
 
     resp = await async_client.get("/api/v1/accounts", params={"provider": "azure"})
     assert resp.status_code == 200
-    accounts = resp.json()
-    assert all(a["provider"] == "azure" for a in accounts)
+    data = resp.json()
+    assert all(a["provider"] == "azure" for a in data["items"])
 
 
 async def test_delete_account_not_found(async_client: AsyncClient):

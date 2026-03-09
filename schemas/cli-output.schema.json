@@ -1,0 +1,157 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/AKIVA-AI/toolkit-cost-optimizer/schemas/cli-output.schema.json",
+  "title": "Toolkit Cost & Latency Optimizer CLI Output Schema",
+  "description": "JSON Schema definitions for the output of each CLI subcommand.",
+  "oneOf": [
+    { "$ref": "#/$defs/ValidateOutput" },
+    { "$ref": "#/$defs/SummarizeOutput" },
+    { "$ref": "#/$defs/RecommendOutput" },
+    { "$ref": "#/$defs/SimulateOutput" }
+  ],
+  "$defs": {
+    "ValidateOutput": {
+      "title": "validate command output",
+      "type": "object",
+      "required": ["ok", "total", "invalid_rows", "issues"],
+      "additionalProperties": false,
+      "properties": {
+        "ok": {
+          "type": "boolean",
+          "description": "True when all rows pass validation."
+        },
+        "total": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total rows processed."
+        },
+        "invalid_rows": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of rows that failed validation."
+        },
+        "issues": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/SchemaIssue" },
+          "description": "Aggregated validation issues."
+        }
+      }
+    },
+    "SchemaIssue": {
+      "type": "object",
+      "required": ["kind", "field", "message", "count"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": ["missing", "type", "value"],
+          "description": "Category of the issue."
+        },
+        "field": {
+          "type": "string",
+          "description": "Name of the field with the issue."
+        },
+        "message": {
+          "type": "string",
+          "description": "Human-readable issue description."
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Number of rows with this issue."
+        }
+      }
+    },
+    "SummarizeOutput": {
+      "title": "summarize command output",
+      "type": "object",
+      "required": ["models"],
+      "additionalProperties": false,
+      "properties": {
+        "models": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/ModelSummary" }
+        }
+      }
+    },
+    "ModelSummary": {
+      "type": "object",
+      "required": ["model", "count", "success_rate", "total_cost_usd", "p50_ms", "p95_ms"],
+      "additionalProperties": false,
+      "properties": {
+        "model": { "type": "string" },
+        "count": { "type": "integer", "minimum": 0 },
+        "success_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+        "total_cost_usd": { "type": "number", "minimum": 0 },
+        "p50_ms": { "type": "number", "minimum": 0 },
+        "p95_ms": { "type": "number", "minimum": 0 }
+      }
+    },
+    "RecommendOutput": {
+      "title": "recommend command output",
+      "type": "object",
+      "required": ["ok"],
+      "properties": {
+        "ok": { "type": "boolean" },
+        "reason": {
+          "type": "string",
+          "description": "Present when ok=false."
+        },
+        "recommended_model": {
+          "type": "string",
+          "description": "Present when ok=true."
+        },
+        "avg_cost_usd": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Average cost per request for the recommended model."
+        },
+        "p95_ms": {
+          "type": "number",
+          "minimum": 0
+        },
+        "success_rate": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "SimulateOutput": {
+      "title": "simulate command output",
+      "type": "object",
+      "required": ["total_requests", "total_cost_usd", "models"],
+      "additionalProperties": false,
+      "properties": {
+        "total_requests": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "total_cost_usd": {
+          "type": "number",
+          "minimum": 0
+        },
+        "models": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["model", "count", "success_rate", "total_cost_usd", "p95_ms"],
+            "additionalProperties": false,
+            "properties": {
+              "model": { "type": "string" },
+              "count": { "type": "integer", "minimum": 0 },
+              "success_rate": { "type": "number", "minimum": 0, "maximum": 1 },
+              "total_cost_usd": { "type": "number", "minimum": 0 },
+              "p95_ms": { "type": "number", "minimum": 0 }
+            }
+          }
+        }
+      }
+    }
+  }
+}

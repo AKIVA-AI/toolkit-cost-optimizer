@@ -42,11 +42,6 @@ class Settings(BaseSettings):
     DATABASE_POOL_TIMEOUT: int = 30
     DATABASE_POOL_RECYCLE: int = 3600
     
-    # Redis
-    REDIS_URL: str = "redis://localhost:6382/0"
-    REDIS_CACHE_TTL: int = 3600
-    REDIS_SESSION_TTL: int = 86400
-    
     # Cost Tracking
     COST_TRACKING_INTERVAL: int = 300  # 5 minutes
     COST_RETENTION_DAYS: int = 365
@@ -73,42 +68,6 @@ class Settings(BaseSettings):
     OPTIMIZATION_CHECK_INTERVAL: int = 3600  # 1 hour
     OPTIMIZATION_CONFIDENCE_THRESHOLD: float = 0.7
     MAX_OPTIMIZATION_RECOMMENDATIONS: int = 50
-    
-    # Forecasting
-    FORECAST_HORIZON_DAYS: int = 30
-    FORECAST_MODEL_UPDATE_INTERVAL: int = 86400  # 24 hours
-    FORECAST_CONFIDENCE_THRESHOLD: float = 0.8
-    
-    # Budget Management
-    BUDGET_ALERT_THRESHOLD: float = 0.8  # 80%
-    BUDGET_CRITICAL_THRESHOLD: float = 0.95  # 95%
-    BUDGET_RETENTION_YEARS: int = 5
-    
-    # Notifications
-    SMTP_HOST: str | None = None
-    SMTP_PORT: int = 587
-    SMTP_USERNAME: str | None = None
-    SMTP_PASSWORD: str | None = None
-    SMTP_USE_TLS: bool = True
-    
-    SLACK_WEBHOOK_URL: str | None = None
-    TEAMS_WEBHOOK_URL: str | None = None
-    
-    # File Storage
-    STORAGE_TYPE: str = "local"  # local, s3, azure, gcs
-    STORAGE_PATH: str = "./data"
-    
-    # S3 Storage (if using S3)
-    S3_BUCKET: str | None = None
-    S3_REGION: str = "us-east-1"
-    
-    # Azure Storage (if using Azure)
-    AZURE_STORAGE_ACCOUNT: str | None = None
-    AZURE_STORAGE_CONTAINER: str | None = None
-    
-    # GCS Storage (if using GCS)
-    GCS_BUCKET: str | None = None
-    GCS_PROJECT: str | None = None
     
     # Logging
     LOG_LEVEL: str = "INFO"
@@ -199,32 +158,6 @@ class DatabaseSettings(BaseSettings):
         )
 
 
-class RedisSettings(BaseSettings):
-    """Redis-specific settings"""
-
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        case_sensitive=True,
-    )
-    
-    REDIS_HOST: str = "localhost"
-    REDIS_PORT: int = 6382
-    REDIS_DB: int = 0
-    REDIS_PASSWORD: str | None = None
-    REDIS_MAX_CONNECTIONS: int = 100
-    
-    # Cache settings
-    CACHE_TTL: int = 3600
-    SESSION_TTL: int = 86400
-    LOCK_TTL: int = 300
-    
-    @property
-    def redis_url(self) -> str:
-        """Construct Redis URL"""
-        auth = f":{self.REDIS_PASSWORD}@" if self.REDIS_PASSWORD else ""
-        return f"redis://{auth}{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"
-
-
 class CloudProviderSettings(BaseSettings):
     """Cloud provider settings"""
 
@@ -287,68 +220,6 @@ class OptimizationSettings(BaseSettings):
     WEEKEND_OPTIMIZATION_ENABLED: bool = True
 
 
-class ForecastingSettings(BaseSettings):
-    """Cost forecasting settings"""
-
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        case_sensitive=True,
-    )
-    
-    # General
-    FORECASTING_ENABLED: bool = True
-    FORECAST_HORIZON_DAYS: int = 30
-    FORECAST_MODEL_UPDATE_INTERVAL: int = 86400  # 24 hours
-    
-    # Models
-    ARIMA_ENABLED: bool = True
-    PROPHET_ENABLED: bool = True
-    LINEAR_REGRESSION_ENABLED: bool = True
-    ENSEMBLE_ENABLED: bool = True
-    
-    # Accuracy
-    MIN_ACCURACY_THRESHOLD: float = 0.7
-    CONFIDENCE_INTERVAL_LEVEL: float = 0.95
-    SEASONALITY_DETECTION_ENABLED: bool = True
-    
-    # Data
-    TRAINING_DATA_DAYS: int = 90
-    FEATURE_ENGINEERING_ENABLED: bool = True
-    EXTERNAL_FACTORS_ENABLED: bool = True
-
-
-class NotificationSettings(BaseSettings):
-    """Notification settings"""
-
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        case_sensitive=True,
-    )
-    
-    # Email
-    EMAIL_ENABLED: bool = False
-    SMTP_HOST: str | None = None
-    SMTP_PORT: int = 587
-    SMTP_USERNAME: str | None = None
-    SMTP_PASSWORD: str | None = None
-    SMTP_USE_TLS: bool = True
-    EMAIL_FROM: str | None = None
-    
-    # Slack
-    SLACK_ENABLED: bool = False
-    SLACK_WEBHOOK_URL: str | None = None
-    SLACK_CHANNEL: str = "#cost-alerts"
-    
-    # Teams
-    TEAMS_ENABLED: bool = False
-    TEAMS_WEBHOOK_URL: str | None = None
-    
-    # General
-    NOTIFICATION_COOLDOWN_MINUTES: int = 60
-    BATCH_NOTIFICATIONS: bool = True
-    NOTIFICATION_RETENTION_DAYS: int = 30
-
-
 @lru_cache
 def get_settings() -> Settings:
     """Get cached settings"""
@@ -359,12 +230,6 @@ def get_settings() -> Settings:
 def get_database_settings() -> DatabaseSettings:
     """Get cached database settings"""
     return DatabaseSettings()
-
-
-@lru_cache
-def get_redis_settings() -> RedisSettings:
-    """Get cached Redis settings"""
-    return RedisSettings()
 
 
 @lru_cache
@@ -379,24 +244,9 @@ def get_optimization_settings() -> OptimizationSettings:
     return OptimizationSettings()
 
 
-@lru_cache
-def get_forecasting_settings() -> ForecastingSettings:
-    """Get cached forecasting settings"""
-    return ForecastingSettings()
-
-
-@lru_cache
-def get_notification_settings() -> NotificationSettings:
-    """Get cached notification settings"""
-    return NotificationSettings()
-
-
 # Settings instances
 settings = get_settings()
 database_settings = get_database_settings()
-redis_settings = get_redis_settings()
 cloud_provider_settings = get_cloud_provider_settings()
 optimization_settings = get_optimization_settings()
-forecasting_settings = get_forecasting_settings()
-notification_settings = get_notification_settings()
 

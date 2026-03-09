@@ -718,6 +718,34 @@ class ErrorResponse(BaseModel):
     timestamp: datetime = Field(default_factory=lambda: datetime.now(timezone.utc))
 
 
+# Paginated response schemas
+class PaginatedResponse(BaseModel):
+    """Generic paginated response with metadata."""
+    items: list[Any]
+    total: int
+    page: int
+    page_size: int
+    total_pages: int
+
+
+class PaginatedAccounts(BaseModel):
+    """Paginated cloud accounts response."""
+    items: list[CloudAccount]
+    total: int
+    page: int
+    page_size: int
+    total_pages: int
+
+
+class PaginatedRecommendations(BaseModel):
+    """Paginated recommendations response."""
+    items: list[OptimizationRecommendation]
+    total: int
+    page: int
+    page_size: int
+    total_pages: int
+
+
 # Success response schemas
 class SuccessResponse(BaseModel):
     """Success response schema"""
