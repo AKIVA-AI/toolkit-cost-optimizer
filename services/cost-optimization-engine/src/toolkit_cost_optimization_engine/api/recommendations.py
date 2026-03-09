@@ -99,7 +99,8 @@ async def get_recommendations(
     except Exception as e:
         logger.error(f"Failed to get recommendations: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to get recommendations",
+            status_code=500,
+            detail="Failed to get recommendations",
         ) from e
 
 

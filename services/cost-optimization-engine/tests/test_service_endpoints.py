@@ -219,12 +219,15 @@ async def test_create_and_list_accounts(async_client: AsyncClient):
 async def test_list_accounts_filter_by_provider(async_client: AsyncClient):
     """Test filtering accounts by provider."""
     for provider, acct_id in [("aws", "filter-aws"), ("azure", "filter-azure")]:
-        await async_client.post("/api/v1/accounts", json={
-            "name": f"{provider} account",
-            "provider": provider,
-            "account_id": acct_id,
-            "region": "us-east-1",
-        })
+        await async_client.post(
+            "/api/v1/accounts",
+            json={
+                "name": f"{provider} account",
+                "provider": provider,
+                "account_id": acct_id,
+                "region": "us-east-1",
+            },
+        )
 
     resp = await async_client.get("/api/v1/accounts", params={"provider": "azure"})
     assert resp.status_code == 200

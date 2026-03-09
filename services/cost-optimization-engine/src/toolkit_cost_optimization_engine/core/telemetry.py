@@ -10,8 +10,9 @@ from __future__ import annotations
 
 import logging
 import os
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Any, Generator
+from typing import Any
 
 logger = logging.getLogger(__name__)
 
@@ -53,7 +54,7 @@ class _NoOpSpan:
     def record_exception(self, exc: BaseException) -> None:  # noqa: ARG002
         pass
 
-    def __enter__(self) -> "_NoOpSpan":
+    def __enter__(self) -> _NoOpSpan:
         return self
 
     def __exit__(self, *args: Any) -> None:
@@ -97,7 +98,9 @@ def init_telemetry(service_name: str = "toolkit-cost-optimization-engine") -> No
                 OTLPSpanExporter,
             )
 
-            provider.add_span_processor(BatchSpanProcessor(OTLPSpanExporter(endpoint=otlp_endpoint)))
+            provider.add_span_processor(
+                BatchSpanProcessor(OTLPSpanExporter(endpoint=otlp_endpoint)),
+            )
             logger.info("OpenTelemetry OTLP exporter configured: %s", otlp_endpoint)
         except ImportError:
             provider.add_span_processor(BatchSpanProcessor(ConsoleSpanExporter()))

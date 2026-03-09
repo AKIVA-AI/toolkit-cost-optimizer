@@ -23,15 +23,12 @@ class TierPolicy:
             ValueError: If policy structure is invalid
         """
         if not isinstance(obj, dict):
-            raise ValueError(
-                f"Policy must be a JSON object, got: {type(obj).__name__}"
-            )
+            raise ValueError(f"Policy must be a JSON object, got: {type(obj).__name__}")
 
         default_model = obj.get("default_model")
         if not isinstance(default_model, str):
             raise ValueError(
-                f"policy.default_model must be a string, "
-                f"got: {type(default_model).__name__}"
+                f"policy.default_model must be a string, got: {type(default_model).__name__}"
             )
         if not default_model or not default_model.strip():
             raise ValueError("policy.default_model cannot be empty")
@@ -40,9 +37,7 @@ class TierPolicy:
         if tiers_raw is None:
             tiers_raw = {}
         if not isinstance(tiers_raw, dict):
-            raise ValueError(
-                f"policy.tiers must be an object, got: {type(tiers_raw).__name__}"
-            )
+            raise ValueError(f"policy.tiers must be an object, got: {type(tiers_raw).__name__}")
 
         tiers = {}
         for k, v in tiers_raw.items():

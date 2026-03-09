@@ -14,9 +14,7 @@ ALLOWED_EXTENSIONS = {".jsonl", ".json", ".txt"}
 MAX_FILE_SIZE_MB = 1000
 
 
-def validate_file_path(
-    path: Path, allowed_exts: set[str] = ALLOWED_EXTENSIONS
-) -> Path:
+def validate_file_path(path: Path, allowed_exts: set[str] = ALLOWED_EXTENSIONS) -> Path:
     """Validate file path for security and existence.
 
     Args:
@@ -43,15 +41,12 @@ def validate_file_path(
 
     if resolved.suffix.lower() not in allowed_exts:
         raise ValueError(
-            f"Invalid file extension: {resolved.suffix}. "
-            f"Allowed: {', '.join(sorted(allowed_exts))}"
+            f"Invalid file extension: {resolved.suffix}. Allowed: {', '.join(sorted(allowed_exts))}"
         )
 
     size_mb = resolved.stat().st_size / (1024 * 1024)
     if size_mb > MAX_FILE_SIZE_MB:
-        raise ValueError(
-            f"File too large: {size_mb:.1f}MB (max: {MAX_FILE_SIZE_MB}MB)"
-        )
+        raise ValueError(f"File too large: {size_mb:.1f}MB (max: {MAX_FILE_SIZE_MB}MB)")
 
     return resolved
 

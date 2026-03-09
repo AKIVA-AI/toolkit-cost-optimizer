@@ -40,15 +40,17 @@ logger = logging.getLogger(__name__)
 
 # Prometheus metrics
 REQUEST_COUNT = Counter(
-    'cost_optimization_requests_total', 'Total requests',
-    ['method', 'endpoint', 'status'],
+    "cost_optimization_requests_total",
+    "Total requests",
+    ["method", "endpoint", "status"],
 )
-REQUEST_DURATION = Histogram('cost_optimization_request_duration_seconds', 'Request duration')
-ACTIVE_ACCOUNTS = Gauge('cost_optimization_active_accounts', 'Number of active cloud accounts')
+REQUEST_DURATION = Histogram("cost_optimization_request_duration_seconds", "Request duration")
+ACTIVE_ACCOUNTS = Gauge("cost_optimization_active_accounts", "Number of active cloud accounts")
 TOTAL_RECOMMENDATIONS = Gauge(
-    'cost_optimization_total_recommendations', 'Total number of recommendations',
+    "cost_optimization_total_recommendations",
+    "Total number of recommendations",
 )
-TOTAL_SAVINGS = Gauge('cost_optimization_total_savings_usd', 'Total potential savings in USD')
+TOTAL_SAVINGS = Gauge("cost_optimization_total_savings_usd", "Total potential savings in USD")
 
 # Create FastAPI application
 app = FastAPI(
@@ -151,6 +153,7 @@ async def update_metrics():
         async with get_db_session() as session:
             # Count active accounts
             from sqlalchemy import func, select
+
             account_count = await session.execute(
                 select(func.count(CloudAccountModel.id)).where(
                     CloudAccountModel.is_active.is_(True),
@@ -160,6 +163,7 @@ async def update_metrics():
 
             # Count total recommendations and savings
             from .models.models import OptimizationRecommendation
+
             rec_count = await session.execute(
                 select(func.count(OptimizationRecommendation.id)),
             )
@@ -229,14 +233,15 @@ async def system_status():
                 uptime="0d 0h 0m",  # Would calculate actual uptime
                 active_accounts=active_accounts.scalar() or 0,
                 total_recommendations=total_recommendations.scalar() or 0,
-                total_savings=total_savings.scalar() or Decimal('0'),
+                total_savings=total_savings.scalar() or Decimal("0"),
                 last_sync=last_sync.scalar(),
             )
 
     except Exception as e:
         logger.error(f"Failed to get system status: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to get system status",
+            status_code=500,
+            detail="Failed to get system status",
         ) from e
 
 

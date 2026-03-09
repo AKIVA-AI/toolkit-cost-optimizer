@@ -4,9 +4,8 @@ from __future__ import annotations
 
 import os
 import uuid
-from datetime import date, datetime, timedelta, timezone
+from datetime import date
 from decimal import Decimal
-from unittest.mock import MagicMock
 
 import pytest
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
@@ -89,6 +88,7 @@ async def db_session():
 # --------------------------------------------------------------------------
 # Data classes and enums
 # --------------------------------------------------------------------------
+
 
 class TestEnums:
     def test_recommendation_types(self):

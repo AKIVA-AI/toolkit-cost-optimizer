@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import argparse
 import json
@@ -38,9 +38,7 @@ def validate_cli_args(args: argparse.Namespace) -> None:
             raise ValueError(f"--max-p95-ms must be positive, got: {max_p95}")
 
         if max_p95 > 3600000:
-            raise ValueError(
-                f"--max-p95-ms too large: {max_p95}ms (max: 1 hour = 3600000ms)"
-            )
+            raise ValueError(f"--max-p95-ms too large: {max_p95}ms (max: 1 hour = 3600000ms)")
 
     if hasattr(args, "min_success"):
         try:
@@ -51,9 +49,7 @@ def validate_cli_args(args: argparse.Namespace) -> None:
             ) from e
 
         if not (0.0 <= min_success <= 1.0):
-            raise ValueError(
-                f"--min-success must be between 0.0 and 1.0, got: {min_success}"
-            )
+            raise ValueError(f"--min-success must be between 0.0 and 1.0, got: {min_success}")
 
     if hasattr(args, "min_samples"):
         try:
@@ -306,5 +302,3 @@ def main(argv: list[str] | None = None) -> int:
             file=sys.stderr,
         )
         return EXIT_UNEXPECTED_ERROR
-
-

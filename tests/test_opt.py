@@ -1,4 +1,4 @@
-﻿from __future__ import annotations
+from __future__ import annotations
 
 import json
 from pathlib import Path
@@ -101,4 +101,3 @@ def test_simulate(tmp_path: Path) -> None:
         json.dumps({"default_model": "cheap", "tiers": {"deep": "strong"}}), encoding="utf-8"
     )
     assert main(["simulate", "--input", str(logs), "--policy", str(policy)]) == 0
-

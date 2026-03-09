@@ -44,7 +44,8 @@ async def sync_cost_data(
     except Exception as e:
         logger.error(f"Failed to start cost data sync: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to start cost data sync",
+            status_code=500,
+            detail="Failed to start cost data sync",
         ) from e
 
 
@@ -70,7 +71,8 @@ async def get_cost_metrics(
     except Exception as e:
         logger.error(f"Failed to get cost metrics: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to get cost metrics",
+            status_code=500,
+            detail="Failed to get cost metrics",
         ) from e
 
 
@@ -96,7 +98,8 @@ async def analyze_resource_costs(account_id: str, days_back: int = Query(30, ge=
     except Exception as e:
         logger.error(f"Failed to analyze resource costs: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to analyze resource costs",
+            status_code=500,
+            detail="Failed to analyze resource costs",
         ) from e
 
 
@@ -119,7 +122,8 @@ async def detect_cost_anomalies(account_id: str, days_back: int = Query(30, ge=1
     except Exception as e:
         logger.error(f"Failed to detect cost anomalies: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to detect cost anomalies",
+            status_code=500,
+            detail="Failed to detect cost anomalies",
         ) from e
 
 
@@ -144,5 +148,6 @@ async def get_cost_trends(account_id: str, days_back: int = Query(90, ge=1, le=3
     except Exception as e:
         logger.error(f"Failed to get cost trends: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to get cost trends",
+            status_code=500,
+            detail="Failed to get cost trends",
         ) from e

@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+from sqlalchemy.ext.asyncio import create_async_engine
 from sqlalchemy.pool import StaticPool
 
 os.environ["ENVIRONMENT"] = "test"
@@ -200,7 +200,7 @@ class TestCloseDb:
 class TestInitDb:
     async def test_init_db_creates_tables(self):
         from toolkit_cost_optimization_engine.core import database as db_module
-        from toolkit_cost_optimization_engine.core.database import close_db, init_db
+        from toolkit_cost_optimization_engine.core.database import init_db
 
         orig_engine = db_module.engine
         orig_session = db_module.AsyncSessionLocal

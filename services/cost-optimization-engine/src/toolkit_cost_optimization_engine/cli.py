@@ -1,4 +1,4 @@
-﻿"""
+"""
 CLI entrypoint for Toolkit Cost Optimization Engine.
 """
 
@@ -43,5 +43,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-
-

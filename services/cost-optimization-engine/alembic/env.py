@@ -8,10 +8,11 @@ from __future__ import annotations
 import os
 from logging.config import fileConfig
 
-from alembic import context
 from sqlalchemy import pool
 from sqlalchemy.engine import Connection
 from sqlalchemy.ext.asyncio import async_engine_from_config
+
+from alembic import context
 
 # Import Base and all models so Alembic can detect schema
 from toolkit_cost_optimization_engine.core.database import Base

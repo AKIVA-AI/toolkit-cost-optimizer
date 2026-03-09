@@ -1,4 +1,4 @@
-﻿from toolkit_cost_optimization_engine.core.database import _build_async_database_url
+from toolkit_cost_optimization_engine.core.database import _build_async_database_url
 
 
 def test_build_async_database_url_postgres():
@@ -14,4 +14,3 @@ def test_build_async_database_url_sqlite():
 def test_build_async_database_url_already_async():
     url = "sqlite+aiosqlite:///./local.db"
     assert _build_async_database_url(url) == "sqlite+aiosqlite:///./local.db"
-

@@ -1,4 +1,4 @@
-﻿"""
+"""
 Database configuration and connection management for Toolkit Cost Optimization Engine.
 """
 
@@ -82,6 +82,7 @@ async def init_db() -> None:
     try:
         async with engine.begin() as conn:
             from ..models import models  # noqa: F401
+
             await conn.run_sync(Base.metadata.create_all)
         logger.info("Database tables created successfully")
     except Exception as exc:
@@ -143,7 +144,11 @@ async def with_retry(
     max_retries: int = 3,
     base_delay: float = 0.5,
     max_delay: float = 10.0,
-    retryable_exceptions: tuple[type[Exception], ...] = (OperationalError, ConnectionError, OSError),
+    retryable_exceptions: tuple[type[Exception], ...] = (
+        OperationalError,
+        ConnectionError,
+        OSError,
+    ),
     **kwargs,
 ) -> T:
     """Execute an async callable with exponential backoff on transient failures.
@@ -174,7 +179,7 @@ async def with_retry(
                     exc,
                 )
                 raise
-            delay = min(base_delay * (2 ** attempt), max_delay)
+            delay = min(base_delay * (2**attempt), max_delay)
             logger.warning(
                 "Retryable database error (attempt %d/%d), retrying in %.1fs: %s",
                 attempt + 1,
@@ -224,4 +229,3 @@ class DatabaseManager:
 
 
 db_manager = DatabaseManager()
-

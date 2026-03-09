@@ -111,7 +111,7 @@ class TestSessionLifecycle:
             session.add(account)
             await session.commit()
             await session.refresh(account)
-            account_id = str(account.id)
+            _ = str(account.id)  # Verify ID was assigned
 
         # Read in new session — use account_id field (string) for lookup
         async with get_db_session() as session:
@@ -175,9 +175,9 @@ class TestSessionLifecycle:
 
     async def test_multiple_concurrent_sessions(self, test_db):
         """Multiple sessions can operate concurrently without interfering."""
-        from toolkit_cost_optimization_engine.core.database import get_db_session
-
         import asyncio
+
+        from toolkit_cost_optimization_engine.core.database import get_db_session
 
         results = []
 

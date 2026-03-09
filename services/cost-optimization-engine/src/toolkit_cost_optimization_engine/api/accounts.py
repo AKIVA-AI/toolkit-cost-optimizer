@@ -39,8 +39,7 @@ async def create_cloud_account(account_data: CloudAccountCreate):
                 raise HTTPException(
                     status_code=409,
                     detail=(
-                        "Cloud account with this provider,"
-                        " account ID, and region already exists"
+                        "Cloud account with this provider, account ID, and region already exists"
                     ),
                 )
 
@@ -61,7 +60,8 @@ async def create_cloud_account(account_data: CloudAccountCreate):
     except Exception as e:
         logger.error(f"Failed to create cloud account: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to create cloud account",
+            status_code=500,
+            detail="Failed to create cloud account",
         ) from e
 
 
@@ -103,7 +103,8 @@ async def list_cloud_accounts(
     except Exception as e:
         logger.error(f"Failed to list cloud accounts: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to list cloud accounts",
+            status_code=500,
+            detail="Failed to list cloud accounts",
         ) from e
 
 
@@ -127,7 +128,8 @@ async def get_cloud_account(account_id: str):
     except Exception as e:
         logger.error(f"Failed to get cloud account: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to get cloud account",
+            status_code=500,
+            detail="Failed to get cloud account",
         ) from e
 
 
@@ -160,7 +162,8 @@ async def update_cloud_account(account_id: str, account_data: CloudAccountUpdate
     except Exception as e:
         logger.error(f"Failed to update cloud account: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to update cloud account",
+            status_code=500,
+            detail="Failed to update cloud account",
         ) from e
 
 
@@ -187,5 +190,6 @@ async def delete_cloud_account(account_id: str):
     except Exception as e:
         logger.error(f"Failed to delete cloud account: {e}")
         raise HTTPException(
-            status_code=500, detail="Failed to delete cloud account",
+            status_code=500,
+            detail="Failed to delete cloud account",
         ) from e

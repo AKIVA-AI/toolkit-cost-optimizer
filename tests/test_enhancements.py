@@ -1,4 +1,4 @@
-﻿"""Tests for enhanced features: validation, error handling, logging."""
+"""Tests for enhanced features: validation, error handling, logging."""
 
 from __future__ import annotations
 
@@ -434,4 +434,3 @@ def test_cli_verbose_flag(tmp_path: Path, caplog: pytest.LogCaptureFixture) -> N
 
     result = main(["--verbose", "summarize", "--input", str(logs)])
     assert result == 0
-

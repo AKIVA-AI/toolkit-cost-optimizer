@@ -143,7 +143,6 @@ class TestJSONLogging:
         assert parsed["request_id"] == "abc-123"
 
     def test_json_formatter_includes_exception(self):
-        import traceback
 
         from toolkit_cost_optimization_engine.core.logging_config import JSONFormatter
 
