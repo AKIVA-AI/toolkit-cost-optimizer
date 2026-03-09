@@ -29,12 +29,12 @@ class Settings(BaseSettings):
     PORT: int = 8005
     
     # Security
-    SECRET_KEY: str = "your-secret-key-change-in-production"
-    JWT_SECRET_KEY: str = "your-jwt-secret-key-change-in-production"
+    SECRET_KEY: str = ""
+    JWT_SECRET_KEY: str = ""
     JWT_ALGORITHM: str = "HS256"
     JWT_EXPIRE_MINUTES: int = 30
     CORS_ORIGINS: list[str] = ["http://localhost:3000", "http://localhost:8080"]
-    
+
     # Database
     DATABASE_URL: str = "postgresql://user:password@localhost:5436/cost_optimization_engine"
     DATABASE_POOL_SIZE: int = 20
@@ -143,9 +143,17 @@ class Settings(BaseSettings):
     @field_validator("SECRET_KEY", mode="before")
     @classmethod
     def validate_secret_key(cls, value):
-        if not value or value == "your-secret-key-change-in-production":
+        if not value or not value.strip():
             if os.getenv("ENVIRONMENT") == "production":
                 raise ValueError("SECRET_KEY must be set in production")
+        return value
+
+    @field_validator("JWT_SECRET_KEY", mode="before")
+    @classmethod
+    def validate_jwt_secret_key(cls, value):
+        if not value or not value.strip():
+            if os.getenv("ENVIRONMENT") == "production":
+                raise ValueError("JWT_SECRET_KEY must be set in production")
         return value
 
 
@@ -165,7 +173,7 @@ class DatabaseSettings(BaseSettings):
     POSTGRES_PORT: int = 5436
     POSTGRES_DB: str = "cost_optimization_engine"
     POSTGRES_USER: str = "akiva"
-    POSTGRES_PASSWORD: str = "password"
+    POSTGRES_PASSWORD: str = ""
     
     # Connection Pool
     POOL_SIZE: int = 20

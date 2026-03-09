@@ -32,6 +32,7 @@ from .api.schemas import (
 )
 from .core.config import get_settings
 from .core.cost_tracker import cost_tracker
+from .core.credential_encryption import encrypt_credential
 from .core.database import get_db_session, init_db
 from .core.optimization_engine import optimization_engine
 from .models.models import CloudAccount as CloudAccountModel
@@ -253,8 +254,13 @@ async def create_cloud_account(account_data: CloudAccountCreate):
                     ),
                 )
             
-            # Create new account
-            account = CloudAccountModel(**account_data.model_dump())
+            # Create new account with encrypted credentials
+            account_dict = account_data.model_dump()
+            if account_dict.get("access_key"):
+                account_dict["access_key"] = encrypt_credential(account_dict["access_key"])
+            if account_dict.get("secret_key"):
+                account_dict["secret_key"] = encrypt_credential(account_dict["secret_key"])
+            account = CloudAccountModel(**account_dict)
             session.add(account)
             await session.commit()
             await session.refresh(account)
@@ -347,9 +353,11 @@ async def update_cloud_account(account_id: str, account_data: CloudAccountUpdate
             if not account:
                 raise HTTPException(status_code=404, detail="Cloud account not found")
             
-            # Update account
+            # Update account (encrypt credential fields)
             update_data = account_data.model_dump(exclude_unset=True)
             for field, value in update_data.items():
+                if field in ("access_key", "secret_key") and value:
+                    value = encrypt_credential(value)
                 setattr(account, field, value)
             
             await session.commit()
@@ -645,7 +653,7 @@ async def http_exception_handler(request, exc):
         content=ErrorResponse(
             error=exc.detail,
             message=str(exc),
-        ).model_dump(),
+        ).model_dump(mode="json"),
     )
 
 
@@ -658,7 +666,7 @@ async def general_exception_handler(request, exc):
         content=ErrorResponse(
             error="Internal server error",
             message="An unexpected error occurred",
-        ).model_dump(),
+        ).model_dump(mode="json"),
     )
 
 

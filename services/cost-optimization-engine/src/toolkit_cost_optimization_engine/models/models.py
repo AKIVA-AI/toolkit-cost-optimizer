@@ -21,7 +21,7 @@ from sqlalchemy import (
     UniqueConstraint,
 )
 from sqlalchemy import (
-    Decimal as SQLDecimal,
+    Numeric as SQLDecimal,
 )
 from sqlalchemy.dialects.postgresql import JSONB, UUID
 from sqlalchemy.orm import relationship
@@ -41,7 +41,7 @@ class CloudAccount(Base):
     account_id = Column(String(255), nullable=False)
     region = Column(String(100), nullable=False)
     
-    # Credentials (encrypted)
+    # Credentials (stored encrypted via credential_encryption module)
     access_key = Column(Text, nullable=True)
     secret_key = Column(Text, nullable=True)
     tenant_id = Column(String(255), nullable=True)

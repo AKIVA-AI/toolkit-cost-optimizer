@@ -60,17 +60,47 @@ jobs:
       - name: Run pyright
         run: pyright
 
-  cli-test:
+  service-test:
     runs-on: ubuntu-latest
-    
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12"]
+
     steps:
       - uses: actions/checkout@v4
-      
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install service dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e "./services/cost-optimization-engine[dev,testing]"
+          pip install aiosqlite cryptography
+
+      - name: Run service tests
+        env:
+          ENVIRONMENT: test
+          DATABASE_URL: "sqlite:///"
+          SECRET_KEY: ci-test-secret-key
+          JWT_SECRET_KEY: ci-test-jwt-secret-key
+        run: |
+          cd services/cost-optimization-engine
+          pytest tests/ -x -q --tb=short
+
+  cli-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      
+
       - name: Install package
         run: |
           python -m pip install --upgrade pip
