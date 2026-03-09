@@ -172,10 +172,14 @@ class RightSizingRule(OptimizationRuleBase):
                         current_cost = cost_result.scalar() or Decimal('0')
 
                         if current_cost > 0:
-                            # Calculate potential savings (30-50%)
-                            # Placeholder - would use actual pricing data
-                            savings_percentage = np.random.uniform(0.3, 0.5)
-                            monthly_savings = current_cost * Decimal(str(savings_percentage))
+                            # Deterministic savings estimate based on utilization
+                            # Lower utilization => higher savings potential (30-50% range)
+                            avg_util = (avg_cpu + avg_memory) / 2
+                            # Map utilization 0..threshold to savings 0.50..0.30
+                            threshold = optimization_settings.RESOURCE_UTILIZATION_THRESHOLD
+                            util_ratio = min(avg_util / (threshold * 100), 1.0) if threshold > 0 else 0
+                            savings_percentage = 0.50 - (util_ratio * 0.20)  # 0.50 at 0% util, 0.30 at threshold
+                            monthly_savings = current_cost * Decimal(str(round(savings_percentage, 4)))
                             
                             # Determine target instance type
                             target_type = self._suggest_target_instance(
@@ -594,10 +598,16 @@ class ReservedInstancesRule(OptimizationRuleBase):
                     current_cost = cost_result.scalar() or Decimal('0')
                     
                     if current_cost > 100:  # Only recommend for significant costs
-                        # Calculate RI savings (typically 30-60%)
-                        # Placeholder - would use actual RI pricing
-                        savings_percentage = np.random.uniform(0.3, 0.6)
-                        monthly_savings = current_cost * Decimal(str(savings_percentage))
+                        # Deterministic RI savings estimate based on usage stability
+                        # Higher, more consistent usage => more RI savings (30-60% range)
+                        avg_cpu = float(row.avg_cpu or 0)
+                        data_points = row.data_points
+                        # Stable, moderate usage gets higher savings
+                        stability_factor = min(data_points / 720, 1.0)  # Normalized to 30 days
+                        usage_factor = min(avg_cpu / 90.0, 1.0)  # Normalized to max 90%
+                        savings_percentage = 0.30 + (stability_factor * 0.15) + (usage_factor * 0.15)
+                        savings_percentage = min(savings_percentage, 0.60)
+                        monthly_savings = current_cost * Decimal(str(round(savings_percentage, 4)))
                         
                         recommendation = RecommendationData(
                             type=RecommendationType.RESERVED_INSTANCES,

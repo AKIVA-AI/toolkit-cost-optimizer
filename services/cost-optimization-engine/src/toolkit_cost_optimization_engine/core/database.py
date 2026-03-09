@@ -4,11 +4,14 @@ Database configuration and connection management for Toolkit Cost Optimization E
 
 from __future__ import annotations
 
+import asyncio
 import logging
-from collections.abc import AsyncGenerator
+from collections.abc import AsyncGenerator, Callable
 from contextlib import asynccontextmanager
+from typing import TypeVar
 
 from sqlalchemy import text
+from sqlalchemy.exc import OperationalError
 from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
 from sqlalchemy.orm import declarative_base
 from sqlalchemy.pool import NullPool
@@ -131,8 +134,61 @@ async def check_db_connection() -> bool:
         return False
 
 
+T = TypeVar("T")
+
+
+async def with_retry(
+    func: Callable[..., T],
+    *args,
+    max_retries: int = 3,
+    base_delay: float = 0.5,
+    max_delay: float = 10.0,
+    retryable_exceptions: tuple[type[Exception], ...] = (OperationalError, ConnectionError, OSError),
+    **kwargs,
+) -> T:
+    """Execute an async callable with exponential backoff on transient failures.
+
+    Parameters
+    ----------
+    func:
+        Async callable to execute.
+    max_retries:
+        Total number of attempts (including the first). Minimum 1.
+    base_delay:
+        Initial delay in seconds before the first retry.
+    max_delay:
+        Maximum delay cap in seconds.
+    retryable_exceptions:
+        Exception types that trigger a retry. All others propagate immediately.
+    """
+    last_exc: Exception | None = None
+    for attempt in range(max(max_retries, 1)):
+        try:
+            return await func(*args, **kwargs)
+        except retryable_exceptions as exc:
+            last_exc = exc
+            if attempt + 1 >= max_retries:
+                logger.error(
+                    "Database operation failed after %d attempts: %s",
+                    max_retries,
+                    exc,
+                )
+                raise
+            delay = min(base_delay * (2 ** attempt), max_delay)
+            logger.warning(
+                "Retryable database error (attempt %d/%d), retrying in %.1fs: %s",
+                attempt + 1,
+                max_retries,
+                delay,
+                exc,
+            )
+            await asyncio.sleep(delay)
+    # Should not reach here, but satisfy type checker
+    raise last_exc  # type: ignore[misc]
+
+
 class DatabaseManager:
-    """Database connection manager with health checks."""
+    """Database connection manager with health checks and retry support."""
 
     async def health_check(self) -> dict:
         if engine is None:
@@ -152,6 +208,19 @@ class DatabaseManager:
         async with engine.begin() as conn:
             result = await conn.execute(text(query), params or {})
             return result.fetchall()
+
+    async def execute_with_retry(
+        self,
+        query: str,
+        params: dict | None = None,
+        max_retries: int = 3,
+    ) -> list:
+        """Execute raw SQL with exponential backoff retry on transient errors."""
+
+        async def _execute():
+            return await self.execute_raw_sql(query, params)
+
+        return await with_retry(_execute, max_retries=max_retries)
 
 
 db_manager = DatabaseManager()
