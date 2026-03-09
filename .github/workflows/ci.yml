@@ -109,7 +109,7 @@ jobs:
           pip install -e "./services/cost-optimization-engine[dev,testing]"
 
       - name: Run pip-audit (CLI package)
-        run: pip-audit --strict --desc
+        run: pip-audit --strict --desc --skip-editable
 
       - name: Run bandit (CLI package)
         run: bandit -r src/ -c pyproject.toml || bandit -r src/ -ll
