@@ -8,8 +8,10 @@ from collections import defaultdict
 from pathlib import Path
 
 from .io import LogFormatError, read_json, read_jsonl, validate_file_path
+from .observability import configure_structured_logging, get_metrics, track_time
 from .policy import TierPolicy
 from .schema import SchemaIssue, validate_inference_event
+from .security import sanitize_for_log
 from .stats import summarize_model
 
 logger = logging.getLogger(__name__)
@@ -63,10 +65,13 @@ def validate_cli_args(args: argparse.Namespace) -> None:
             raise ValueError(f"--min-samples must be >= 1, got: {min_samples}")
 
 
+@track_time("validate")
 def _cmd_validate(args: argparse.Namespace) -> int:
     """Validate logs against schema."""
+    metrics = get_metrics()
+    metrics.increment("analyses_run")
     input_path = validate_file_path(Path(args.input), {".jsonl"})
-    logger.info(f"Validating {input_path.name}")
+    logger.info("Validating %s", sanitize_for_log(input_path.name))
 
     issues: dict[tuple[str, str, str], int] = {}
     total = 0
@@ -99,10 +104,13 @@ def _cmd_validate(args: argparse.Namespace) -> int:
     return EXIT_VALIDATION_FAILED
 
 
+@track_time("summarize")
 def _cmd_summarize(args: argparse.Namespace) -> int:
     """Summarize logs per model."""
+    metrics = get_metrics()
+    metrics.increment("analyses_run")
     input_path = validate_file_path(Path(args.input), {".jsonl"})
-    logger.info(f"Summarizing {input_path.name}")
+    logger.info("Summarizing %s", sanitize_for_log(input_path.name))
 
     buckets: dict[str, list[dict[str, object]]] = defaultdict(list)
     total = 0
@@ -129,8 +137,11 @@ def _cmd_summarize(args: argparse.Namespace) -> int:
     return EXIT_SUCCESS
 
 
+@track_time("recommend")
 def _cmd_recommend(args: argparse.Namespace) -> int:
     """Recommend default model under SLO constraints."""
+    metrics = get_metrics()
+    metrics.increment("analyses_run")
     validate_cli_args(args)
     input_path = validate_file_path(Path(args.input), {".jsonl"})
 
@@ -188,8 +199,11 @@ def _cmd_recommend(args: argparse.Namespace) -> int:
     return EXIT_SUCCESS
 
 
+@track_time("simulate")
 def _cmd_simulate(args: argparse.Namespace) -> int:
     """Simulate a tier policy over historical logs."""
+    metrics = get_metrics()
+    metrics.increment("analyses_run")
     input_path = validate_file_path(Path(args.input), {".jsonl"})
     policy_path = validate_file_path(Path(args.policy), {".json"})
 
@@ -243,6 +257,11 @@ def build_parser() -> argparse.ArgumentParser:
         action="store_true",
         help="Enable verbose logging (DEBUG level)",
     )
+    p.add_argument(
+        "--json-log",
+        action="store_true",
+        help="Output structured JSON logs to stderr",
+    )
     sub = p.add_subparsers(dest="cmd", required=True)
 
     v = sub.add_parser("validate", help="Validate logs against Toolkit inference-event schema.")
@@ -280,23 +299,33 @@ def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
 
-    logging.basicConfig(
-        level=logging.DEBUG if args.verbose else logging.WARNING,
-        format="%(asctime)s | %(levelname)-8s | %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-        stream=sys.stderr,
-    )
+    log_level = logging.DEBUG if args.verbose else logging.WARNING
+    json_log = getattr(args, "json_log", False)
+
+    if json_log:
+        configure_structured_logging(level=log_level, json_format=True)
+    else:
+        logging.basicConfig(
+            level=log_level,
+            format="%(asctime)s | %(levelname)-8s | %(message)s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+            stream=sys.stderr,
+        )
+
+    metrics = get_metrics()
 
     try:
         return int(args.func(args))
     except (ValueError, FileNotFoundError, PermissionError, LogFormatError) as e:
-        logger.error(f"{type(e).__name__}: {e}")
+        metrics.increment("errors")
+        logger.error("%s: %s", type(e).__name__, sanitize_for_log(str(e)))
         return EXIT_CLI_ERROR
     except KeyboardInterrupt:
         logger.warning("Interrupted by user")
         return EXIT_UNEXPECTED_ERROR
     except Exception as e:
-        logger.exception(f"Unexpected error: {e}")
+        metrics.increment("errors")
+        logger.exception("Unexpected error: %s", sanitize_for_log(str(e)))
         print(
             "\nAn unexpected error occurred. Please report this issue.",
             file=sys.stderr,
