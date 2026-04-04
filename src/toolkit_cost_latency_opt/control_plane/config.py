@@ -6,6 +6,7 @@ Three-tier hierarchy (mirrors Akiva platform pattern):
   Level 1 — Toolkit config (pyproject.toml / config file)
   Level 2 — CLI overrides (argv flags)
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass, field
@@ -27,14 +28,14 @@ class ToolkitConfigContract:
     version: str = "1.0.0"
 
     # ── Runtime behaviour ─────────────────────────────────────────────────────
-    log_format: str = "json"          # 'json' | 'text'
-    max_log_lines: int = 10_000       # hard cap on JSONL input
+    log_format: str = "json"  # 'json' | 'text'
+    max_log_lines: int = 10_000  # hard cap on JSONL input
     structured_logging: bool = True
-    output_format: str = "json"       # 'json' | 'text'
+    output_format: str = "json"  # 'json' | 'text'
 
     # ── Policy / tier ─────────────────────────────────────────────────────────
-    default_tier: str = "standard"    # 'economy' | 'standard' | 'premium'
-    slo_latency_ms: int = 2000        # latency SLO ceiling
+    default_tier: str = "standard"  # 'economy' | 'standard' | 'premium'
+    slo_latency_ms: int = 2000  # latency SLO ceiling
 
     # ── Extension ─────────────────────────────────────────────────────────────
     extra: dict[str, Any] = field(default_factory=dict)

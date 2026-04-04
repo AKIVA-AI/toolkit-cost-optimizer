@@ -85,9 +85,7 @@ class TestSchemaValidation:
             "success": True,
         }
         issues = validate_inference_event(row)
-        assert any(
-            i.field == "cost_usd" and i.message == "must_be_non_negative" for i in issues
-        )
+        assert any(i.field == "cost_usd" and i.message == "must_be_non_negative" for i in issues)
 
     def test_success_not_bool(self) -> None:
         """Non-bool success triggers type issue."""
@@ -142,9 +140,7 @@ class TestSchemaValidation:
             "tokens_out": -5,
         }
         issues = validate_inference_event(row)
-        assert any(
-            i.field == "tokens_out" and i.message == "must_be_non_negative" for i in issues
-        )
+        assert any(i.field == "tokens_out" and i.message == "must_be_non_negative" for i in issues)
 
     def test_valid_row_no_issues(self) -> None:
         """Valid row should produce no issues."""
@@ -190,9 +186,7 @@ class TestSchemaValidation:
             "success": True,
         }
         issues = validate_inference_event(row)
-        assert any(
-            i.field == "latency_ms" and i.message == "must_be_non_negative" for i in issues
-        )
+        assert any(i.field == "latency_ms" and i.message == "must_be_non_negative" for i in issues)
 
     def test_schema_version_zero(self) -> None:
         """Schema version 0 triggers issue (must be 1)."""
@@ -297,8 +291,12 @@ class TestStatsCalculations:
     def test_model_summary_dataclass(self) -> None:
         """ModelSummary is a frozen dataclass."""
         ms = ModelSummary(
-            model="test", count=10, success_rate=0.9,
-            total_cost_usd=1.0, p50_ms=50.0, p95_ms=95.0,
+            model="test",
+            count=10,
+            success_rate=0.9,
+            total_cost_usd=1.0,
+            p50_ms=50.0,
+            p95_ms=95.0,
         )
         assert ms.model == "test"
         assert ms.count == 10
@@ -349,10 +347,19 @@ class TestCLIOutputVerification:
     def test_validate_output_structure(self, tmp_path: Path, capsys: CapSys) -> None:
         """Validate command output has correct JSON structure."""
         logs = tmp_path / "valid.jsonl"
-        _write_jsonl(logs, [{
-            "schema_version": 1, "created_ts": 1.0, "model": "test",
-            "latency_ms": 100, "cost_usd": 0.001, "success": True,
-        }])
+        _write_jsonl(
+            logs,
+            [
+                {
+                    "schema_version": 1,
+                    "created_ts": 1.0,
+                    "model": "test",
+                    "latency_ms": 100,
+                    "cost_usd": 0.001,
+                    "success": True,
+                }
+            ],
+        )
         result = main(["validate", "--input", str(logs)])
         assert result == EXIT_SUCCESS
         output = json.loads(capsys.readouterr().out)
@@ -363,12 +370,27 @@ class TestCLIOutputVerification:
     def test_summarize_output_structure(self, tmp_path: Path, capsys: CapSys) -> None:
         """Summarize output contains correct model statistics."""
         logs = tmp_path / "logs.jsonl"
-        _write_jsonl(logs, [
-            {"schema_version": 1, "created_ts": 1.0, "model": "gpt-4",
-             "latency_ms": 100, "cost_usd": 0.01, "success": True},
-            {"schema_version": 1, "created_ts": 2.0, "model": "gpt-4",
-             "latency_ms": 200, "cost_usd": 0.02, "success": True},
-        ])
+        _write_jsonl(
+            logs,
+            [
+                {
+                    "schema_version": 1,
+                    "created_ts": 1.0,
+                    "model": "gpt-4",
+                    "latency_ms": 100,
+                    "cost_usd": 0.01,
+                    "success": True,
+                },
+                {
+                    "schema_version": 1,
+                    "created_ts": 2.0,
+                    "model": "gpt-4",
+                    "latency_ms": 200,
+                    "cost_usd": 0.02,
+                    "success": True,
+                },
+            ],
+        )
         result = main(["summarize", "--input", str(logs)])
         assert result == EXIT_SUCCESS
         output = json.loads(capsys.readouterr().out)
@@ -382,15 +404,30 @@ class TestCLIOutputVerification:
         """Recommend output contains recommended model details."""
         logs = tmp_path / "logs.jsonl"
         rows = [
-            {"schema_version": 1, "created_ts": float(i), "model": "cheap",
-             "latency_ms": 50, "cost_usd": 0.001, "success": True}
+            {
+                "schema_version": 1,
+                "created_ts": float(i),
+                "model": "cheap",
+                "latency_ms": 50,
+                "cost_usd": 0.001,
+                "success": True,
+            }
             for i in range(5)
         ]
         _write_jsonl(logs, rows)
-        result = main([
-            "recommend", "--input", str(logs),
-            "--min-samples", "1", "--max-p95-ms", "1000", "--min-success", "0.5",
-        ])
+        result = main(
+            [
+                "recommend",
+                "--input",
+                str(logs),
+                "--min-samples",
+                "1",
+                "--max-p95-ms",
+                "1000",
+                "--min-success",
+                "0.5",
+            ]
+        )
         assert result == EXIT_SUCCESS
         output = json.loads(capsys.readouterr().out)
         assert output["ok"] is True
@@ -402,15 +439,40 @@ class TestCLIOutputVerification:
         logs = tmp_path / "logs.jsonl"
         rows = []
         for i in range(5):
-            rows.append({"schema_version": 1, "created_ts": float(i), "model": "expensive",
-                         "latency_ms": 50, "cost_usd": 0.10, "success": True})
-            rows.append({"schema_version": 1, "created_ts": float(i), "model": "cheap",
-                         "latency_ms": 50, "cost_usd": 0.001, "success": True})
+            rows.append(
+                {
+                    "schema_version": 1,
+                    "created_ts": float(i),
+                    "model": "expensive",
+                    "latency_ms": 50,
+                    "cost_usd": 0.10,
+                    "success": True,
+                }
+            )
+            rows.append(
+                {
+                    "schema_version": 1,
+                    "created_ts": float(i),
+                    "model": "cheap",
+                    "latency_ms": 50,
+                    "cost_usd": 0.001,
+                    "success": True,
+                }
+            )
         _write_jsonl(logs, rows)
-        result = main([
-            "recommend", "--input", str(logs),
-            "--min-samples", "1", "--max-p95-ms", "1000", "--min-success", "0.5",
-        ])
+        result = main(
+            [
+                "recommend",
+                "--input",
+                str(logs),
+                "--min-samples",
+                "1",
+                "--max-p95-ms",
+                "1000",
+                "--min-success",
+                "0.5",
+            ]
+        )
         assert result == EXIT_SUCCESS
         output = json.loads(capsys.readouterr().out)
         assert output["recommended_model"] == "cheap"
@@ -418,34 +480,69 @@ class TestCLIOutputVerification:
     def test_simulate_output_structure(self, tmp_path: Path, capsys: CapSys) -> None:
         """Simulate output has total_requests, total_cost, and models."""
         logs = tmp_path / "logs.jsonl"
-        _write_jsonl(logs, [
-            {"schema_version": 1, "created_ts": 1.0, "model": "a", "tier": "fast",
-             "latency_ms": 50, "cost_usd": 0.01, "success": True},
-            {"schema_version": 1, "created_ts": 2.0, "model": "b", "tier": "deep",
-             "latency_ms": 500, "cost_usd": 0.05, "success": True},
-        ])
+        _write_jsonl(
+            logs,
+            [
+                {
+                    "schema_version": 1,
+                    "created_ts": 1.0,
+                    "model": "a",
+                    "tier": "fast",
+                    "latency_ms": 50,
+                    "cost_usd": 0.01,
+                    "success": True,
+                },
+                {
+                    "schema_version": 1,
+                    "created_ts": 2.0,
+                    "model": "b",
+                    "tier": "deep",
+                    "latency_ms": 500,
+                    "cost_usd": 0.05,
+                    "success": True,
+                },
+            ],
+        )
         policy = tmp_path / "policy.json"
-        policy.write_text(json.dumps({
-            "default_model": "cheap",
-            "tiers": {"fast": "quick", "deep": "strong"},
-        }), encoding="utf-8")
+        policy.write_text(
+            json.dumps(
+                {
+                    "default_model": "cheap",
+                    "tiers": {"fast": "quick", "deep": "strong"},
+                }
+            ),
+            encoding="utf-8",
+        )
         result = main(["simulate", "--input", str(logs), "--policy", str(policy)])
         assert result == EXIT_SUCCESS
         output = json.loads(capsys.readouterr().out)
         assert output["total_requests"] == 2
         assert len(output["models"]) == 2
 
-    def test_validate_with_invalid_rows_output(
-        self, tmp_path: Path, capsys: CapSys
-    ) -> None:
+    def test_validate_with_invalid_rows_output(self, tmp_path: Path, capsys: CapSys) -> None:
         """Validate output reports invalid row details."""
         logs = tmp_path / "mixed.jsonl"
-        _write_jsonl(logs, [
-            {"schema_version": 1, "created_ts": 1.0, "model": "test",
-             "latency_ms": 100, "cost_usd": 0.001, "success": True},
-            {"schema_version": 2, "created_ts": 1.0, "model": "test",
-             "latency_ms": 100, "cost_usd": 0.001, "success": True},
-        ])
+        _write_jsonl(
+            logs,
+            [
+                {
+                    "schema_version": 1,
+                    "created_ts": 1.0,
+                    "model": "test",
+                    "latency_ms": 100,
+                    "cost_usd": 0.001,
+                    "success": True,
+                },
+                {
+                    "schema_version": 2,
+                    "created_ts": 1.0,
+                    "model": "test",
+                    "latency_ms": 100,
+                    "cost_usd": 0.001,
+                    "success": True,
+                },
+            ],
+        )
         result = main(["validate", "--input", str(logs)])
         assert result == EXIT_VALIDATION_FAILED
         output = json.loads(capsys.readouterr().out)
@@ -463,10 +560,19 @@ class TestCLIJsonLog:
     def test_json_log_flag(self, tmp_path: Path) -> None:
         """--json-log flag does not crash."""
         logs = tmp_path / "logs.jsonl"
-        _write_jsonl(logs, [{
-            "schema_version": 1, "created_ts": 1.0, "model": "test",
-            "latency_ms": 100, "cost_usd": 0.001, "success": True,
-        }])
+        _write_jsonl(
+            logs,
+            [
+                {
+                    "schema_version": 1,
+                    "created_ts": 1.0,
+                    "model": "test",
+                    "latency_ms": 100,
+                    "cost_usd": 0.001,
+                    "success": True,
+                }
+            ],
+        )
         result = main(["--json-log", "--verbose", "summarize", "--input", str(logs)])
         assert result == EXIT_SUCCESS
 
@@ -520,21 +626,54 @@ class TestBudgetSimulation:
         """Simulate with multiple tiers calculates correct per-model costs."""
         logs = tmp_path / "logs.jsonl"
         rows = [
-            {"schema_version": 1, "created_ts": 1.0, "model": "a", "tier": "basic",
-             "latency_ms": 50, "cost_usd": 0.001, "success": True},
-            {"schema_version": 1, "created_ts": 2.0, "model": "b", "tier": "basic",
-             "latency_ms": 60, "cost_usd": 0.002, "success": True},
-            {"schema_version": 1, "created_ts": 3.0, "model": "c", "tier": "premium",
-             "latency_ms": 200, "cost_usd": 0.05, "success": True},
-            {"schema_version": 1, "created_ts": 4.0, "model": "d", "tier": "premium",
-             "latency_ms": 300, "cost_usd": 0.08, "success": True},
+            {
+                "schema_version": 1,
+                "created_ts": 1.0,
+                "model": "a",
+                "tier": "basic",
+                "latency_ms": 50,
+                "cost_usd": 0.001,
+                "success": True,
+            },
+            {
+                "schema_version": 1,
+                "created_ts": 2.0,
+                "model": "b",
+                "tier": "basic",
+                "latency_ms": 60,
+                "cost_usd": 0.002,
+                "success": True,
+            },
+            {
+                "schema_version": 1,
+                "created_ts": 3.0,
+                "model": "c",
+                "tier": "premium",
+                "latency_ms": 200,
+                "cost_usd": 0.05,
+                "success": True,
+            },
+            {
+                "schema_version": 1,
+                "created_ts": 4.0,
+                "model": "d",
+                "tier": "premium",
+                "latency_ms": 300,
+                "cost_usd": 0.08,
+                "success": True,
+            },
         ]
         _write_jsonl(logs, rows)
         policy = tmp_path / "policy.json"
-        policy.write_text(json.dumps({
-            "default_model": "cheap-model",
-            "tiers": {"basic": "cheap-model", "premium": "powerful-model"},
-        }), encoding="utf-8")
+        policy.write_text(
+            json.dumps(
+                {
+                    "default_model": "cheap-model",
+                    "tiers": {"basic": "cheap-model", "premium": "powerful-model"},
+                }
+            ),
+            encoding="utf-8",
+        )
         result = main(["simulate", "--input", str(logs), "--policy", str(policy)])
         assert result == EXIT_SUCCESS
         output = json.loads(capsys.readouterr().out)
@@ -548,16 +687,27 @@ class TestBudgetSimulation:
         """All requests route to default model when no tier matches."""
         logs = tmp_path / "logs.jsonl"
         rows = [
-            {"schema_version": 1, "created_ts": float(i), "model": "x",
-             "latency_ms": 100, "cost_usd": 0.01, "success": True}
+            {
+                "schema_version": 1,
+                "created_ts": float(i),
+                "model": "x",
+                "latency_ms": 100,
+                "cost_usd": 0.01,
+                "success": True,
+            }
             for i in range(3)
         ]
         _write_jsonl(logs, rows)
         policy = tmp_path / "policy.json"
-        policy.write_text(json.dumps({
-            "default_model": "default-model",
-            "tiers": {"special": "special-model"},
-        }), encoding="utf-8")
+        policy.write_text(
+            json.dumps(
+                {
+                    "default_model": "default-model",
+                    "tiers": {"special": "special-model"},
+                }
+            ),
+            encoding="utf-8",
+        )
         result = main(["simulate", "--input", str(logs), "--policy", str(policy)])
         assert result == EXIT_SUCCESS
         output = json.loads(capsys.readouterr().out)
@@ -568,17 +718,39 @@ class TestBudgetSimulation:
     def test_simulate_cost_summation(self, tmp_path: Path, capsys: CapSys) -> None:
         """Total cost is sum of all per-model costs."""
         logs = tmp_path / "logs.jsonl"
-        _write_jsonl(logs, [
-            {"schema_version": 1, "created_ts": 1.0, "model": "a", "tier": "t1",
-             "latency_ms": 50, "cost_usd": 1.0, "success": True},
-            {"schema_version": 1, "created_ts": 2.0, "model": "b", "tier": "t2",
-             "latency_ms": 50, "cost_usd": 2.0, "success": True},
-        ])
+        _write_jsonl(
+            logs,
+            [
+                {
+                    "schema_version": 1,
+                    "created_ts": 1.0,
+                    "model": "a",
+                    "tier": "t1",
+                    "latency_ms": 50,
+                    "cost_usd": 1.0,
+                    "success": True,
+                },
+                {
+                    "schema_version": 1,
+                    "created_ts": 2.0,
+                    "model": "b",
+                    "tier": "t2",
+                    "latency_ms": 50,
+                    "cost_usd": 2.0,
+                    "success": True,
+                },
+            ],
+        )
         policy = tmp_path / "policy.json"
-        policy.write_text(json.dumps({
-            "default_model": "m1",
-            "tiers": {"t1": "m1", "t2": "m2"},
-        }), encoding="utf-8")
+        policy.write_text(
+            json.dumps(
+                {
+                    "default_model": "m1",
+                    "tiers": {"t1": "m1", "t2": "m2"},
+                }
+            ),
+            encoding="utf-8",
+        )
         result = main(["simulate", "--input", str(logs), "--policy", str(policy)])
         assert result == EXIT_SUCCESS
         output = json.loads(capsys.readouterr().out)
@@ -599,10 +771,19 @@ class TestMetricsIntegration:
         metrics.reset()
 
         logs = tmp_path / "logs.jsonl"
-        _write_jsonl(logs, [{
-            "schema_version": 1, "created_ts": 1.0, "model": "test",
-            "latency_ms": 100, "cost_usd": 0.001, "success": True,
-        }])
+        _write_jsonl(
+            logs,
+            [
+                {
+                    "schema_version": 1,
+                    "created_ts": 1.0,
+                    "model": "test",
+                    "latency_ms": 100,
+                    "cost_usd": 0.001,
+                    "success": True,
+                }
+            ],
+        )
         main(["summarize", "--input", str(logs)])
         assert metrics.get_counter("analyses_run") >= 1
         metrics.reset()

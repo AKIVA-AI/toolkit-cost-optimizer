@@ -7,6 +7,7 @@ to ToolSpec contracts with appropriate permission scope and approval policy.
 All commands are READ_ONLY + AUTO — this is a read/analysis-only toolkit;
 it reads log files and produces reports but never modifies external state.
 """
+
 from __future__ import annotations
 
 from dataclasses import dataclass

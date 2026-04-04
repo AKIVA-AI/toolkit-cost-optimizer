@@ -885,7 +885,10 @@ class OptimizationEngine:
                 raise
 
     async def get_recommendations(
-        self, account_id: str, status: str | None = None, limit: int = 50,
+        self,
+        account_id: str,
+        status: str | None = None,
+        limit: int = 50,
     ) -> list[dict]:
         """Get stored recommendations"""
         async with get_db_session() as session:
@@ -935,7 +938,10 @@ class OptimizationEngine:
                 raise
 
     async def update_recommendation_status(
-        self, recommendation_id: str, status: str, implemented_by: str | None = None,
+        self,
+        recommendation_id: str,
+        status: str,
+        implemented_by: str | None = None,
     ) -> bool:
         """Update recommendation status"""
         async with get_db_session() as session:

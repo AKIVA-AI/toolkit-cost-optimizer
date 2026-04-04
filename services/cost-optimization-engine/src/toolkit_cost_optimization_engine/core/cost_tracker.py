@@ -403,7 +403,11 @@ class CostTracker:
                 raise
 
     async def _update_service_costs(
-        self, session: AsyncSession, account_id: str, start_date: date, end_date: date,
+        self,
+        session: AsyncSession,
+        account_id: str,
+        start_date: date,
+        end_date: date,
     ):
         """Update service costs aggregation"""
         try:
@@ -454,7 +458,11 @@ class CostTracker:
             raise
 
     async def _update_tag_costs(
-        self, session: AsyncSession, account_id: str, start_date: date, end_date: date,
+        self,
+        session: AsyncSession,
+        account_id: str,
+        start_date: date,
+        end_date: date,
     ):
         """Update tag costs aggregation"""
         try:
@@ -508,7 +516,10 @@ class CostTracker:
             raise
 
     async def get_cost_metrics(
-        self, account_id: str, start_date: date, end_date: date,
+        self,
+        account_id: str,
+        start_date: date,
+        end_date: date,
     ) -> CostMetrics:
         """Get cost metrics for a period"""
         async with get_db_session() as session:
