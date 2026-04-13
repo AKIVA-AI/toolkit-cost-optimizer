@@ -66,7 +66,7 @@ testing = [
   "faker>=20.1.0",
 ]
 release = [
-  "build>=1.2.0",
+  "build>=1.4.3",
   "twine>=5.1.0",
 ]
 
