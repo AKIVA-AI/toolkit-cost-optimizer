@@ -40,7 +40,7 @@ toolkit-cost-optimizer = "toolkit_cost_optimization_engine.cli:main"
 [project.optional-dependencies]
 dev = [
   "pytest>=8.0.0",
-  "pytest-cov>=5.0.0",
+  "pytest-cov>=7.1.0",
   "pytest-asyncio>=0.23.0",
   "httpx>=0.25.0",
   "ruff>=0.6.0",
@@ -59,7 +59,7 @@ security = [
 ]
 testing = [
   "pytest>=8.0.0",
-  "pytest-cov>=5.0.0",
+  "pytest-cov>=7.1.0",
   "pytest-asyncio>=0.23.0",
   "httpx>=0.25.0",
   "factory-boy>=3.3.0",
