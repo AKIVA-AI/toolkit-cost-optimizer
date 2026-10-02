@@ -129,3 +129,22 @@ jobs:
           toolkit-opt simulate --help
           toolkit-opt ingest --help
           toolkit-opt route --help
+
+  all-checks:
+    # The single required status check for main. It fails when any job
+    # above failed or was cancelled; a skipped job counts as passing.
+    if: always()
+    needs: [test, lint, security-scan, build, cli-test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify every job passed
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Job results: $RESULTS"
+          for result in $RESULTS; do
+            case "$result" in
+              success|skipped) ;;
+              *) echo "A required job ended with: $result"; exit 1 ;;
+            esac
+          done
