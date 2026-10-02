@@ -2,7 +2,9 @@
 
 ## Unreleased
 
-## 1.0.0
+## 1.0.0 - 2026-10-02
+
+First release on PyPI.
 
 The tool becomes an LLM spend and routing analyzer: it ingests gateway,
 tracing and provider usage exports, prices requests by token class, and finds
