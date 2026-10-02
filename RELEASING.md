@@ -1,6 +1,7 @@
 # Releasing
 
-Releases are cut by pushing a `vX.Y.Z` tag. CI then runs
+Releases are cut by pushing a `vX.Y.Z` tag, which publishes the release to
+PyPI and GitHub Releases. CI runs
 [`.github/workflows/release.yml`](.github/workflows/release.yml), which:
 
 1. runs the test suite;
@@ -12,8 +13,7 @@ Releases are cut by pushing a `vX.Y.Z` tag. CI then runs
 4. publishes the same two files to PyPI with
    [Trusted Publishing](https://docs.pypi.org/trusted-publishers/) (OIDC, no
    API token) from the `pypi` deployment environment, which only `v*` tags
-   can use. If PyPI publishing is not enabled for the repository, this job is
-   skipped and the tag still produces the GitHub Release.
+   can use.
 
 The `build` job in `.github/workflows/ci.yml` runs the same build, `twine check`
 and wheel install on every pull request, so a tag on a green `main` commit
@@ -42,8 +42,7 @@ builds the same way.
 ## Verifying a release
 
 1. Actions → Release → the run for the tag: `Test`, `Build and check
-   distributions` and `GitHub Release` succeeded, and `Publish to PyPI`
-   succeeded (or shows as skipped if PyPI publishing is not enabled).
+   distributions`, `GitHub Release` and `Publish to PyPI` succeeded.
 2. The GitHub Release has both files:
 
    ```bash

@@ -1,5 +1,7 @@
 # Toolkit Cost Optimizer: LLM spend and routing analyzer
 
+[![PyPI](https://img.shields.io/pypi/v/toolkit-cost-optimizer.svg)](https://pypi.org/project/toolkit-cost-optimizer/)
+[![Python versions](https://img.shields.io/pypi/pyversions/toolkit-cost-optimizer.svg)](https://pypi.org/project/toolkit-cost-optimizer/)
 [![License: Apache-2.0](https://img.shields.io/badge/license-Apache--2.0-blue.svg)](LICENSE)
 
 `toolkit-opt` answers one question from the logs you already have: **what would this LLM traffic cost at the same quality if it were routed differently?**
@@ -25,15 +27,23 @@ It is an offline analyzer with no runtime dependencies. It does not call any LLM
 
 ## Install
 
-Python 3.10 or newer; no runtime dependencies. There is no PyPI release yet, so install from source:
+Python 3.10 or newer; no runtime dependencies.
+
+```bash
+pip install toolkit-cost-optimizer
+toolkit-opt --help
+```
+
+The package has no optional extras. To work on the code, see [Development](#development).
+
+## Five-minute example
+
+Run these commands from a clone of this repository, because they read the sample data in its `examples/` folder:
 
 ```bash
 git clone https://github.com/AKIVA-AI/toolkit-cost-optimizer.git
 cd toolkit-cost-optimizer
-pip install -e .
 ```
-
-## Five-minute example
 
 The `examples/` folder holds a synthetic but realistic week of traffic for a support assistant: 160 LiteLLM spend-log rows (`examples/spend_logs.json`), all served by `claude-opus-5`, tagged `tier:faq` or `tier:escalation`, with prompt caching on a shared system prompt and a few failures. `examples/quality.jsonl` holds 30 graded replays per tier for four candidate models. `examples/generate.py` regenerates both.
 
@@ -351,7 +361,11 @@ toolkit-mlsbom verify-file report.json --public-key signing.pub
 
 ## Development
 
+Install from source in editable mode, with the test, lint and type-check tools:
+
 ```bash
+git clone https://github.com/AKIVA-AI/toolkit-cost-optimizer.git
+cd toolkit-cost-optimizer
 pip install -e ".[dev]"
 pytest
 ruff check .
