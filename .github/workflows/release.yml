@@ -1,0 +1,133 @@
+name: Release
+
+# A tag vX.Y.Z runs the tests, builds the sdist and wheel, checks them, and
+# attaches them to a GitHub Release. The PyPI upload (Trusted Publishing: OIDC,
+# no API token) runs only when the repository variable PUBLISH_TO_PYPI is
+# 'true'; until then a tag still produces the GitHub Release.
+# Release process and verification: RELEASING.md.
+
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  DIST_NAME: toolkit-cost-optimizer     # the PyPI project name
+  IMPORT_NAME: toolkit_cost_latency_opt   # the Python package
+  CLI: toolkit-opt
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --upgrade pip
+      - run: pip install -e ".[dev]"
+      - run: pytest -q
+
+  build:
+    name: Build and check distributions
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Build the sdist and wheel
+        run: |
+          python -m pip install --upgrade pip build "twine>=6.1"
+          python -m build
+      - name: Check the metadata
+        run: twine check --strict dist/*
+      - name: Install the wheel and check its version matches the tag
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          test "$(find dist -name '*.whl' | wc -l)" -eq 1
+          test "$(find dist -name '*.tar.gz' | wc -l)" -eq 1
+          python -m venv "$RUNNER_TEMP/venv"
+          "$RUNNER_TEMP/venv/bin/pip" install dist/*.whl
+          version=$("$RUNNER_TEMP/venv/bin/python" -c "import importlib.metadata as m, os; print(m.version(os.environ['DIST_NAME']))")
+          if [ "v${version}" != "${TAG}" ]; then
+            echo "::error::tag ${TAG} does not match the package version ${version}"
+            exit 1
+          fi
+          "$RUNNER_TEMP/venv/bin/python" -c "import importlib, os; m = importlib.import_module(os.environ['IMPORT_NAME']); assert m.__version__ == '${version}', m.__version__"
+          "$RUNNER_TEMP/venv/bin/${CLI}" --help > /dev/null
+      - uses: actions/upload-artifact@v7
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+
+  github-release:
+    name: GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - name: Release notes from CHANGELOG.md
+        env:
+          TAG: ${{ github.ref_name }}
+        run: |
+          python3 - "${TAG#v}" > notes.md <<'EOF'
+          import re
+          import sys
+
+          head = re.compile(r"^## \[?v?" + re.escape(sys.argv[1]) + r"\]?(\s|$)")
+          lines, on = [], False
+          for line in open("CHANGELOG.md", encoding="utf-8"):
+              if on and line.startswith("## "):
+                  break
+              if on:
+                  lines.append(line)
+              elif head.match(line):
+                  on = True
+          print("".join(lines).strip() or "See CHANGELOG.md.")
+          EOF
+          cat notes.md
+      - name: Create the release, or update its files on a re-run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release create "$TAG" dist/* --verify-tag --title "$TAG" --notes-file notes.md
+          fi
+
+  pypi:
+    name: Publish to PyPI
+    needs: [build, github-release]
+    if: vars.PUBLISH_TO_PYPI == 'true'
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/toolkit-cost-optimizer/
+    permissions:
+      id-token: write  # Trusted Publishing; the action also uploads PEP 740 attestations
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

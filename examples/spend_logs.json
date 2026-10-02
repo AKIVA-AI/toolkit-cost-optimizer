@@ -1,0 +1,4162 @@
+[
+ {
+  "request_id": "chatcmpl-00000",
+  "call_type": "acompletion",
+  "spend": 0.00691,
+  "total_tokens": 2786,
+  "prompt_tokens": 2597,
+  "completion_tokens": 189,
+  "startTime": "2026-09-14T02:39:24.385767Z",
+  "endTime": "2026-09-14T02:39:28.448767Z",
+  "request_duration_ms": 4063,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00083",
+  "call_type": "acompletion",
+  "spend": 0.0,
+  "total_tokens": 2515,
+  "prompt_tokens": 2515,
+  "completion_tokens": 0,
+  "startTime": "2026-09-14T03:23:34.502940Z",
+  "endTime": "2026-09-14T03:23:37.317940Z",
+  "request_duration_ms": 2815,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "failure"
+ },
+ {
+  "request_id": "chatcmpl-00125",
+  "call_type": "acompletion",
+  "spend": 0.004965,
+  "total_tokens": 2817,
+  "prompt_tokens": 2733,
+  "completion_tokens": 84,
+  "startTime": "2026-09-14T04:21:33.353203Z",
+  "endTime": "2026-09-14T04:21:35.640203Z",
+  "request_duration_ms": 2287,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00028",
+  "call_type": "acompletion",
+  "spend": 0.008105,
+  "total_tokens": 2861,
+  "prompt_tokens": 2631,
+  "completion_tokens": 230,
+  "startTime": "2026-09-14T04:53:16.581401Z",
+  "endTime": "2026-09-14T04:53:22.255401Z",
+  "request_duration_ms": 5674,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00015",
+  "call_type": "acompletion",
+  "spend": 0.00687,
+  "total_tokens": 2698,
+  "prompt_tokens": 2489,
+  "completion_tokens": 209,
+  "startTime": "2026-09-14T05:11:19.535411Z",
+  "endTime": "2026-09-14T05:11:24.408411Z",
+  "request_duration_ms": 4873,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00093",
+  "call_type": "acompletion",
+  "spend": 0.066985,
+  "total_tokens": 11413,
+  "prompt_tokens": 10377,
+  "completion_tokens": 1036,
+  "startTime": "2026-09-14T06:17:32.876978Z",
+  "endTime": "2026-09-14T06:17:59.238978Z",
+  "request_duration_ms": 26362,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00109",
+  "call_type": "acompletion",
+  "spend": 0.00657,
+  "total_tokens": 2694,
+  "prompt_tokens": 2499,
+  "completion_tokens": 195,
+  "startTime": "2026-09-14T07:12:53.460304Z",
+  "endTime": "2026-09-14T07:12:58.849304Z",
+  "request_duration_ms": 5389,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00022",
+  "call_type": "acompletion",
+  "spend": 0.0,
+  "total_tokens": 2580,
+  "prompt_tokens": 2580,
+  "completion_tokens": 0,
+  "startTime": "2026-09-14T08:26:49.476280Z",
+  "endTime": "2026-09-14T08:26:55.930280Z",
+  "request_duration_ms": 6454,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "failure"
+ },
+ {
+  "request_id": "chatcmpl-00141",
+  "call_type": "acompletion",
+  "spend": 0.060435,
+  "total_tokens": 7783,
+  "prompt_tokens": 6707,
+  "completion_tokens": 1076,
+  "startTime": "2026-09-14T08:52:16.289778Z",
+  "endTime": "2026-09-14T08:52:47.146778Z",
+  "request_duration_ms": 30857,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00050",
+  "call_type": "acompletion",
+  "spend": 0.00798,
+  "total_tokens": 2828,
+  "prompt_tokens": 2596,
+  "completion_tokens": 232,
+  "startTime": "2026-09-14T09:48:13.350315Z",
+  "endTime": "2026-09-14T09:48:18.526315Z",
+  "request_duration_ms": 5176,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00007",
+  "call_type": "acompletion",
+  "spend": 0.055935,
+  "total_tokens": 8079,
+  "prompt_tokens": 7302,
+  "completion_tokens": 777,
+  "startTime": "2026-09-14T10:11:33.859944Z",
+  "endTime": "2026-09-14T10:11:54.373944Z",
+  "request_duration_ms": 20514,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00033",
+  "call_type": "acompletion",
+  "spend": 0.007085,
+  "total_tokens": 2937,
+  "prompt_tokens": 2777,
+  "completion_tokens": 160,
+  "startTime": "2026-09-14T10:21:46.379651Z",
+  "endTime": "2026-09-14T10:21:50.960651Z",
+  "request_duration_ms": 4581,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00156",
+  "call_type": "acompletion",
+  "spend": 0.007455,
+  "total_tokens": 2963,
+  "prompt_tokens": 2791,
+  "completion_tokens": 172,
+  "startTime": "2026-09-14T11:42:22.537110Z",
+  "endTime": "2026-09-14T11:42:28.081110Z",
+  "request_duration_ms": 5544,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00090",
+  "call_type": "acompletion",
+  "spend": 0.009025,
+  "total_tokens": 2973,
+  "prompt_tokens": 2725,
+  "completion_tokens": 248,
+  "startTime": "2026-09-14T13:06:28.554785Z",
+  "endTime": "2026-09-14T13:06:35.242785Z",
+  "request_duration_ms": 6688,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00118",
+  "call_type": "acompletion",
+  "spend": 0.004865,
+  "total_tokens": 2629,
+  "prompt_tokens": 2503,
+  "completion_tokens": 126,
+  "startTime": "2026-09-14T14:28:47.092535Z",
+  "endTime": "2026-09-14T14:28:50.732535Z",
+  "request_duration_ms": 3640,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00027",
+  "call_type": "acompletion",
+  "spend": 0.054835,
+  "total_tokens": 11023,
+  "prompt_tokens": 10497,
+  "completion_tokens": 526,
+  "startTime": "2026-09-14T14:32:14.932393Z",
+  "endTime": "2026-09-14T14:32:25.980393Z",
+  "request_duration_ms": 11048,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00092",
+  "call_type": "acompletion",
+  "spend": 0.00687,
+  "total_tokens": 2826,
+  "prompt_tokens": 2649,
+  "completion_tokens": 177,
+  "startTime": "2026-09-14T15:06:01.876896Z",
+  "endTime": "2026-09-14T15:06:07.472896Z",
+  "request_duration_ms": 5596,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00054",
+  "call_type": "acompletion",
+  "spend": 0.008885,
+  "total_tokens": 2985,
+  "prompt_tokens": 2747,
+  "completion_tokens": 238,
+  "startTime": "2026-09-14T15:33:54.109231Z",
+  "endTime": "2026-09-14T15:33:59.988231Z",
+  "request_duration_ms": 5879,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00052",
+  "call_type": "acompletion",
+  "spend": 0.005655,
+  "total_tokens": 2707,
+  "prompt_tokens": 2561,
+  "completion_tokens": 146,
+  "startTime": "2026-09-14T16:35:58.410978Z",
+  "endTime": "2026-09-14T16:36:03.061978Z",
+  "request_duration_ms": 4651,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00095",
+  "call_type": "acompletion",
+  "spend": 0.06362,
+  "total_tokens": 7384,
+  "prompt_tokens": 6049,
+  "completion_tokens": 1335,
+  "startTime": "2026-09-14T16:45:53.834715Z",
+  "endTime": "2026-09-14T16:46:31.399715Z",
+  "request_duration_ms": 37565,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00073",
+  "call_type": "acompletion",
+  "spend": 0.005715,
+  "total_tokens": 2803,
+  "prompt_tokens": 2678,
+  "completion_tokens": 125,
+  "startTime": "2026-09-14T17:06:43.985945Z",
+  "endTime": "2026-09-14T17:06:47.387945Z",
+  "request_duration_ms": 3402,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00030",
+  "call_type": "acompletion",
+  "spend": 0.01659,
+  "total_tokens": 2718,
+  "prompt_tokens": 2568,
+  "completion_tokens": 150,
+  "startTime": "2026-09-14T19:21:13.117488Z",
+  "endTime": "2026-09-14T19:21:17.308488Z",
+  "request_duration_ms": 4191,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00123",
+  "call_type": "acompletion",
+  "spend": 0.008265,
+  "total_tokens": 2885,
+  "prompt_tokens": 2653,
+  "completion_tokens": 232,
+  "startTime": "2026-09-14T20:00:23.294678Z",
+  "endTime": "2026-09-14T20:00:29.505678Z",
+  "request_duration_ms": 6211,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00142",
+  "call_type": "acompletion",
+  "spend": 0.054115,
+  "total_tokens": 8011,
+  "prompt_tokens": 7308,
+  "completion_tokens": 703,
+  "startTime": "2026-09-14T20:28:26.235010Z",
+  "endTime": "2026-09-14T20:28:39.413010Z",
+  "request_duration_ms": 13178,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00003",
+  "call_type": "acompletion",
+  "spend": 0.050755,
+  "total_tokens": 8899,
+  "prompt_tokens": 8046,
+  "completion_tokens": 853,
+  "startTime": "2026-09-14T20:57:27.159578Z",
+  "endTime": "2026-09-14T20:57:47.247578Z",
+  "request_duration_ms": 20088,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00046",
+  "call_type": "acompletion",
+  "spend": 0.056845,
+  "total_tokens": 8105,
+  "prompt_tokens": 6749,
+  "completion_tokens": 1356,
+  "startTime": "2026-09-14T22:40:43.794498Z",
+  "endTime": "2026-09-14T22:41:24.741498Z",
+  "request_duration_ms": 40947,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00115",
+  "call_type": "acompletion",
+  "spend": 0.00889,
+  "total_tokens": 2982,
+  "prompt_tokens": 2743,
+  "completion_tokens": 239,
+  "startTime": "2026-09-15T00:49:01.122849Z",
+  "endTime": "2026-09-15T00:49:06.605849Z",
+  "request_duration_ms": 5483,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00129",
+  "call_type": "acompletion",
+  "spend": 0.008235,
+  "total_tokens": 2931,
+  "prompt_tokens": 2712,
+  "completion_tokens": 219,
+  "startTime": "2026-09-15T01:06:43.591387Z",
+  "endTime": "2026-09-15T01:06:48.327387Z",
+  "request_duration_ms": 4736,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00020",
+  "call_type": "acompletion",
+  "spend": 0.00712,
+  "total_tokens": 2928,
+  "prompt_tokens": 2764,
+  "completion_tokens": 164,
+  "startTime": "2026-09-15T01:19:21.640541Z",
+  "endTime": "2026-09-15T01:19:26.486541Z",
+  "request_duration_ms": 4846,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00146",
+  "call_type": "acompletion",
+  "spend": 0.0169,
+  "total_tokens": 2888,
+  "prompt_tokens": 2765,
+  "completion_tokens": 123,
+  "startTime": "2026-09-15T01:36:10.587338Z",
+  "endTime": "2026-09-15T01:36:13.629338Z",
+  "request_duration_ms": 3042,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00079",
+  "call_type": "acompletion",
+  "spend": 0.00888,
+  "total_tokens": 2952,
+  "prompt_tokens": 2706,
+  "completion_tokens": 246,
+  "startTime": "2026-09-15T05:54:28.402032Z",
+  "endTime": "2026-09-15T05:54:35.540032Z",
+  "request_duration_ms": 7138,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00016",
+  "call_type": "acompletion",
+  "spend": 0.046705,
+  "total_tokens": 6769,
+  "prompt_tokens": 5586,
+  "completion_tokens": 1183,
+  "startTime": "2026-09-15T06:16:59.957832Z",
+  "endTime": "2026-09-15T06:17:32.935832Z",
+  "request_duration_ms": 32978,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00128",
+  "call_type": "acompletion",
+  "spend": 0.01792,
+  "total_tokens": 2780,
+  "prompt_tokens": 2579,
+  "completion_tokens": 201,
+  "startTime": "2026-09-15T08:22:55.823527Z",
+  "endTime": "2026-09-15T08:23:00.293527Z",
+  "request_duration_ms": 4470,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00021",
+  "call_type": "acompletion",
+  "spend": 0.003765,
+  "total_tokens": 2601,
+  "prompt_tokens": 2523,
+  "completion_tokens": 78,
+  "startTime": "2026-09-15T08:23:42.473937Z",
+  "endTime": "2026-09-15T08:23:44.585937Z",
+  "request_duration_ms": 2112,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00037",
+  "call_type": "acompletion",
+  "spend": 0.014345,
+  "total_tokens": 2585,
+  "prompt_tokens": 2514,
+  "completion_tokens": 71,
+  "startTime": "2026-09-15T10:14:43.991941Z",
+  "endTime": "2026-09-15T10:14:45.760941Z",
+  "request_duration_ms": 1769,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00139",
+  "call_type": "acompletion",
+  "spend": 0.055005,
+  "total_tokens": 8653,
+  "prompt_tokens": 7526,
+  "completion_tokens": 1127,
+  "startTime": "2026-09-15T11:49:08.215681Z",
+  "endTime": "2026-09-15T11:49:39.343681Z",
+  "request_duration_ms": 31128,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00062",
+  "call_type": "acompletion",
+  "spend": 0.00667,
+  "total_tokens": 2850,
+  "prompt_tokens": 2689,
+  "completion_tokens": 161,
+  "startTime": "2026-09-15T12:22:40.405089Z",
+  "endTime": "2026-09-15T12:22:43.888089Z",
+  "request_duration_ms": 3483,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00009",
+  "call_type": "acompletion",
+  "spend": 0.00778,
+  "total_tokens": 2816,
+  "prompt_tokens": 2591,
+  "completion_tokens": 225,
+  "startTime": "2026-09-15T13:12:51.851966Z",
+  "endTime": "2026-09-15T13:12:56.502966Z",
+  "request_duration_ms": 4651,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00155",
+  "call_type": "acompletion",
+  "spend": 0.017555,
+  "total_tokens": 2931,
+  "prompt_tokens": 2786,
+  "completion_tokens": 145,
+  "startTime": "2026-09-15T13:19:41.337755Z",
+  "endTime": "2026-09-15T13:19:45.719755Z",
+  "request_duration_ms": 4382,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00080",
+  "call_type": "acompletion",
+  "spend": 0.062615,
+  "total_tokens": 10415,
+  "prompt_tokens": 9348,
+  "completion_tokens": 1067,
+  "startTime": "2026-09-15T14:35:20.015956Z",
+  "endTime": "2026-09-15T14:35:48.803956Z",
+  "request_duration_ms": 28788,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00103",
+  "call_type": "acompletion",
+  "spend": 0.00353,
+  "total_tokens": 2558,
+  "prompt_tokens": 2481,
+  "completion_tokens": 77,
+  "startTime": "2026-09-15T14:49:36.578632Z",
+  "endTime": "2026-09-15T14:49:38.501632Z",
+  "request_duration_ms": 1923,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00085",
+  "call_type": "acompletion",
+  "spend": 0.04814,
+  "total_tokens": 7108,
+  "prompt_tokens": 5938,
+  "completion_tokens": 1170,
+  "startTime": "2026-09-15T17:22:04.584593Z",
+  "endTime": "2026-09-15T17:22:35.140593Z",
+  "request_duration_ms": 30556,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00001",
+  "call_type": "acompletion",
+  "spend": 0.004475,
+  "total_tokens": 2687,
+  "prompt_tokens": 2595,
+  "completion_tokens": 92,
+  "startTime": "2026-09-15T17:25:43.558916Z",
+  "endTime": "2026-09-15T17:25:45.672916Z",
+  "request_duration_ms": 2114,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00011",
+  "call_type": "acompletion",
+  "spend": 0.007945,
+  "total_tokens": 2965,
+  "prompt_tokens": 2769,
+  "completion_tokens": 196,
+  "startTime": "2026-09-15T18:55:49.339746Z",
+  "endTime": "2026-09-15T18:55:55.413746Z",
+  "request_duration_ms": 6074,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00097",
+  "call_type": "acompletion",
+  "spend": 0.04666,
+  "total_tokens": 9184,
+  "prompt_tokens": 8607,
+  "completion_tokens": 577,
+  "startTime": "2026-09-15T20:50:16.911462Z",
+  "endTime": "2026-09-15T20:50:32.571462Z",
+  "request_duration_ms": 15660,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00124",
+  "call_type": "acompletion",
+  "spend": 0.005845,
+  "total_tokens": 2749,
+  "prompt_tokens": 2604,
+  "completion_tokens": 145,
+  "startTime": "2026-09-15T21:10:39.410729Z",
+  "endTime": "2026-09-15T21:10:43.668729Z",
+  "request_duration_ms": 4258,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00153",
+  "call_type": "acompletion",
+  "spend": 0.046415,
+  "total_tokens": 7811,
+  "prompt_tokens": 6903,
+  "completion_tokens": 908,
+  "startTime": "2026-09-15T21:54:25.577997Z",
+  "endTime": "2026-09-15T21:54:51.391997Z",
+  "request_duration_ms": 25814,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00135",
+  "call_type": "acompletion",
+  "spend": 0.007375,
+  "total_tokens": 2967,
+  "prompt_tokens": 2800,
+  "completion_tokens": 167,
+  "startTime": "2026-09-15T23:15:59.030331Z",
+  "endTime": "2026-09-15T23:16:02.980331Z",
+  "request_duration_ms": 3950,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00147",
+  "call_type": "acompletion",
+  "spend": 0.00608,
+  "total_tokens": 2672,
+  "prompt_tokens": 2496,
+  "completion_tokens": 176,
+  "startTime": "2026-09-15T23:30:20.603260Z",
+  "endTime": "2026-09-15T23:30:25.807260Z",
+  "request_duration_ms": 5204,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00119",
+  "call_type": "acompletion",
+  "spend": 0.00652,
+  "total_tokens": 2892,
+  "prompt_tokens": 2749,
+  "completion_tokens": 143,
+  "startTime": "2026-09-15T23:31:51.125672Z",
+  "endTime": "2026-09-15T23:31:55.315672Z",
+  "request_duration_ms": 4190,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00154",
+  "call_type": "acompletion",
+  "spend": 0.01507,
+  "total_tokens": 2662,
+  "prompt_tokens": 2574,
+  "completion_tokens": 88,
+  "startTime": "2026-09-15T23:34:33.649025Z",
+  "endTime": "2026-09-15T23:34:36.237025Z",
+  "request_duration_ms": 2588,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00061",
+  "call_type": "acompletion",
+  "spend": 0.033265,
+  "total_tokens": 6101,
+  "prompt_tokens": 5423,
+  "completion_tokens": 678,
+  "startTime": "2026-09-16T01:12:47.901216Z",
+  "endTime": "2026-09-16T01:13:01.887216Z",
+  "request_duration_ms": 13986,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00013",
+  "call_type": "acompletion",
+  "spend": 0.053205,
+  "total_tokens": 10105,
+  "prompt_tokens": 9431,
+  "completion_tokens": 674,
+  "startTime": "2026-09-16T02:22:29.566150Z",
+  "endTime": "2026-09-16T02:22:46.995150Z",
+  "request_duration_ms": 17429,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00012",
+  "call_type": "acompletion",
+  "spend": 0.00433,
+  "total_tokens": 2658,
+  "prompt_tokens": 2566,
+  "completion_tokens": 92,
+  "startTime": "2026-09-16T03:28:24.045052Z",
+  "endTime": "2026-09-16T03:28:27.003052Z",
+  "request_duration_ms": 2958,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00019",
+  "call_type": "acompletion",
+  "spend": 0.00608,
+  "total_tokens": 2708,
+  "prompt_tokens": 2541,
+  "completion_tokens": 167,
+  "startTime": "2026-09-16T04:28:49.882422Z",
+  "endTime": "2026-09-16T04:28:55.101422Z",
+  "request_duration_ms": 5219,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00074",
+  "call_type": "acompletion",
+  "spend": 0.00718,
+  "total_tokens": 2844,
+  "prompt_tokens": 2656,
+  "completion_tokens": 188,
+  "startTime": "2026-09-16T07:15:41.336152Z",
+  "endTime": "2026-09-16T07:15:47.258152Z",
+  "request_duration_ms": 5922,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00111",
+  "call_type": "acompletion",
+  "spend": 0.00623,
+  "total_tokens": 2890,
+  "prompt_tokens": 2761,
+  "completion_tokens": 129,
+  "startTime": "2026-09-16T08:27:40.337128Z",
+  "endTime": "2026-09-16T08:27:43.503128Z",
+  "request_duration_ms": 3166,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00132",
+  "call_type": "acompletion",
+  "spend": 0.006075,
+  "total_tokens": 2875,
+  "prompt_tokens": 2750,
+  "completion_tokens": 125,
+  "startTime": "2026-09-16T10:41:45.766120Z",
+  "endTime": "2026-09-16T10:41:48.436120Z",
+  "request_duration_ms": 2670,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00086",
+  "call_type": "acompletion",
+  "spend": 0.004855,
+  "total_tokens": 2775,
+  "prompt_tokens": 2686,
+  "completion_tokens": 89,
+  "startTime": "2026-09-16T10:45:19.883928Z",
+  "endTime": "2026-09-16T10:45:22.043928Z",
+  "request_duration_ms": 2160,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00100",
+  "call_type": "acompletion",
+  "spend": 0.00627,
+  "total_tokens": 2910,
+  "prompt_tokens": 2784,
+  "completion_tokens": 126,
+  "startTime": "2026-09-16T11:11:58.985649Z",
+  "endTime": "2026-09-16T11:12:01.801649Z",
+  "request_duration_ms": 2816,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00051",
+  "call_type": "acompletion",
+  "spend": 0.00815,
+  "total_tokens": 2810,
+  "prompt_tokens": 2565,
+  "completion_tokens": 245,
+  "startTime": "2026-09-16T16:26:36.268505Z",
+  "endTime": "2026-09-16T16:26:43.477505Z",
+  "request_duration_ms": 7209,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00113",
+  "call_type": "acompletion",
+  "spend": 0.067665,
+  "total_tokens": 11653,
+  "prompt_tokens": 10643,
+  "completion_tokens": 1010,
+  "startTime": "2026-09-16T18:32:02.603272Z",
+  "endTime": "2026-09-16T18:32:27.640272Z",
+  "request_duration_ms": 25037,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00031",
+  "call_type": "acompletion",
+  "spend": 0.005115,
+  "total_tokens": 2659,
+  "prompt_tokens": 2528,
+  "completion_tokens": 131,
+  "startTime": "2026-09-16T19:20:47.851625Z",
+  "endTime": "2026-09-16T19:20:52.000625Z",
+  "request_duration_ms": 4149,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00105",
+  "call_type": "acompletion",
+  "spend": 0.01872,
+  "total_tokens": 2832,
+  "prompt_tokens": 2604,
+  "completion_tokens": 228,
+  "startTime": "2026-09-16T19:36:00.395560Z",
+  "endTime": "2026-09-16T19:36:05.933560Z",
+  "request_duration_ms": 5538,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00045",
+  "call_type": "acompletion",
+  "spend": 0.07614,
+  "total_tokens": 11608,
+  "prompt_tokens": 10703,
+  "completion_tokens": 905,
+  "startTime": "2026-09-16T20:15:26.173249Z",
+  "endTime": "2026-09-16T20:15:53.137249Z",
+  "request_duration_ms": 26964,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00091",
+  "call_type": "acompletion",
+  "spend": 0.00669,
+  "total_tokens": 2718,
+  "prompt_tokens": 2523,
+  "completion_tokens": 195,
+  "startTime": "2026-09-16T21:23:53.830101Z",
+  "endTime": "2026-09-16T21:23:59.662101Z",
+  "request_duration_ms": 5832,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00075",
+  "call_type": "acompletion",
+  "spend": 0.006095,
+  "total_tokens": 2831,
+  "prompt_tokens": 2694,
+  "completion_tokens": 137,
+  "startTime": "2026-09-16T21:45:30.468774Z",
+  "endTime": "2026-09-16T21:45:34.872774Z",
+  "request_duration_ms": 4404,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00041",
+  "call_type": "acompletion",
+  "spend": 0.0544,
+  "total_tokens": 10432,
+  "prompt_tokens": 9780,
+  "completion_tokens": 652,
+  "startTime": "2026-09-16T22:02:11.833242Z",
+  "endTime": "2026-09-16T22:02:27.398242Z",
+  "request_duration_ms": 15565,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00072",
+  "call_type": "acompletion",
+  "spend": 0.005565,
+  "total_tokens": 2765,
+  "prompt_tokens": 2638,
+  "completion_tokens": 127,
+  "startTime": "2026-09-16T23:02:59.792263Z",
+  "endTime": "2026-09-16T23:03:03.745263Z",
+  "request_duration_ms": 3953,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00145",
+  "call_type": "acompletion",
+  "spend": 0.070295,
+  "total_tokens": 11947,
+  "prompt_tokens": 10879,
+  "completion_tokens": 1068,
+  "startTime": "2026-09-17T00:00:17.134253Z",
+  "endTime": "2026-09-17T00:00:42.612253Z",
+  "request_duration_ms": 25478,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00053",
+  "call_type": "acompletion",
+  "spend": 0.06526,
+  "total_tokens": 11836,
+  "prompt_tokens": 10992,
+  "completion_tokens": 844,
+  "startTime": "2026-09-17T00:50:22.509991Z",
+  "endTime": "2026-09-17T00:50:46.593991Z",
+  "request_duration_ms": 24084,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00112",
+  "call_type": "acompletion",
+  "spend": 0.032385,
+  "total_tokens": 6081,
+  "prompt_tokens": 5442,
+  "completion_tokens": 639,
+  "startTime": "2026-09-17T02:18:56.571852Z",
+  "endTime": "2026-09-17T02:19:15.693852Z",
+  "request_duration_ms": 19122,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00064",
+  "call_type": "acompletion",
+  "spend": 0.005775,
+  "total_tokens": 2647,
+  "prompt_tokens": 2480,
+  "completion_tokens": 167,
+  "startTime": "2026-09-17T02:33:22.100314Z",
+  "endTime": "2026-09-17T02:33:25.868314Z",
+  "request_duration_ms": 3768,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00058",
+  "call_type": "acompletion",
+  "spend": 0.007095,
+  "total_tokens": 2795,
+  "prompt_tokens": 2599,
+  "completion_tokens": 196,
+  "startTime": "2026-09-17T03:31:19.536628Z",
+  "endTime": "2026-09-17T03:31:25.125628Z",
+  "request_duration_ms": 5589,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00014",
+  "call_type": "acompletion",
+  "spend": 0.007195,
+  "total_tokens": 2811,
+  "prompt_tokens": 2614,
+  "completion_tokens": 197,
+  "startTime": "2026-09-17T05:57:25.839738Z",
+  "endTime": "2026-09-17T05:57:31.066738Z",
+  "request_duration_ms": 5227,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00076",
+  "call_type": "acompletion",
+  "spend": 0.0,
+  "total_tokens": 10482,
+  "prompt_tokens": 10482,
+  "completion_tokens": 0,
+  "startTime": "2026-09-17T06:51:12.556689Z",
+  "endTime": "2026-09-17T06:51:47.461689Z",
+  "request_duration_ms": 34905,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "failure"
+ },
+ {
+  "request_id": "chatcmpl-00143",
+  "call_type": "acompletion",
+  "spend": 0.0088,
+  "total_tokens": 2968,
+  "prompt_tokens": 2730,
+  "completion_tokens": 238,
+  "startTime": "2026-09-17T07:02:25.640023Z",
+  "endTime": "2026-09-17T07:02:31.868023Z",
+  "request_duration_ms": 6228,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00098",
+  "call_type": "acompletion",
+  "spend": 0.015365,
+  "total_tokens": 2785,
+  "prompt_tokens": 2713,
+  "completion_tokens": 72,
+  "startTime": "2026-09-17T08:32:34.419182Z",
+  "endTime": "2026-09-17T08:32:36.512182Z",
+  "request_duration_ms": 2093,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00096",
+  "call_type": "acompletion",
+  "spend": 0.07433,
+  "total_tokens": 11458,
+  "prompt_tokens": 10066,
+  "completion_tokens": 1392,
+  "startTime": "2026-09-17T10:27:28.527376Z",
+  "endTime": "2026-09-17T10:28:10.586376Z",
+  "request_duration_ms": 42059,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00057",
+  "call_type": "acompletion",
+  "spend": 0.004765,
+  "total_tokens": 2701,
+  "prompt_tokens": 2598,
+  "completion_tokens": 103,
+  "startTime": "2026-09-17T10:28:08.332927Z",
+  "endTime": "2026-09-17T10:28:11.525927Z",
+  "request_duration_ms": 3193,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00081",
+  "call_type": "acompletion",
+  "spend": 0.069875,
+  "total_tokens": 11611,
+  "prompt_tokens": 11020,
+  "completion_tokens": 591,
+  "startTime": "2026-09-17T13:00:02.086641Z",
+  "endTime": "2026-09-17T13:00:13.603641Z",
+  "request_duration_ms": 11517,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00140",
+  "call_type": "acompletion",
+  "spend": 0.005315,
+  "total_tokens": 2811,
+  "prompt_tokens": 2708,
+  "completion_tokens": 103,
+  "startTime": "2026-09-17T14:32:10.612708Z",
+  "endTime": "2026-09-17T14:32:13.879708Z",
+  "request_duration_ms": 3267,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00077",
+  "call_type": "acompletion",
+  "spend": 0.04535,
+  "total_tokens": 8754,
+  "prompt_tokens": 8135,
+  "completion_tokens": 619,
+  "startTime": "2026-09-17T14:39:59.948871Z",
+  "endTime": "2026-09-17T14:40:18.137871Z",
+  "request_duration_ms": 18189,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00018",
+  "call_type": "acompletion",
+  "spend": 0.0,
+  "total_tokens": 2614,
+  "prompt_tokens": 2614,
+  "completion_tokens": 0,
+  "startTime": "2026-09-17T14:41:45.236585Z",
+  "endTime": "2026-09-17T14:41:49.336585Z",
+  "request_duration_ms": 4100,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "failure"
+ },
+ {
+  "request_id": "chatcmpl-00087",
+  "call_type": "acompletion",
+  "spend": 0.04967,
+  "total_tokens": 7782,
+  "prompt_tokens": 6704,
+  "completion_tokens": 1078,
+  "startTime": "2026-09-17T14:57:29.210124Z",
+  "endTime": "2026-09-17T14:58:01.920124Z",
+  "request_duration_ms": 32710,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00063",
+  "call_type": "acompletion",
+  "spend": 0.00475,
+  "total_tokens": 2678,
+  "prompt_tokens": 2570,
+  "completion_tokens": 108,
+  "startTime": "2026-09-17T17:59:35.284129Z",
+  "endTime": "2026-09-17T17:59:37.875129Z",
+  "request_duration_ms": 2591,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00002",
+  "call_type": "acompletion",
+  "spend": 0.00731,
+  "total_tokens": 2790,
+  "prompt_tokens": 2582,
+  "completion_tokens": 208,
+  "startTime": "2026-09-17T19:17:29.907127Z",
+  "endTime": "2026-09-17T19:17:34.458127Z",
+  "request_duration_ms": 4551,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00150",
+  "call_type": "acompletion",
+  "spend": 0.016185,
+  "total_tokens": 2709,
+  "prompt_tokens": 2577,
+  "completion_tokens": 132,
+  "startTime": "2026-09-17T20:41:29.294089Z",
+  "endTime": "2026-09-17T20:41:32.491089Z",
+  "request_duration_ms": 3197,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00017",
+  "call_type": "acompletion",
+  "spend": 0.015495,
+  "total_tokens": 2803,
+  "prompt_tokens": 2729,
+  "completion_tokens": 74,
+  "startTime": "2026-09-17T20:48:10.799489Z",
+  "endTime": "2026-09-17T20:48:13.336489Z",
+  "request_duration_ms": 2537,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00039",
+  "call_type": "acompletion",
+  "spend": 0.0487,
+  "total_tokens": 7584,
+  "prompt_tokens": 6505,
+  "completion_tokens": 1079,
+  "startTime": "2026-09-17T23:27:24.896935Z",
+  "endTime": "2026-09-17T23:27:53.630935Z",
+  "request_duration_ms": 28734,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00029",
+  "call_type": "acompletion",
+  "spend": 0.00601,
+  "total_tokens": 2678,
+  "prompt_tokens": 2507,
+  "completion_tokens": 171,
+  "startTime": "2026-09-17T23:40:00.348192Z",
+  "endTime": "2026-09-17T23:40:05.565192Z",
+  "request_duration_ms": 5217,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00104",
+  "call_type": "acompletion",
+  "spend": 0.006285,
+  "total_tokens": 2753,
+  "prompt_tokens": 2587,
+  "completion_tokens": 166,
+  "startTime": "2026-09-18T01:21:46.159295Z",
+  "endTime": "2026-09-18T01:21:50.717295Z",
+  "request_duration_ms": 4558,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00148",
+  "call_type": "acompletion",
+  "spend": 0.064215,
+  "total_tokens": 11587,
+  "prompt_tokens": 10733,
+  "completion_tokens": 854,
+  "startTime": "2026-09-18T04:52:22.247928Z",
+  "endTime": "2026-09-18T04:52:47.927928Z",
+  "request_duration_ms": 25680,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00082",
+  "call_type": "acompletion",
+  "spend": 0.003735,
+  "total_tokens": 2667,
+  "prompt_tokens": 2607,
+  "completion_tokens": 60,
+  "startTime": "2026-09-18T07:11:58.297065Z",
+  "endTime": "2026-09-18T07:12:00.482065Z",
+  "request_duration_ms": 2185,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00102",
+  "call_type": "acompletion",
+  "spend": 0.015285,
+  "total_tokens": 2805,
+  "prompt_tokens": 2742,
+  "completion_tokens": 63,
+  "startTime": "2026-09-18T07:36:07.438555Z",
+  "endTime": "2026-09-18T07:36:09.104555Z",
+  "request_duration_ms": 1666,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00117",
+  "call_type": "acompletion",
+  "spend": 0.0056,
+  "total_tokens": 2732,
+  "prompt_tokens": 2595,
+  "completion_tokens": 137,
+  "startTime": "2026-09-18T08:17:12.405639Z",
+  "endTime": "2026-09-18T08:17:16.900639Z",
+  "request_duration_ms": 4495,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00120",
+  "call_type": "acompletion",
+  "spend": 0.05524,
+  "total_tokens": 9468,
+  "prompt_tokens": 8533,
+  "completion_tokens": 935,
+  "startTime": "2026-09-18T08:38:24.404158Z",
+  "endTime": "2026-09-18T08:38:50.191158Z",
+  "request_duration_ms": 25787,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00038",
+  "call_type": "acompletion",
+  "spend": 0.003895,
+  "total_tokens": 2591,
+  "prompt_tokens": 2504,
+  "completion_tokens": 87,
+  "startTime": "2026-09-18T10:49:13.396547Z",
+  "endTime": "2026-09-18T10:49:16.119547Z",
+  "request_duration_ms": 2723,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00056",
+  "call_type": "acompletion",
+  "spend": 0.04575,
+  "total_tokens": 8442,
+  "prompt_tokens": 7725,
+  "completion_tokens": 717,
+  "startTime": "2026-09-18T11:11:33.919092Z",
+  "endTime": "2026-09-18T11:11:51.834092Z",
+  "request_duration_ms": 17915,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00152",
+  "call_type": "acompletion",
+  "spend": 0.04982,
+  "total_tokens": 9872,
+  "prompt_tokens": 9309,
+  "completion_tokens": 563,
+  "startTime": "2026-09-18T11:41:03.313473Z",
+  "endTime": "2026-09-18T11:41:17.488473Z",
+  "request_duration_ms": 14175,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00159",
+  "call_type": "acompletion",
+  "spend": 0.00751,
+  "total_tokens": 2970,
+  "prompt_tokens": 2797,
+  "completion_tokens": 173,
+  "startTime": "2026-09-18T12:45:08.452519Z",
+  "endTime": "2026-09-18T12:45:12.224519Z",
+  "request_duration_ms": 3772,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00025",
+  "call_type": "acompletion",
+  "spend": 0.081885,
+  "total_tokens": 12021,
+  "prompt_tokens": 10932,
+  "completion_tokens": 1089,
+  "startTime": "2026-09-18T13:32:57.751688Z",
+  "endTime": "2026-09-18T13:33:25.549688Z",
+  "request_duration_ms": 27798,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00094",
+  "call_type": "acompletion",
+  "spend": 0.00586,
+  "total_tokens": 2816,
+  "prompt_tokens": 2687,
+  "completion_tokens": 129,
+  "startTime": "2026-09-18T14:40:22.222047Z",
+  "endTime": "2026-09-18T14:40:25.600047Z",
+  "request_duration_ms": 3378,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00127",
+  "call_type": "acompletion",
+  "spend": 0.051975,
+  "total_tokens": 10367,
+  "prompt_tokens": 9820,
+  "completion_tokens": 547,
+  "startTime": "2026-09-18T16:13:11.228441Z",
+  "endTime": "2026-09-18T16:13:24.526441Z",
+  "request_duration_ms": 13298,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00040",
+  "call_type": "acompletion",
+  "spend": 0.008105,
+  "total_tokens": 2785,
+  "prompt_tokens": 2536,
+  "completion_tokens": 249,
+  "startTime": "2026-09-18T16:22:03.103963Z",
+  "endTime": "2026-09-18T16:22:08.044963Z",
+  "request_duration_ms": 4941,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00126",
+  "call_type": "acompletion",
+  "spend": 0.006545,
+  "total_tokens": 2773,
+  "prompt_tokens": 2599,
+  "completion_tokens": 174,
+  "startTime": "2026-09-18T17:59:02.631158Z",
+  "endTime": "2026-09-18T17:59:07.725158Z",
+  "request_duration_ms": 5094,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00005",
+  "call_type": "acompletion",
+  "spend": 0.00617,
+  "total_tokens": 2734,
+  "prompt_tokens": 2569,
+  "completion_tokens": 165,
+  "startTime": "2026-09-18T18:12:07.151403Z",
+  "endTime": "2026-09-18T18:12:11.312403Z",
+  "request_duration_ms": 4161,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00008",
+  "call_type": "acompletion",
+  "spend": 0.042855,
+  "total_tokens": 7299,
+  "prompt_tokens": 6441,
+  "completion_tokens": 858,
+  "startTime": "2026-09-18T19:26:33.156472Z",
+  "endTime": "2026-09-18T19:26:54.961472Z",
+  "request_duration_ms": 21805,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00066",
+  "call_type": "acompletion",
+  "spend": 0.014815,
+  "total_tokens": 2687,
+  "prompt_tokens": 2618,
+  "completion_tokens": 69,
+  "startTime": "2026-09-18T20:33:37.493277Z",
+  "endTime": "2026-09-18T20:33:39.799277Z",
+  "request_duration_ms": 2306,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00089",
+  "call_type": "acompletion",
+  "spend": 0.017525,
+  "total_tokens": 2785,
+  "prompt_tokens": 2605,
+  "completion_tokens": 180,
+  "startTime": "2026-09-18T20:48:55.501169Z",
+  "endTime": "2026-09-18T20:48:59.315169Z",
+  "request_duration_ms": 3814,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00047",
+  "call_type": "acompletion",
+  "spend": 0.004745,
+  "total_tokens": 2725,
+  "prompt_tokens": 2629,
+  "completion_tokens": 96,
+  "startTime": "2026-09-18T21:05:36.320091Z",
+  "endTime": "2026-09-18T21:05:39.234091Z",
+  "request_duration_ms": 2914,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00106",
+  "call_type": "acompletion",
+  "spend": 0.006285,
+  "total_tokens": 2869,
+  "prompt_tokens": 2732,
+  "completion_tokens": 137,
+  "startTime": "2026-09-18T21:43:53.043364Z",
+  "endTime": "2026-09-18T21:43:56.787364Z",
+  "request_duration_ms": 3744,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00157",
+  "call_type": "acompletion",
+  "spend": 0.00837,
+  "total_tokens": 2922,
+  "prompt_tokens": 2694,
+  "completion_tokens": 228,
+  "startTime": "2026-09-18T23:11:05.507913Z",
+  "endTime": "2026-09-18T23:11:10.201913Z",
+  "request_duration_ms": 4694,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00108",
+  "call_type": "acompletion",
+  "spend": 0.01954,
+  "total_tokens": 2972,
+  "prompt_tokens": 2738,
+  "completion_tokens": 234,
+  "startTime": "2026-09-19T00:47:12.448582Z",
+  "endTime": "2026-09-19T00:47:19.145582Z",
+  "request_duration_ms": 6697,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00055",
+  "call_type": "acompletion",
+  "spend": 0.06295,
+  "total_tokens": 10686,
+  "prompt_tokens": 9670,
+  "completion_tokens": 1016,
+  "startTime": "2026-09-19T01:04:10.709254Z",
+  "endTime": "2026-09-19T01:04:41.473254Z",
+  "request_duration_ms": 30764,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00006",
+  "call_type": "acompletion",
+  "spend": 0.014885,
+  "total_tokens": 2657,
+  "prompt_tokens": 2577,
+  "completion_tokens": 80,
+  "startTime": "2026-09-19T01:40:00.279520Z",
+  "endTime": "2026-09-19T01:40:02.657520Z",
+  "request_duration_ms": 2378,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00149",
+  "call_type": "acompletion",
+  "spend": 0.05176,
+  "total_tokens": 8208,
+  "prompt_tokens": 7132,
+  "completion_tokens": 1076,
+  "startTime": "2026-09-19T02:59:49.383835Z",
+  "endTime": "2026-09-19T03:00:14.817835Z",
+  "request_duration_ms": 25434,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00049",
+  "call_type": "acompletion",
+  "spend": 0.052875,
+  "total_tokens": 10455,
+  "prompt_tokens": 9885,
+  "completion_tokens": 570,
+  "startTime": "2026-09-19T03:55:53.061805Z",
+  "endTime": "2026-09-19T03:56:07.895805Z",
+  "request_duration_ms": 14834,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00043",
+  "call_type": "acompletion",
+  "spend": 0.07226,
+  "total_tokens": 11616,
+  "prompt_tokens": 10367,
+  "completion_tokens": 1249,
+  "startTime": "2026-09-19T05:01:37.217388Z",
+  "endTime": "2026-09-19T05:02:02.381388Z",
+  "request_duration_ms": 25164,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00138",
+  "call_type": "acompletion",
+  "spend": 0.054205,
+  "total_tokens": 7921,
+  "prompt_tokens": 7191,
+  "completion_tokens": 730,
+  "startTime": "2026-09-19T05:13:40.755399Z",
+  "endTime": "2026-09-19T05:13:55.036399Z",
+  "request_duration_ms": 14281,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00144",
+  "call_type": "acompletion",
+  "spend": 0.016165,
+  "total_tokens": 2821,
+  "prompt_tokens": 2718,
+  "completion_tokens": 103,
+  "startTime": "2026-09-19T07:11:33.746522Z",
+  "endTime": "2026-09-19T07:11:36.158522Z",
+  "request_duration_ms": 2412,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00114",
+  "call_type": "acompletion",
+  "spend": 0.00575,
+  "total_tokens": 2702,
+  "prompt_tokens": 2550,
+  "completion_tokens": 152,
+  "startTime": "2026-09-19T08:12:01.648482Z",
+  "endTime": "2026-09-19T08:12:05.579482Z",
+  "request_duration_ms": 3931,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00110",
+  "call_type": "acompletion",
+  "spend": 0.007055,
+  "total_tokens": 2859,
+  "prompt_tokens": 2681,
+  "completion_tokens": 178,
+  "startTime": "2026-09-19T08:42:52.357350Z",
+  "endTime": "2026-09-19T08:42:57.889350Z",
+  "request_duration_ms": 5532,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00130",
+  "call_type": "acompletion",
+  "spend": 0.00724,
+  "total_tokens": 2708,
+  "prompt_tokens": 2483,
+  "completion_tokens": 225,
+  "startTime": "2026-09-19T09:10:25.742624Z",
+  "endTime": "2026-09-19T09:10:30.829624Z",
+  "request_duration_ms": 5087,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00034",
+  "call_type": "acompletion",
+  "spend": 0.017875,
+  "total_tokens": 2891,
+  "prompt_tokens": 2720,
+  "completion_tokens": 171,
+  "startTime": "2026-09-19T09:47:20.819376Z",
+  "endTime": "2026-09-19T09:47:26.095376Z",
+  "request_duration_ms": 5276,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00158",
+  "call_type": "acompletion",
+  "spend": 0.00749,
+  "total_tokens": 2910,
+  "prompt_tokens": 2723,
+  "completion_tokens": 187,
+  "startTime": "2026-09-19T10:02:59.661862Z",
+  "endTime": "2026-09-19T10:03:04.297862Z",
+  "request_duration_ms": 4636,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00023",
+  "call_type": "acompletion",
+  "spend": 0.00662,
+  "total_tokens": 2832,
+  "prompt_tokens": 2669,
+  "completion_tokens": 163,
+  "startTime": "2026-09-19T10:07:10.881290Z",
+  "endTime": "2026-09-19T10:07:14.442290Z",
+  "request_duration_ms": 3561,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00024",
+  "call_type": "acompletion",
+  "spend": 0.015635,
+  "total_tokens": 2843,
+  "prompt_tokens": 2772,
+  "completion_tokens": 71,
+  "startTime": "2026-09-19T10:31:11.143338Z",
+  "endTime": "2026-09-19T10:31:13.153338Z",
+  "request_duration_ms": 2010,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00068",
+  "call_type": "acompletion",
+  "spend": 0.004845,
+  "total_tokens": 2721,
+  "prompt_tokens": 2619,
+  "completion_tokens": 102,
+  "startTime": "2026-09-19T10:58:40.740287Z",
+  "endTime": "2026-09-19T10:58:43.899287Z",
+  "request_duration_ms": 3159,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00036",
+  "call_type": "acompletion",
+  "spend": 0.01682,
+  "total_tokens": 2868,
+  "prompt_tokens": 2744,
+  "completion_tokens": 124,
+  "startTime": "2026-09-19T11:05:36.722534Z",
+  "endTime": "2026-09-19T11:05:40.727534Z",
+  "request_duration_ms": 4005,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00042",
+  "call_type": "acompletion",
+  "spend": 0.007445,
+  "total_tokens": 2949,
+  "prompt_tokens": 2774,
+  "completion_tokens": 175,
+  "startTime": "2026-09-19T14:34:54.467044Z",
+  "endTime": "2026-09-19T14:34:58.257044Z",
+  "request_duration_ms": 3790,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00099",
+  "call_type": "acompletion",
+  "spend": 0.05865,
+  "total_tokens": 10334,
+  "prompt_tokens": 9445,
+  "completion_tokens": 889,
+  "startTime": "2026-09-19T15:35:27.827245Z",
+  "endTime": "2026-09-19T15:35:47.542245Z",
+  "request_duration_ms": 19715,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00060",
+  "call_type": "acompletion",
+  "spend": 0.008735,
+  "total_tokens": 2947,
+  "prompt_tokens": 2707,
+  "completion_tokens": 240,
+  "startTime": "2026-09-19T17:10:19.449480Z",
+  "endTime": "2026-09-19T17:10:24.223480Z",
+  "request_duration_ms": 4774,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00084",
+  "call_type": "acompletion",
+  "spend": 0.00914,
+  "total_tokens": 3008,
+  "prompt_tokens": 2763,
+  "completion_tokens": 245,
+  "startTime": "2026-09-19T21:15:19.138582Z",
+  "endTime": "2026-09-19T21:15:25.483582Z",
+  "request_duration_ms": 6345,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00048",
+  "call_type": "acompletion",
+  "spend": 0.00824,
+  "total_tokens": 2828,
+  "prompt_tokens": 2583,
+  "completion_tokens": 245,
+  "startTime": "2026-09-19T21:34:28.825372Z",
+  "endTime": "2026-09-19T21:34:34.925372Z",
+  "request_duration_ms": 6100,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00010",
+  "call_type": "acompletion",
+  "spend": 0.046915,
+  "total_tokens": 8935,
+  "prompt_tokens": 8283,
+  "completion_tokens": 652,
+  "startTime": "2026-09-19T23:29:31.483972Z",
+  "endTime": "2026-09-19T23:29:47.269972Z",
+  "request_duration_ms": 15786,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00121",
+  "call_type": "acompletion",
+  "spend": 0.007825,
+  "total_tokens": 2877,
+  "prompt_tokens": 2665,
+  "completion_tokens": 212,
+  "startTime": "2026-09-20T02:49:13.978002Z",
+  "endTime": "2026-09-20T02:49:19.470002Z",
+  "request_duration_ms": 5492,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00101",
+  "call_type": "acompletion",
+  "spend": 0.075925,
+  "total_tokens": 12109,
+  "prompt_tokens": 10800,
+  "completion_tokens": 1309,
+  "startTime": "2026-09-20T03:25:57.158938Z",
+  "endTime": "2026-09-20T03:26:32.109938Z",
+  "request_duration_ms": 34951,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00067",
+  "call_type": "acompletion",
+  "spend": 0.005615,
+  "total_tokens": 2683,
+  "prompt_tokens": 2533,
+  "completion_tokens": 150,
+  "startTime": "2026-09-20T04:58:23.329885Z",
+  "endTime": "2026-09-20T04:58:27.251885Z",
+  "request_duration_ms": 3922,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00107",
+  "call_type": "acompletion",
+  "spend": 0.0072,
+  "total_tokens": 2800,
+  "prompt_tokens": 2600,
+  "completion_tokens": 200,
+  "startTime": "2026-09-20T05:05:36.277456Z",
+  "endTime": "2026-09-20T05:05:42.634456Z",
+  "request_duration_ms": 6357,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00026",
+  "call_type": "acompletion",
+  "spend": 0.004785,
+  "total_tokens": 2853,
+  "prompt_tokens": 2787,
+  "completion_tokens": 66,
+  "startTime": "2026-09-20T06:07:48.839897Z",
+  "endTime": "2026-09-20T06:07:50.563897Z",
+  "request_duration_ms": 1724,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00116",
+  "call_type": "acompletion",
+  "spend": 0.005995,
+  "total_tokens": 2751,
+  "prompt_tokens": 2599,
+  "completion_tokens": 152,
+  "startTime": "2026-09-20T06:20:58.905871Z",
+  "endTime": "2026-09-20T06:21:02.417871Z",
+  "request_duration_ms": 3512,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00071",
+  "call_type": "acompletion",
+  "spend": 0.007575,
+  "total_tokens": 2783,
+  "prompt_tokens": 2560,
+  "completion_tokens": 223,
+  "startTime": "2026-09-20T07:02:26.886181Z",
+  "endTime": "2026-09-20T07:02:32.541181Z",
+  "request_duration_ms": 5655,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00004",
+  "call_type": "acompletion",
+  "spend": 0.068515,
+  "total_tokens": 10679,
+  "prompt_tokens": 9923,
+  "completion_tokens": 756,
+  "startTime": "2026-09-20T07:03:18.731896Z",
+  "endTime": "2026-09-20T07:03:33.549896Z",
+  "request_duration_ms": 14818,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00069",
+  "call_type": "acompletion",
+  "spend": 0.005395,
+  "total_tokens": 2655,
+  "prompt_tokens": 2509,
+  "completion_tokens": 146,
+  "startTime": "2026-09-20T10:38:10.108312Z",
+  "endTime": "2026-09-20T10:38:14.477312Z",
+  "request_duration_ms": 4369,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00133",
+  "call_type": "acompletion",
+  "spend": 0.040145,
+  "total_tokens": 6509,
+  "prompt_tokens": 5589,
+  "completion_tokens": 920,
+  "startTime": "2026-09-20T10:52:05.812097Z",
+  "endTime": "2026-09-20T10:52:23.535097Z",
+  "request_duration_ms": 17723,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00059",
+  "call_type": "acompletion",
+  "spend": 0.018535,
+  "total_tokens": 2783,
+  "prompt_tokens": 2552,
+  "completion_tokens": 231,
+  "startTime": "2026-09-20T12:03:58.427546Z",
+  "endTime": "2026-09-20T12:04:05.672546Z",
+  "request_duration_ms": 7245,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00122",
+  "call_type": "acompletion",
+  "spend": 0.00819,
+  "total_tokens": 2894,
+  "prompt_tokens": 2668,
+  "completion_tokens": 226,
+  "startTime": "2026-09-20T12:16:40.581307Z",
+  "endTime": "2026-09-20T12:16:46.627307Z",
+  "request_duration_ms": 6046,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00044",
+  "call_type": "acompletion",
+  "spend": 0.00689,
+  "total_tokens": 2902,
+  "prompt_tokens": 2743,
+  "completion_tokens": 159,
+  "startTime": "2026-09-20T14:02:05.592643Z",
+  "endTime": "2026-09-20T14:02:09.592643Z",
+  "request_duration_ms": 4000,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00035",
+  "call_type": "acompletion",
+  "spend": 0.015925,
+  "total_tokens": 2729,
+  "prompt_tokens": 2615,
+  "completion_tokens": 114,
+  "startTime": "2026-09-20T15:36:32.701370Z",
+  "endTime": "2026-09-20T15:36:36.340370Z",
+  "request_duration_ms": 3639,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00032",
+  "call_type": "acompletion",
+  "spend": 0.00845,
+  "total_tokens": 3006,
+  "prompt_tokens": 2795,
+  "completion_tokens": 211,
+  "startTime": "2026-09-20T16:07:26.938166Z",
+  "endTime": "2026-09-20T16:07:32.479166Z",
+  "request_duration_ms": 5541,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00134",
+  "call_type": "acompletion",
+  "spend": 0.068295,
+  "total_tokens": 10727,
+  "prompt_tokens": 9454,
+  "completion_tokens": 1273,
+  "startTime": "2026-09-20T16:09:20.434942Z",
+  "endTime": "2026-09-20T16:09:48.713942Z",
+  "request_duration_ms": 28279,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00088",
+  "call_type": "acompletion",
+  "spend": 0.00383,
+  "total_tokens": 2658,
+  "prompt_tokens": 2591,
+  "completion_tokens": 67,
+  "startTime": "2026-09-20T16:39:22.992868Z",
+  "endTime": "2026-09-20T16:39:25.198868Z",
+  "request_duration_ms": 2206,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00131",
+  "call_type": "acompletion",
+  "spend": 0.01776,
+  "total_tokens": 2788,
+  "prompt_tokens": 2597,
+  "completion_tokens": 191,
+  "startTime": "2026-09-20T17:04:24.567923Z",
+  "endTime": "2026-09-20T17:04:30.084923Z",
+  "request_duration_ms": 5517,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00065",
+  "call_type": "acompletion",
+  "spend": 0.005385,
+  "total_tokens": 2665,
+  "prompt_tokens": 2522,
+  "completion_tokens": 143,
+  "startTime": "2026-09-20T18:34:39.153476Z",
+  "endTime": "2026-09-20T18:34:43.177476Z",
+  "request_duration_ms": 4024,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00137",
+  "call_type": "acompletion",
+  "spend": 0.004075,
+  "total_tokens": 2587,
+  "prompt_tokens": 2490,
+  "completion_tokens": 97,
+  "startTime": "2026-09-20T18:59:06.506876Z",
+  "endTime": "2026-09-20T18:59:09.488876Z",
+  "request_duration_ms": 2982,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00070",
+  "call_type": "acompletion",
+  "spend": 0.018575,
+  "total_tokens": 2807,
+  "prompt_tokens": 2580,
+  "completion_tokens": 227,
+  "startTime": "2026-09-20T20:18:02.839114Z",
+  "endTime": "2026-09-20T20:18:08.792114Z",
+  "request_duration_ms": 5953,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00078",
+  "call_type": "acompletion",
+  "spend": 0.00605,
+  "total_tokens": 2842,
+  "prompt_tokens": 2710,
+  "completion_tokens": 132,
+  "startTime": "2026-09-20T20:40:28.494089Z",
+  "endTime": "2026-09-20T20:40:31.933089Z",
+  "request_duration_ms": 3439,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00136",
+  "call_type": "acompletion",
+  "spend": 0.0076,
+  "total_tokens": 2828,
+  "prompt_tokens": 2615,
+  "completion_tokens": 213,
+  "startTime": "2026-09-20T22:57:05.017503Z",
+  "endTime": "2026-09-20T22:57:09.871503Z",
+  "request_duration_ms": 4854,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 2400
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:faq",
+   "app:support"
+  ],
+  "status": "success"
+ },
+ {
+  "request_id": "chatcmpl-00151",
+  "call_type": "acompletion",
+  "spend": 0.069535,
+  "total_tokens": 11655,
+  "prompt_tokens": 11092,
+  "completion_tokens": 563,
+  "startTime": "2026-09-20T23:41:29.209494Z",
+  "endTime": "2026-09-20T23:41:44.395494Z",
+  "request_duration_ms": 15186,
+  "model": "claude-opus-5",
+  "model_group": "support-assistant",
+  "custom_llm_provider": "anthropic",
+  "metadata": {
+   "user_api_key_alias": "support-bot",
+   "additional_usage_values": {
+    "cache_read_input_tokens": 0
+   }
+  },
+  "cache_hit": "False",
+  "request_tags": [
+   "tier:escalation",
+   "app:support"
+  ],
+  "status": "success"
+ }
+]

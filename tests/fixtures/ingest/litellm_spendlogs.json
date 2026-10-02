@@ -1,0 +1,80 @@
+[
+  {
+    "request_id": "chatcmpl-9f1c2a",
+    "call_type": "acompletion",
+    "api_key": "88dc28d0f030c55ed4ab77ed8faf098196cb1c05df778539800c9f1243fe6b4b",
+    "spend": 0.001575,
+    "total_tokens": 1500,
+    "prompt_tokens": 1200,
+    "completion_tokens": 300,
+    "startTime": "2026-09-25T10:00:00.000Z",
+    "endTime": "2026-09-25T10:00:01.250Z",
+    "request_duration_ms": 1250,
+    "completionStartTime": "2026-09-25T10:00:00.400Z",
+    "model": "gpt-5.4-mini",
+    "model_id": "a1b2c3",
+    "model_group": "gpt-5.4-mini",
+    "custom_llm_provider": "openai",
+    "api_base": "https://api.openai.com/v1",
+    "user": "",
+    "metadata": {
+      "user_api_key_alias": "support-bot",
+      "additional_usage_values": {
+        "prompt_tokens_details": {"cached_tokens": 1000},
+        "completion_tokens_details": {"reasoning_tokens": 120},
+        "cache_read_input_tokens": 1000
+      }
+    },
+    "cache_hit": "False",
+    "cache_key": "Cache OFF",
+    "request_tags": ["tier:premium", "app:support"],
+    "team_id": null,
+    "end_user": null,
+    "status": "success",
+    "session_id": null
+  },
+  {
+    "request_id": "msg_01XFDUDYJgAACzvnptvVoYEL",
+    "call_type": "acompletion",
+    "api_key": "88dc28d0f030c55ed4ab77ed8faf098196cb1c05df778539800c9f1243fe6b4b",
+    "spend": 0.0219,
+    "total_tokens": 5400,
+    "prompt_tokens": 5000,
+    "completion_tokens": 400,
+    "startTime": "2026-09-25 10:05:00",
+    "endTime": "2026-09-25 10:05:02.5",
+    "model": "claude-sonnet-4-6",
+    "custom_llm_provider": "anthropic",
+    "metadata": "{\"usage_object\": {\"prompt_tokens\": 5000, \"completion_tokens\": 400, \"prompt_tokens_details\": {\"cached_tokens\": 500, \"cache_creation_tokens\": 1500, \"cache_creation_token_details\": {\"ephemeral_5m_input_tokens\": 1000, \"ephemeral_1h_input_tokens\": 500}}}}",
+    "cache_hit": "False",
+    "request_tags": "[\"tier:basic\"]",
+    "status": "success"
+  },
+  {
+    "request_id": "chatcmpl-9f1c2b",
+    "call_type": "acompletion",
+    "spend": 0.0,
+    "total_tokens": 0,
+    "prompt_tokens": 0,
+    "completion_tokens": 0,
+    "startTime": "2026-09-25T10:06:00Z",
+    "endTime": "2026-09-25T10:06:30Z",
+    "model": "gpt-5.4-mini",
+    "custom_llm_provider": "openai",
+    "metadata": {},
+    "request_tags": [],
+    "status": "failure"
+  },
+  {
+    "request_id": "chatcmpl-9f1c2c",
+    "call_type": "acompletion",
+    "spend": 0.0,
+    "prompt_tokens": 10,
+    "completion_tokens": 0,
+    "startTime": "2026-09-25T10:07:00Z",
+    "endTime": "2026-09-25T10:07:01Z",
+    "model": "",
+    "metadata": {},
+    "status": "failure"
+  }
+]
