@@ -1,6 +1,5 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://github.com/AKIVA-AI/toolkit-report-envelope/v1.json",
   "title": "Toolkit report envelope v1",
   "description": "An in-toto Statement v1 whose predicate carries one toolkit result. The file is canonical JSON: UTF-8, sorted keys, no insignificant whitespace, one trailing newline.",
   "type": "object",
